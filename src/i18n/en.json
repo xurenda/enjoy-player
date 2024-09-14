@@ -1,0 +1,26 @@
+{
+  "ok": "OK",
+  "cancel": "Cancel",
+  "type": "Type",
+  "name": "Name",
+  "api": "API",
+  "remark": "Remark",
+  "folder": "Folder",
+  "item": "Item",
+  "menu": "Menu",
+  "import": "Import",
+  "export": "Export",
+  "clear": "Clear",
+  "add": "Add",
+  "settings": "Settings",
+  "application": "Application",
+  "videoSources": "Video Sources",
+  "noData": "No data",
+  "validate": {
+    "requiredField": "This is a required field",
+    "url": "Invalid URL"
+  },
+  "nav": {
+    "videoSourcePlaceholder": "Please select the video source"
+  }
+}

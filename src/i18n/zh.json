@@ -1,0 +1,26 @@
+{
+  "ok": "确定",
+  "cancel": "取消",
+  "type": "类型",
+  "name": "名称",
+  "api": "接口地址",
+  "remark": "备注",
+  "folder": "文件夹",
+  "item": "项目",
+  "menu": "菜单",
+  "import": "导入",
+  "export": "导出",
+  "clear": "清空",
+  "add": "添加",
+  "settings": "设置",
+  "application": "应用",
+  "videoSources": "视频源",
+  "noData": "没有数据",
+  "validate": {
+    "requiredField": "这是必填项",
+    "url": "无效的 URL"
+  },
+  "nav": {
+    "videoSourcePlaceholder": "请选择视频源"
+  }
+}
