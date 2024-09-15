@@ -23,7 +23,7 @@
 import useSingleQueryParam from '@/hooks/useSingleQueryParam'
 import { useI18n } from 'vue-i18n'
 import AppSettings from './AppSettings.vue'
-import VideoSources from './VideoSources.vue'
+import VideoSources from './VideoSources/index.vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({ name: 'TheSettings' })

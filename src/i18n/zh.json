@@ -6,6 +6,7 @@
   "api": "接口地址",
   "remark": "备注",
   "folder": "文件夹",
+  "source": "数据源",
   "item": "项目",
   "menu": "菜单",
   "import": "导入",
