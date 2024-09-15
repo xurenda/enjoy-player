@@ -5,3 +5,9 @@
 body {
   margin: 0;
 }
+
+.ant-tabs,
+.ant-tabs .ant-tabs-content,
+.ant-tabs .ant-tabs-tabpane {
+  height: 100%;
+}

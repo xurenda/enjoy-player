@@ -13,13 +13,22 @@
   "export": "Export",
   "clear": "Clear",
   "add": "Add",
+  "edit": "Edit",
   "settings": "Settings",
   "application": "Application",
   "videoSources": "Video Sources",
   "noData": "No data",
+  "loading": "Loading",
+  "success": "Success",
+  "fail": "Fail",
   "validate": {
     "requiredField": "This is a required field",
     "url": "Invalid URL"
+  },
+  "delete": {
+    "title": "Delete",
+    "confirm": "Are you sure you want to delete it?",
+    "hasChildren": "All subfolders and contents under this folder will also be deleted."
   },
   "nav": {
     "videoSourcePlaceholder": "Please select the video source"

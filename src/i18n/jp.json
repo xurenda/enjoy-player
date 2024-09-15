@@ -1,24 +1,34 @@
 {
-  "ok": "OK",
+  "ok": "確認する",
   "cancel": "キャンセル",
   "type": "タイプ",
   "name": "名前",
   "api": "API",
   "remark": "コメント",
   "folder": "フォルダ",
+  "source": "データソース",
   "item": "プロジェクト",
   "menu": "ムーヌ",
   "import": "インポート",
   "export": "エクスポート",
   "clear": "削除",
   "add": "追加",
+  "edit": "編集",
   "settings": "設定",
   "application": "適用",
   "videoSources": "ビデオソース",
   "noData": "データなし",
+  "loading": "読み込み中",
+  "success": "成功",
+  "fail": "失敗",
   "validate": {
     "requiredField": "これは必須フィールドです",
     "url": "URLが無効です"
+  },
+  "delete": {
+    "title": "消去",
+    "confirm": "削除してもよろしいですか？",
+    "hasChildren": "このフォルダーの下にあるすべてのサブフォルダーとコンテンツも削除されます"
   },
   "nav": {
     "videoSourcePlaceholder": "ビデオソースを選択してください"

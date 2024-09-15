@@ -1,30 +1,20 @@
 <template>
-  <a-modal
-    centered
-    destroyOnClose
-    v-model:open="open"
-    :title="t(type)"
-    :cancelText="t('cancel')"
-    :okText="t('ok')"
-    @ok="handleOk"
-  >
-    <a-form :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
-      <a-form-item :label="t('type')" v-bind="validateInfos.type">
-        <a-select :disabled="type === 'edit'" v-model:value="data.type">
-          <a-select-option v-for="item in vsNodeTypes" :key="item" :value="item">{{ t(item) }}</a-select-option>
-        </a-select>
-      </a-form-item>
-      <a-form-item :label="t('name')" v-bind="validateInfos.name">
-        <a-input v-model:value="data.name" />
-      </a-form-item>
-      <a-form-item v-if="data.type === 'source'" :label="t('api')" v-bind="validateInfos.api">
-        <a-input v-model:value="data.api" />
-      </a-form-item>
-      <a-form-item :label="t('remark')" v-bind="validateInfos.remark">
-        <a-textarea v-model:value="data.remark" :autoSize="{ minRows: 6, maxRows: 6 }" />
-      </a-form-item>
-    </a-form>
-  </a-modal>
+  <a-form :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+    <a-form-item :label="t('type')" v-bind="validateInfos.type">
+      <a-select :disabled="type === 'edit'" v-model:value="data.type">
+        <a-select-option v-for="item in vsNodeTypes" :key="item" :value="item">{{ t(item) }}</a-select-option>
+      </a-select>
+    </a-form-item>
+    <a-form-item :label="t('name')" v-bind="validateInfos.name">
+      <a-input v-model:value="data.name" />
+    </a-form-item>
+    <a-form-item v-show="data.type === 'source'" :label="t('api')" v-bind="validateInfos.api">
+      <a-input v-model:value="data.api" />
+    </a-form-item>
+    <a-form-item :label="t('remark')" v-bind="validateInfos.remark">
+      <a-textarea v-model:value="data.remark" :autoSize="{ minRows: 6, maxRows: 6 }" />
+    </a-form-item>
+  </a-form>
 </template>
 
 <script setup lang="ts">
@@ -32,18 +22,16 @@ import type { RVSNode, VSNode } from '@/stores/videoSources'
 import { Form } from 'ant-design-vue'
 import { reactive, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useVideoSourcesStore, vsNodeTypes } from '@/stores/videoSources'
+import { vsNodeTypes } from '@/stores/videoSources'
 
 export interface SourcesModalProps {
   type: 'add' | 'edit'
   node: RVSNode
 }
 
-const open = defineModel<boolean>('open')
 const { type, node } = defineProps<SourcesModalProps>()
 
 const { t } = useI18n()
-const { addNode} = useVideoSourcesStore()
 
 const data = reactive<Partial<VSNode>>({
   type: 'source',
@@ -80,6 +68,7 @@ const rules = reactive({
       },
     },
   ],
+  remark: [],
 })
 
 const { validate, validateInfos } = Form.useForm(data, rules)
@@ -101,19 +90,5 @@ watchEffect(() => {
   }
 })
 
-const handleOk = async () => {
-  try {
-    const values = await validate()
-    switch (type) {
-      case 'add':
-        addNode(node.id, values)
-        break
-      case 'edit':
-        break
-    }
-    open.value = false
-  } catch (error) {
-    // ignore
-  }
-}
+defineExpose({ validate })
 </script>

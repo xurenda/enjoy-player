@@ -11,7 +11,7 @@
     </template>
     <a-tab-pane v-for="item in tabs" :key="item.key">
       <template #tab>
-        <i class="iconfont" :class="`icon-${item.text}`"></i>
+        <i class="iconfont" :class="`icon-${item.key}`"></i>
         <span class="ml-1">{{ t(item.text) }}</span>
       </template>
       <component :is="item.component" />

@@ -10,8 +10,7 @@
       <template #prefix><i class="iconfont icon-search"></i></template>
     </a-input>
 
-    <a-tooltip>
-      <template #title>{{ t('settings') }}</template>
+    <a-tooltip :#title="t('settings')">
       <a-button @click="router.push('/settings')">
         <template #icon>
           <i class="iconfont icon-settings"></i>

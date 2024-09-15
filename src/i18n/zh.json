@@ -13,13 +13,22 @@
   "export": "导出",
   "clear": "清空",
   "add": "添加",
+  "edit": "编辑",
   "settings": "设置",
   "application": "应用",
   "videoSources": "视频源",
   "noData": "没有数据",
+  "loading": "加载中",
+  "success": "成功",
+  "fail": "失败",
   "validate": {
     "requiredField": "这是必填项",
     "url": "无效的 URL"
+  },
+  "delete": {
+    "title": "删除",
+    "confirm": "确定要删除吗？",
+    "hasChildren": "该文件夹下的子文件夹和内容也会全部删除"
   },
   "nav": {
     "videoSourcePlaceholder": "请选择视频源"
