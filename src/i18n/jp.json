@@ -1,0 +1,26 @@
+{
+  "ok": "OK",
+  "cancel": "キャンセル",
+  "type": "タイプ",
+  "name": "名前",
+  "api": "API",
+  "remark": "コメント",
+  "folder": "フォルダ",
+  "item": "プロジェクト",
+  "menu": "ムーヌ",
+  "import": "インポート",
+  "export": "エクスポート",
+  "clear": "削除",
+  "add": "追加",
+  "settings": "設定",
+  "application": "適用",
+  "videoSources": "ビデオソース",
+  "noData": "データなし",
+  "validate": {
+    "requiredField": "これは必須フィールドです",
+    "url": "URLが無効です"
+  },
+  "nav": {
+    "videoSourcePlaceholder": "ビデオソースを選択してください"
+  }
+}

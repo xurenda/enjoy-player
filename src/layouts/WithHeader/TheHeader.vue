@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-between bg-slate-100 px-6 py-3">
-    <a-button>
+    <a-button @click="emit('isShowList')">
       <template #icon>
         <i class="iconfont icon-menu"></i>
       </template>
@@ -25,6 +25,10 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+
+const emit = defineEmits<{
+  (e: 'isShowList'): void
+}>()
 
 const { t } = useI18n()
 const router = useRouter()

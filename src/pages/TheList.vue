@@ -1,3 +1,1 @@
-<template>
-  <div>list</div>
-</template>
+<template>123</template>
