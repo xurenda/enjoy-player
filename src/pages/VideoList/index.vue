@@ -14,8 +14,9 @@
       :data="videoListStore.data.list"
       :checkIsEmpty="() => !videoListStore.data.list.length"
     >
-      <ViewGallery :list="videoListStore.data.list"
-    /></TheLoading>
+      <ViewList v-if="settingsStore.listViewType === 'list'" :list="videoListStore.data.list" />
+      <ViewGallery v-else :list="videoListStore.data.list" />
+    </TheLoading>
   </div>
   <div v-show="videoListStore.data.total > pageSize" class="flex justify-center">
     <a-pagination
@@ -35,6 +36,7 @@ import useSettingsStore, { listViewTypes } from '@/stores/settings'
 import ViewGallery from './ViewGallery.vue'
 import useVideoListStore from '@/stores/videoList'
 import TheLoading from '@/components/TheLoading.vue'
+import ViewList from './ViewList.vue'
 
 defineOptions({ name: 'VideoList' })
 
