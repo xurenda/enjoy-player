@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-between bg-slate-100 px-6 py-3">
-    <a-button @click="emit('isShowList')">
+    <a-button @click="toggle">
       <template #icon>
         <i class="iconfont icon-menu"></i>
       </template>
@@ -21,16 +21,13 @@
 </template>
 
 <script setup lang="ts">
+import { useNavStore } from '@/stores/nav'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
-const emit = defineEmits<{
-  (e: 'isShowList'): void
-}>()
-
 const { t } = useI18n()
 const router = useRouter()
-
+const { toggle } = useNavStore()
 const keyword = ref('')
 </script>

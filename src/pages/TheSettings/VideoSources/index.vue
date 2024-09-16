@@ -1,26 +1,23 @@
 <template>
   <div class="h-full">
-    <div
-      v-if="!videoSources.runtimeVideoSources[0].children?.length"
-      className="flex h-full flex-1 items-center justify-center"
-    >
+    <div v-if="!videoSourcesStore.tree[0].children?.length" className="flex h-full flex-1 items-center justify-center">
       <a-empty :description="t('noData')">
-        <a-button @click="() => openFileSelector(treeRoot)">
+        <a-button @click="() => openFileSelector(rootNode)">
           {{ t('import') }}
         </a-button>
         <span class="mx-2"></span>
-        <a-button @click="() => openModal('add', treeRoot)">
+        <a-button @click="() => openModal('add', rootNode)">
           {{ t('add') }}
         </a-button>
       </a-empty>
     </div>
     <div v-else className="h-full overflow-auto">
       <Draggable
-        v-model="videoSources.runtimeVideoSources"
+        v-model="videoSourcesStore.tree"
         treeLine
         textKey="name"
         :rootDroppable="false"
-        :eachDraggable="stat => stat.data.id !== treeRoot.id"
+        :eachDraggable="stat => stat.data.id !== rootNode.id"
         :eachDroppable="stat => stat.data.type === 'folder'"
         :nodeKey="stat => stat.data.key"
       >
@@ -104,12 +101,12 @@ defineOptions({
 type Stat = Parameters<PropDraggable>[0]
 
 const { t } = useI18n()
-const videoSources = useVideoSourcesStore()
-const { treeRoot } = videoSources
+const videoSourcesStore = useVideoSourcesStore()
+const { rootNode } = videoSourcesStore
 const [messageApi, contextHolder] = message.useMessage()
 const modalOpen = ref(false)
 const modalType = ref<SourcesModalProps['type']>('add')
-const curNode = ref<SourcesModalProps['node']>(treeRoot)
+const curNode = ref<SourcesModalProps['node']>(rootNode)
 const sourcesModalRef = useTemplateRef<ComponentExposed<typeof SourcesModal>>('sourcesModal')
 const fileRef = useTemplateRef<HTMLInputElement>('fileRef')
 
@@ -127,11 +124,11 @@ const handleDelete = (node: RVSNode) => {
       okText: t('ok'),
       cancelText: t('cancel'),
       onOk() {
-        videoSources.deleteNode(node.id)
+        videoSourcesStore.deleteNode(node.id)
       },
     })
   } else {
-    videoSources.deleteNode(node.id)
+    videoSourcesStore.deleteNode(node.id)
   }
 }
 
@@ -140,10 +137,10 @@ const handleOk = async () => {
     const values = await sourcesModalRef.value?.validate()
     switch (modalType.value) {
       case 'add':
-        videoSources.addNode(curNode.value.id, values)
+        videoSourcesStore.addNode(curNode.value.id, values)
         break
       case 'edit':
-        videoSources.editNode({ ...curNode.value, ...values })
+        videoSourcesStore.editNode({ ...curNode.value, ...values })
         break
     }
     modalOpen.value = false
@@ -182,7 +179,7 @@ const _importNodes = async (files: FileList, id: string) => {
   let fail = 0
   const _importNode = async (file: File) => {
     const data = await readFileAsJson<VSPersistentData>(file)
-    videoSources.importNode(data, id)
+    videoSourcesStore.importNode(data, id)
   }
   for (const file of files) {
     messageApi.loading({ content: `${t('loading')}... (${++cur}/${total})`, key: importMsgKey })

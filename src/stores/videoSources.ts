@@ -30,75 +30,75 @@ const useVideoSourcesStore = defineStore(
   'videoSources',
   () => {
     const { t } = useI18n()
-    const treeRoot = {
+    const rootNode = {
       pid: '',
       id: rootNodeId,
       type: 'folder',
       name: t('videoSources'),
       remark: '',
     }
-    const videoSources = ref<Record<string, VSNode>>({
-      [treeRoot.id]: { ...treeRoot } as VSNode,
+    const data = ref<Record<string, VSNode>>({
+      [rootNode.id]: { ...rootNode } as VSNode,
     })
 
-    const runtimeVideoSources = computed({
+    const tree = computed({
       get() {
         const makeTree = (id: string): RVSNode => {
-          const item = videoSources.value[id]
+          const item = data.value[id]
           return {
             ...item,
             children:
               item.type === 'folder' && item.children?.length ? item.children.map(id => makeTree(id)) : undefined,
           }
         }
-        videoSources.value[rootNodeId].name = t('videoSources')
-        return [makeTree(treeRoot.id)]
+        data.value[rootNodeId].name = t('videoSources')
+        return [makeTree(rootNode.id)]
       },
       set(tree) {
-        const root: VSNode = { ...(treeRoot as VSNode) }
+        const root: VSNode = { ...(rootNode as VSNode) }
         const record = makeFlat(root, tree[0].children)
         record[root.id] = root
-        videoSources.value = record
+        data.value = record
       },
     })
 
     const addNode = (pid: string, node: VSNode) => {
-      if (!videoSources.value[pid]) {
+      if (!data.value[pid]) {
         return
       }
       node = formatNode(node)
       node.pid = pid
-      if (!videoSources.value[pid].children) {
-        videoSources.value[pid].children = []
+      if (!data.value[pid].children) {
+        data.value[pid].children = []
       }
-      videoSources.value[pid].children.push(node.id)
-      videoSources.value[node.id] = node
+      data.value[pid].children.push(node.id)
+      data.value[node.id] = node
     }
 
     const editNode = (node: VSNode) => {
-      if (!videoSources.value[node.id]) {
+      if (!data.value[node.id]) {
         return
       }
       node = formatNode(node)
-      videoSources.value[node.id] = { ...videoSources.value[node.id], ...node }
+      data.value[node.id] = { ...data.value[node.id], ...node }
     }
 
     const deleteNode = (id: string) => {
       if (id === rootNodeId) {
-        videoSources.value = { [rootNodeId]: { ...treeRoot } as VSNode }
+        data.value = { [rootNodeId]: { ...rootNode } as VSNode }
         return
       }
-      if (!videoSources.value[id]) {
+      if (!data.value[id]) {
         return
       }
-      const pid = videoSources.value[id].pid
-      videoSources.value[pid].children = videoSources.value[pid].children?.filter(i => i !== id)
-      videoSources.value[id].children?.forEach(id => deleteNode(id))
-      delete videoSources.value[id]
+      const pid = data.value[id].pid
+      data.value[pid].children = data.value[pid].children?.filter(i => i !== id)
+      data.value[id].children?.forEach(id => deleteNode(id))
+      delete data.value[id]
     }
 
-    const importNode = (data: VSPersistentData, pid: string) => {
-      const { root: rootId, record } = data
+    const importNode = (persistentData: VSPersistentData, pid: string) => {
+      const { root: rootId, record } = persistentData
       const newRecord: Record<string, VSNode> = {}
       const idMap = new Map<string, string>()
       const isImportRoot = rootId === pid && rootId === rootNodeId
@@ -132,25 +132,25 @@ const useVideoSourcesStore = defineStore(
 
       if (isImportRoot) {
         if (newRecord[rootId].children?.length) {
-          videoSources.value[rootNodeId].children = videoSources.value[rootNodeId].children || []
-          videoSources.value[rootNodeId].children.push(...newRecord[rootId].children)
+          data.value[rootNodeId].children = data.value[rootNodeId].children || []
+          data.value[rootNodeId].children.push(...newRecord[rootId].children)
         }
         delete newRecord[rootId]
       } else {
-        videoSources.value[pid].children = videoSources.value[pid].children || []
+        data.value[pid].children = data.value[pid].children || []
         const newId = getNewId(rootId)
-        videoSources.value[pid].children.push(newId)
+        data.value[pid].children.push(newId)
         newRecord[newId].pid = pid
       }
       Object.values(newRecord).forEach(item => {
-        videoSources.value[item.id] = item
+        data.value[item.id] = item
       })
     }
 
     return {
-      treeRoot: treeRoot as RVSNode,
-      videoSources,
-      runtimeVideoSources,
+      rootNode: rootNode as RVSNode,
+      data,
+      tree,
       addNode,
       editNode,
       deleteNode,
