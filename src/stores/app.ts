@@ -2,7 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import useVideoSourcesStore, { rootNodeId, type VSNode } from './videoSources'
 
-export const useAppStore = defineStore(
+const useAppStore = defineStore(
   'app',
   () => {
     const videoSourcesStore = useVideoSourcesStore()
@@ -38,3 +38,5 @@ export const useAppStore = defineStore(
     persist: true,
   },
 )
+
+export default useAppStore

@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import type { CascaderProps } from 'ant-design-vue'
 import { useI18n } from 'vue-i18n'
-import { useAppStore } from '@/stores/app'
+import useAppStore from '@/stores/app'
 import { computed } from 'vue'
 import useVideoSourcesStore, { type RVSNode } from '@/stores/videoSources'
 import TheCategory from './TheCategory.vue'

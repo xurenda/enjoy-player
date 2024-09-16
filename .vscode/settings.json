@@ -4,7 +4,7 @@
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["iconfont", "Persistedstate", "Pinia", "tailwindcss", "unref"],
+  "cSpell.words": ["iconfont", "Persistedstate", "Pinia", "plyr", "tailwindcss", "unref"],
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

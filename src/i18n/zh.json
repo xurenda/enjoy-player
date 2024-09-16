@@ -18,9 +18,13 @@
   "application": "应用",
   "videoSources": "视频源",
   "noData": "没有数据",
+  "dataLoadFail": "数据加载失败",
   "loading": "加载中",
   "success": "成功",
   "fail": "失败",
+  "list": "列表",
+  "gallery": "画廊",
+  "all": "全部",
   "validate": {
     "requiredField": "这是必填项",
     "url": "无效的 URL"

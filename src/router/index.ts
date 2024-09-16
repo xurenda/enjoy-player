@@ -1,7 +1,8 @@
 import EmptyLayout from '@/layouts/EmptyLayout.vue'
 import WithHeader from '@/layouts/WithHeader/index.vue'
 import TheSettings from '@/pages/TheSettings/index.vue'
-import TheList from '@/pages/TheList.vue'
+import VideoList from '@/pages/VideoList/index.vue'
+import VideoDetail from '@/pages/VideoDetail/index.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -13,7 +14,13 @@ const router = createRouter({
       children: [
         {
           path: '',
-          component: TheList,
+          name: 'videoList',
+          component: VideoList,
+        },
+        {
+          path: 'video/:id',
+          name: 'videoDetail',
+          component: VideoDetail,
         },
       ],
     },
@@ -23,6 +30,7 @@ const router = createRouter({
       children: [
         {
           path: 'settings',
+          name: 'settings',
           component: TheSettings,
         },
       ],

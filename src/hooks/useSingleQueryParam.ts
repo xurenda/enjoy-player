@@ -21,10 +21,11 @@ export default function useSingleQueryParam<T>(
       return transFn(val)
     },
     set(val) {
+      const value = transFn(`${val}`)
       router.replace({
         query: {
           ...route.query,
-          [key]: `${val}`,
+          [key]: value === defaultValue ? undefined : `${value}`,
         },
       })
     },

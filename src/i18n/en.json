@@ -18,9 +18,13 @@
   "application": "Application",
   "videoSources": "Video Sources",
   "noData": "No data",
+  "dataLoadFail": "Data load failed",
   "loading": "Loading",
   "success": "Success",
   "fail": "Fail",
+  "list": "List",
+  "gallery": "Gallery",
+  "all": "All",
   "validate": {
     "requiredField": "This is a required field",
     "url": "Invalid URL"

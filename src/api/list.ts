@@ -5,7 +5,7 @@ export interface GetListQuery {
    * action
    * Default: list
    */
-  ac?: string
+  ac?: 'list'
 
   /**
    * 返回数据类型
@@ -16,12 +16,12 @@ export interface GetListQuery {
   /**
    * 类别 ID
    */
-  t?: string
+  t?: number
 
   /**
    * 页码
    */
-  pg?: string
+  pg?: number
 
   /**
    * 搜索关键字
@@ -78,7 +78,7 @@ export interface VideoResponse {
   vod_en: string
 
   /**
-   * 视频播放源
+   * 视频播放来源
    */
   vod_play_from: string
 
@@ -95,6 +95,16 @@ export interface VideoResponse {
 
 export interface GetListResponse {
   /**
+   * 分类数据
+   */
+  class: CategoryResponse[]
+
+  /**
+   * 视频数据
+   */
+  list: VideoResponse[]
+
+  /**
    * 当前页码
    */
   page: number
@@ -108,16 +118,6 @@ export interface GetListResponse {
    * 总条数
    */
   total: number
-
-  /**
-   * 分类数据
-   */
-  class: CategoryResponse[]
-
-  /**
-   * 视频数据
-   */
-  list: VideoResponse[]
 
   /**
    * 每页条数
@@ -135,11 +135,15 @@ export interface GetListResponse {
   code: number
 }
 
+const defaultParams = {
+  ac: 'list',
+  at: 'json',
+}
+
 export default function getList(url: string, query?: GetListQuery): Promise<GetListResponse> {
   return request.get(url, {
     params: {
-      ac: 'list',
-      at: 'json',
+      ...defaultParams,
       ...query,
     },
   })

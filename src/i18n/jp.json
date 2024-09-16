@@ -18,9 +18,13 @@
   "application": "適用",
   "videoSources": "ビデオソース",
   "noData": "データなし",
+  "dataLoadFail": "データのロードに失敗しました",
   "loading": "読み込み中",
   "success": "成功",
   "fail": "失敗",
+  "list": "リスト",
+  "gallery": "ギャラリー",
+  "all": "全て",
   "validate": {
     "requiredField": "これは必須フィールドです",
     "url": "URLが無効です"
