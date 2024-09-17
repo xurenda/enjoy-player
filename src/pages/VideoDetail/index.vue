@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-auto">
+  <div>
     <TheLoading :loading="videoDetailStore.loading" :error="videoDetailStore.error" :data="videoDetailStore.data">
       <VideoPlayer :data="videoDetailStore.data!" />
     </TheLoading>

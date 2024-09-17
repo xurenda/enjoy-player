@@ -5,7 +5,7 @@ import 'plyr/dist/plyr.css'
 import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
 import type { VideoDetailResponse } from '@/api/detail'
 import useVideoDetailStore from './videoDetail'
-import '@/libs/plyr-rotate.js'
+import { initRotateAndMirror } from '@/utils/plyr'
 
 export interface PlayerData {
   videoDom: HTMLVideoElement
@@ -24,8 +24,7 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
     if (!playerMap.has(data.vod_id)) {
       const playerData = createPlayer({ ...data })
       playerMap.set(data.vod_id, playerData)
-      playerData.videoDom.onleavepictureinpicture = e => {
-        console.log('~~~~~!e', e)
+      playerData.videoDom.onleavepictureinpicture = () => {
         if (!playerMap.has(data.vod_id)) {
           return
         }
@@ -80,6 +79,7 @@ function createPlayer(data: VideoDetailResponse): PlayerData {
   const videoDom = document.createElement('video')
   videoContainerDom.appendChild(videoDom)
   const player = new Plyr(videoDom, plyrOption)
+  initRotateAndMirror(player)
   let hls: Hls | undefined
 
   // videoDom.onenterpictureinpicture = () => {}

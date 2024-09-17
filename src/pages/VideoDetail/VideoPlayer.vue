@@ -1,6 +1,9 @@
 <template>
-  <div ref="playerContainer"></div>
-  {{ data }}
+  <div class="flex w-full justify-center">
+    <div ref="playerContainer" class="w-full"></div>
+  </div>
+
+  <!-- {{ data }} -->
 </template>
 
 <script setup lang="ts">
@@ -17,7 +20,11 @@ const hlsPlayerStore = useHlsPlayerStore()
 const playerData = hlsPlayerStore.initPlayer(data)
 
 onMounted(() => {
-  playerContainer.value!.appendChild(playerData.player.elements.container!)
+  const container = playerData.player.elements.container!
+  container.style.width = '100%'
+  container.style.maxHeight = 'calc(100vh - 120px)'
+  container.style.aspectRatio = '16 / 9'
+  playerContainer.value!.appendChild(container)
 })
 
 onBeforeUnmount(() => {
