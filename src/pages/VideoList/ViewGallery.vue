@@ -26,7 +26,6 @@
 <script setup lang="ts">
 import type { VideoDetailResponse } from '@/api/detail'
 import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
-import { useRouter } from 'vue-router'
 
 const { list } = defineProps<{
   list: VideoDetailResponse[]

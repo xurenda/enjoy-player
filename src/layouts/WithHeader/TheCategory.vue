@@ -10,24 +10,26 @@
         <template #default="{ item, level }">
           <div
             :class="{ active: item.type_id === categoryStore.curCategory }"
-            class="flex cursor-pointer items-center rounded-lg py-1 pl-5 pr-3 text-gray-600 duration-100 hover:bg-slate-100 hover:text-black dark:bg-black dark:text-white [&.active]:bg-slate-200 [&.active]:text-black"
+            class="group flex cursor-pointer items-center rounded-lg py-1 pl-5 pr-3 text-gray-600 duration-100 hover:bg-slate-100 hover:text-blue-700 dark:bg-black dark:text-white [&.active]:bg-slate-200 [&.active]:text-blue-700"
             @click="changeCurCategory(item.type_id)"
           >
             <div :style="{ width: `${level * 24}px` }"></div>
             <div class="flex-1">{{ item.type_name }}</div>
             <a-button
               v-if="item.children?.length"
-              :class="{ open: openKeys.has(item.type_id) }"
-              class="origin-center transition-transform duration-100 [&.open]:-scale-100"
+              class="duration-800 origin-center -translate-x-12 opacity-0 transition-transform group-hover:translate-x-0 group-hover:opacity-100"
               size="small"
               type="text"
               @click.stop="toggleOpen(item.type_id)"
             >
               <template #icon>
-                <i class="iconfont icon-switcher text-xs font-bold"></i>
+                <div :class="{ open: openKeys.has(item.type_id) }" class="duration-100 [&.open]:rotate-90">
+                  <i
+                    class="iconfont icon-switcher-right text-xs font-bold group-hover:text-blue-700 group-[&.active]:text-blue-700"
+                  ></i>
+                </div>
               </template>
             </a-button>
-            <div v-if="item.children?.length" :class="{ open: openKeys.has(item.type_id) }"></div>
           </div>
         </template>
       </NestedMenu>
