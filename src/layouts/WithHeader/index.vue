@@ -2,13 +2,19 @@
   <div class="flex h-screen flex-col overflow-hidden">
     <TheHeader />
     <div class="flex flex-1 overflow-hidden">
-      <div class="flex h-full flex-col overflow-hidden" :style="{ width: `${settingsStore.navWidth}px` }">
-        <TheNav />
-      </div>
-      <ResizeBar v-show="settingsStore.navWidth > 0" v-model:resize-size="settingsStore.navWidth" />
-      <div class="flex h-full flex-1 flex-col overflow-hidden px-6 py-3">
-        <RouterView />
-      </div>
+      <ResizeBar
+        v-model:resize-size="settingsStore.navWidth"
+        :disabled="settingsStore.navWidth === 0"
+        first-class="flex h-full flex-col overflow-hidden duration-100"
+        second-class="flex h-full flex-1 flex-col overflow-hidden px-6 py-3"
+      >
+        <template #first>
+          <TheNav />
+        </template>
+        <template #second>
+          <RouterView />
+        </template>
+      </ResizeBar>
     </div>
   </div>
 </template>

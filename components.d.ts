@@ -32,6 +32,7 @@ declare module 'vue' {
     ResizeBar: typeof import('./src/components/ResizeBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    RowResize: typeof import('./src/components/ResizeBar/RowResize.vue')['default']
     TheLoading: typeof import('./src/components/TheLoading.vue')['default']
   }
 }
