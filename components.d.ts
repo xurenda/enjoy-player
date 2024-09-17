@@ -35,6 +35,7 @@ declare module 'vue' {
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     AUpload: typeof import('ant-design-vue/es')['Upload']
     HlsPlayer: typeof import('./src/components/HlsPlayer.vue')['default']
+    HlsPlayerProvider: typeof import('./src/components/HlsPlayerProvider.vue')['default']
     NestedMenu: typeof import('./src/components/NestedMenu.vue')['default']
     ResizeBar: typeof import('./src/components/ResizeBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
