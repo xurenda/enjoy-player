@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full w-full" :class="direction === 'row' ? 'flex-row' : 'flex-col'">
+  <div class="flex h-full w-full items-stretch" :class="direction === 'row' ? 'flex-row' : 'flex-col'">
     <div ref="firstRef" :class="firstClass" :style="firstSecondStyle.first">
       <slot name="first" />
     </div>
@@ -7,6 +7,7 @@
       ref="resizeBarRef"
       class="relative before:absolute before:border-transparent"
       :class="resizeBarClass"
+      :style="barStyle"
       @mousedown="startResize"
     ></div>
     <div ref="secondRef" :class="secondClass" :style="firstSecondStyle.second">
@@ -16,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, useTemplateRef, type StyleValue } from 'vue'
+import { computed, ref, useTemplateRef, type CSSProperties } from 'vue'
 
 defineOptions({ name: 'ResizeBar' })
 
@@ -26,6 +27,9 @@ export interface ResizeBarProps {
   disabled?: boolean
   firstClass?: string
   secondClass?: string
+  firstStyle?: CSSProperties
+  secondStyle?: CSSProperties
+  barStyle?: CSSProperties
 }
 
 const {
@@ -34,6 +38,9 @@ const {
   disabled = false,
   firstClass = '',
   secondClass = '',
+  firstStyle,
+  secondStyle,
+  barStyle,
 } = defineProps<ResizeBarProps>()
 const resizeSize = defineModel<number>('resizeSize', { required: true })
 const resizeBarRef = useTemplateRef<HTMLDivElement>('resizeBarRef')
@@ -44,10 +51,10 @@ let isResizing = ref(false)
 let distance = 0 // 拖拽距离
 
 const firstSecondStyle = computed(() => {
-  let first: StyleValue
-  let second: StyleValue
-  const flex1: StyleValue = { flex: 1 }
-  const resize: StyleValue =
+  let first: CSSProperties
+  let second: CSSProperties
+  const flex1: CSSProperties = { flex: 1 }
+  const resize: CSSProperties =
     direction === 'row' ? { width: `${resizeSize.value}px` } : { height: `${resizeSize.value}px` }
   if (isResizing.value) {
     resize.transitionDuration = '0s'
@@ -62,6 +69,13 @@ const firstSecondStyle = computed(() => {
   } else {
     first = flex1
     second = resize
+  }
+
+  if (firstStyle) {
+    first = { ...firstStyle, ...first }
+  }
+  if (secondStyle) {
+    second = { ...secondStyle, ...second }
   }
 
   return { first, second }

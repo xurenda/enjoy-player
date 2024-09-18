@@ -1,9 +1,5 @@
 <template>
-  <div class="flex w-full justify-center">
-    <div ref="playerContainer" class="w-full"></div>
-  </div>
-
-  <!-- {{ data }} -->
+  <div ref="playerContainer" class="flex w-full justify-center"></div>
 </template>
 
 <script setup lang="ts">
@@ -22,7 +18,7 @@ const playerData = hlsPlayerStore.initPlayer(data)
 onMounted(() => {
   const container = playerData.player.elements.container!
   container.style.width = '100%'
-  container.style.maxHeight = 'calc(100vh - 120px)'
+  container.style.maxHeight = 'calc(100vh - 131px)'
   container.style.aspectRatio = '16 / 9'
   playerContainer.value!.appendChild(container)
 })
@@ -30,4 +26,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   hlsPlayerStore.destroyPlayer(playerData.data.vod_id)
 })
+
+defineExpose({ playerData })
 </script>

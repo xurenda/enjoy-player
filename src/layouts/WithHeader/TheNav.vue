@@ -1,16 +1,11 @@
 <template>
   <div class="p-2">
-    <a-cascader
-      class="w-full"
-      v-model:value="appStore.curVideoSourceIdPath"
-      :options="options"
-      show-search
-      :placeholder="t('nav.videoSourcePlaceholder')"
-      expand-trigger="hover"
-    >
-      <template #displayRender>
-        {{ appStore.curVideoSources?.name }}
-      </template>
+    <a-cascader v-model:value="appStore.curVideoSourceIdPath" :options="options" expand-trigger="hover">
+      <a-alert class="w-full cursor-pointer" :message="appStore.curVideoSources?.name || '无缘'" type="info">
+        <template #action>
+          <i class="iconfont icon-switcher text-xs"></i>
+        </template>
+      </a-alert>
     </a-cascader>
   </div>
   <TheCategory />

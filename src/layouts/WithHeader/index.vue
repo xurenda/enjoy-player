@@ -1,21 +1,21 @@
 <template>
-  <div class="flex h-screen flex-col overflow-hidden">
-    <TheHeader />
-    <div class="flex flex-1 overflow-hidden">
-      <ResizeBar
-        v-model:resize-size="settingsStore.navWidth"
-        :disabled="settingsStore.navWidth === 0"
-        first-class="flex h-full flex-col overflow-hidden duration-100"
-        second-class="flex h-full flex-1 flex-col overflow-hidden px-6 py-3"
-      >
-        <template #first>
-          <TheNav />
-        </template>
-        <template #second>
+  <div class="h-screen w-screen overflow-hidden">
+    <ResizeBar
+      v-model:resize-size="settingsStore.navWidth"
+      :disabled="settingsStore.navWidth === 0"
+      first-class="flex h-full flex-col overflow-x-hidden overflow-y-auto duration-100"
+      second-class="flex flex-col"
+    >
+      <template #first>
+        <TheNav />
+      </template>
+      <template #second>
+        <TheHeader />
+        <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <RouterView />
-        </template>
-      </ResizeBar>
-    </div>
+        </div>
+      </template>
+    </ResizeBar>
   </div>
 </template>
 

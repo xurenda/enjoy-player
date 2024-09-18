@@ -1,37 +1,99 @@
 import { defineStore } from 'pinia'
 import useAppStore from './app'
-import getList from '@/api/list'
-import useRequest from '@/hooks/useRequest'
+import getList, { type CategoryResponse } from '@/api/list'
 import getDetail, { type VideoDetailResponse } from '@/api/detail'
-import { ref } from 'vue'
-import useCategoryStore, { allCategoryId } from './category'
+import { computed, ref, watch, watchEffect } from 'vue'
 import useSingleQueryParam from '@/hooks/useSingleQueryParam'
+import { array2Tree, mapTreeNotLeafNode } from '@/utils/array2Tree'
+import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
+import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
 
-interface ListData {
-  list: VideoDetailResponse[]
-  total: number
-}
+export const allCategoryId = 0
 
 const useVideoListStore = defineStore('videoList', () => {
   const appStore = useAppStore()
-  const categoryStore = useCategoryStore()
+  const { t } = useI18n()
+  const route = useRoute()
+  const router = useKeepQueryRouter()
+  const routeName = computed(() => route.name)
   const word = useSingleQueryParam('word', '', value => value.trim())
+  const curCategory = ref(allCategoryId)
   const curPage = ref(1)
 
-  const defaultRes: ListData = {
-    list: [],
-    total: 0,
+  const gotoList = () => {
+    if (routeName.value !== 'videoList') {
+      router.push({ name: 'videoList', query: { ep: undefined } })
+    }
   }
 
-  const response = useRequest<ListData>(async () => {
-    if (!appStore.curVideoSources?.api) {
-      return defaultRes
+  watch(
+    () => appStore.curVideoSources?.api,
+    () => {
+      word.value = ''
+      curCategory.value = allCategoryId
+      curPage.value = 1
+      gotoList()
+    },
+  )
+
+  watch(word, () => {
+    curCategory.value = allCategoryId
+    curPage.value = 1
+    gotoList()
+  })
+
+  watch(curCategory, () => {
+    word.value = ''
+    curPage.value = 1
+    gotoList()
+  })
+
+  const loading = ref(false)
+  const error = ref<Error | null>(null)
+  const list = ref<VideoDetailResponse[]>([])
+  const total = ref(0)
+  const categoryLoading = ref(false)
+  const categoryError = ref<Error | null>(null)
+  const category = ref<CategoryResponse[]>([])
+
+  let lastUrl = ''
+  const fetchData = async (url: string) => {
+    const isNewApi = lastUrl !== url
+    if (isNewApi) {
+      lastUrl = url
     }
-    const res = await getList(appStore.curVideoSources.api, {
+    loading.value = true
+    error.value = null
+    list.value = []
+    total.value = 0
+    if (isNewApi) {
+      categoryLoading.value = true
+      categoryError.value = null
+      category.value = []
+    }
+    const res = await getList(url, {
       pg: curPage.value,
-      wd: word.value,
-      t: categoryStore.curCategory !== allCategoryId ? categoryStore.curCategory : undefined,
+      wd: word.value ? word.value : undefined,
+      t: curCategory.value !== allCategoryId ? curCategory.value : undefined,
+    }).catch(err => {
+      if (isNewApi) {
+        categoryLoading.value = false
+        categoryError.value = err
+        category.value = []
+      }
     })
+    if (isNewApi) {
+      if (!Array.isArray(res?.class)) {
+        categoryLoading.value = false
+        categoryError.value = new Error('category is not an array')
+        category.value = []
+      } else {
+        categoryLoading.value = false
+        categoryError.value = null
+        category.value = res.class
+      }
+    }
     if (!Array.isArray(res?.list)) {
       throw new Error('list is not an array')
     }
@@ -41,7 +103,7 @@ const useVideoListStore = defineStore('videoList', () => {
         total: res.total,
       }
     }
-    const res2 = await getDetail(appStore.curVideoSources.api, {
+    const res2 = await getDetail(url, {
       ids: res.list.map(i => i.vod_id),
     })
     if (!Array.isArray(res2?.list)) {
@@ -51,9 +113,43 @@ const useVideoListStore = defineStore('videoList', () => {
       list: res2.list,
       total: res.total,
     }
-  }, defaultRes)
+  }
 
-  return { ...response, curPage }
+  watchEffect(() => {
+    if (!appStore.curVideoSources?.api) {
+      return
+    }
+    fetchData(appStore.curVideoSources.api)
+      .then(res => {
+        list.value = res.list
+        total.value = res.total
+      })
+      .catch(err => {
+        error.value = err
+      })
+      .finally(() => {
+        loading.value = false
+      })
+  })
+
+  const categoryTree = computed(() => {
+    const tree = array2Tree(category.value, 'type_id', 'type_pid', allCategoryId)
+    mapTreeNotLeafNode(tree, node => {
+      node.children?.unshift({
+        type_id: node.type_id,
+        type_name: `${t('all')}${node.type_name}`,
+        type_pid: node.type_pid,
+      })
+    })
+    tree.unshift({
+      type_id: allCategoryId,
+      type_name: t('all'),
+      type_pid: allCategoryId,
+    })
+    return tree
+  })
+
+  return { loading, error, list, total, categoryLoading, categoryError, category, curPage, curCategory, categoryTree }
 })
 
 export default useVideoListStore

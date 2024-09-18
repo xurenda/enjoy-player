@@ -1,24 +1,20 @@
+import { isPromiseLike } from '@/utils/promise'
 import { ref, watchEffect, type Ref } from 'vue'
 
-function isPromise<T>(val: unknown): val is Promise<T> {
-  return !!val && typeof (val as Promise<T>).then === 'function'
-}
-
-export default function useRequest<T extends any>(
-  getProm: () => Promise<T> | unknown,
-  defaultData: T,
-): {
+export interface RequestData<T> {
   loading: Ref<boolean>
   error: Ref<Error | null>
   data: Ref<T>
-} {
+}
+
+export default function useRequest<T extends any>(getProm: () => Promise<T> | unknown, defaultData: T): RequestData<T> {
   const loading = ref(false)
   const error = ref<Error | null>(null)
   const data = ref<T>(defaultData) as Ref<T>
 
   watchEffect(() => {
     const prom = getProm()
-    if (isPromise<T>(prom)) {
+    if (isPromiseLike<T>(prom)) {
       loading.value = true
       error.value = null
       data.value = defaultData

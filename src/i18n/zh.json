@@ -25,6 +25,7 @@
   "list": "列表",
   "gallery": "画廊",
   "all": "全部",
+  "selectEpisode": "选集",
   "validate": {
     "requiredField": "这是必填项",
     "url": "无效的 URL"

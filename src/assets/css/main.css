@@ -12,9 +12,15 @@ body {
   height: 100%;
 }
 
+:where(.css-dev-only-do-not-override-1dgrbo1).ant-collapse > .ant-collapse-item:last-child,
+:where(.css-dev-only-do-not-override-1dgrbo1).ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+  border-radius: 0;
+}
+
 /* 滚动槽 */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   border-radius: 3px;

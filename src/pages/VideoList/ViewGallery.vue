@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-3 flex flex-wrap gap-4">
+  <div class="mx-auto mb-3 flex flex-wrap gap-4">
     <div
       v-for="item in list"
       :key="item.type_id"

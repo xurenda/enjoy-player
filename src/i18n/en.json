@@ -25,6 +25,7 @@
   "list": "List",
   "gallery": "Gallery",
   "all": "All",
+  "selectEpisode": "Select episode",
   "validate": {
     "requiredField": "This is a required field",
     "url": "Invalid URL"

@@ -28,3 +28,15 @@ export function array2Tree<T extends { [key: string]: any }>(
   })
   return tree
 }
+
+export function mapTreeNotLeafNode<T extends { children?: T[]; [key: string]: any }>(
+  tree: T[],
+  fn: (notLeafNode: T) => void,
+) {
+  tree.forEach(node => {
+    if (node.children) {
+      mapTreeNotLeafNode(node.children, fn)
+      fn(node)
+    }
+  })
+}

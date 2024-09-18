@@ -25,6 +25,7 @@
   "list": "リスト",
   "gallery": "ギャラリー",
   "all": "全て",
+  "selectEpisode": "エピソードを選択",
   "validate": {
     "requiredField": "これは必須フィールドです",
     "url": "URLが無効です"

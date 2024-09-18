@@ -1,16 +1,18 @@
 <template>
   <div class="flex items-center justify-between bg-slate-100 px-6 py-3">
-    <a-button @click="toggleNav">
-      <template #icon>
-        <i class="iconfont icon-menu"></i>
-      </template>
-    </a-button>
+    <div class="flex items-center space-x-4">
+      <a-button @click="toggleNav">
+        <template #icon>
+          <i class="iconfont icon-menu"></i>
+        </template>
+      </a-button>
 
-    <a-input class="w-96" v-model:value="keyword" @keyup.enter="wordQuery = keyword">
-      <template #prefix><i class="iconfont icon-search"></i></template>
-    </a-input>
+      <a-input class="w-96" v-model:value="keyword" @keyup.enter="wordQuery = keyword">
+        <template #prefix><i class="iconfont icon-search"></i></template>
+      </a-input>
+    </div>
 
-    <a-tooltip :#title="t('settings')">
+    <a-tooltip :title="t('settings')">
       <a-button @click="router.push({ name: 'settings' })">
         <template #icon>
           <i class="iconfont icon-settings"></i>
