@@ -4,7 +4,7 @@ import getList, { type CategoryResponse } from '@/api/list'
 import getDetail, { type VideoDetailResponse } from '@/api/detail'
 import { computed, ref, watch, watchEffect } from 'vue'
 import useSingleQueryParam from '@/hooks/useSingleQueryParam'
-import { array2Tree, mapTreeNotLeafNode } from '@/utils/array2Tree'
+import { array2Tree, mapTreeNode, mapTreeNotLeafNode } from '@/utils/array2Tree'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
@@ -146,7 +146,15 @@ const useVideoListStore = defineStore('videoList', () => {
       type_name: t('all'),
       type_pid: allCategoryId,
     })
-    return tree
+
+    const tree2 = mapTreeNode(tree, node => {
+      return {
+        ...node,
+        key: node.type_id,
+        label: node.type_name,
+      }
+    })
+    return tree2
   })
 
   return { loading, error, list, total, categoryLoading, categoryError, category, curPage, curCategory, categoryTree }

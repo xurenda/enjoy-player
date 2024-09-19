@@ -1,8 +1,8 @@
 <template>
-  <div class="box-border flex h-full flex-col border-r border-t">
+  <div class="border-color-border box-border flex h-full flex-col border-r border-t">
     <div class="flex items-baseline space-x-1 p-2">
-      <div class="text-nowrap text-lg font-bold">{{ t('selectEpisode') }}</div>
-      <div class="truncate text-sm text-slate-500">{{ data.vod_remarks }}</div>
+      <div class="text-nowrap text-base font-bold">{{ t('selectEpisode') }}</div>
+      <div class="text-color-disable truncate text-sm">{{ data.vod_remarks }}</div>
     </div>
     <div class="pointer-events-none absolute -z-50 h-1 w-max overflow-hidden opacity-0" ref="textWidthRef">
       <div v-for="item in data.vod_play_url" :key="item.url">
@@ -18,7 +18,7 @@
       <div
         v-for="(item, idx) in data.vod_play_url"
         :class="{ active: videoDetailStore.curEpisodeIdx === idx }"
-        class="relative flex cursor-pointer items-center justify-center rounded border p-1 hover:bg-slate-200 [&.active]:bg-slate-200"
+        class="border-color-border hover:bg-color-hover [&.active]:bg-color-hover relative flex cursor-pointer items-center justify-center rounded border p-1"
         :key="item.url"
         :title="item.name"
         @click="videoDetailStore.changeEpisode(idx)"
@@ -76,7 +76,7 @@ const textWidth = computed(() => Math.max(textWidthRef.value?.offsetWidth || 0, 
   width: 4px;
   height: 6px;
   border-radius: 4px 4px 0 0;
-  background-color: rgb(29 78 216 / 1);
+  background-color: var(--color-primary);
   position: absolute;
   bottom: 0;
   left: 0;

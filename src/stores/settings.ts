@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
+import { getLocaleFromNavigator } from '@/i18n'
 
 export const navWidthRange = [200, 500]
 export const defaultNavWidth = 250
@@ -11,6 +12,8 @@ export type ListViewTypes = (typeof listViewTypes)[number]
 const useSettingsStore = defineStore(
   'settings',
   () => {
+    const locale = ref(getLocaleFromNavigator().key)
+
     // --------- nav ---------
     const navShow = ref(false)
     const _navWidth = ref(defaultNavWidth)
@@ -29,12 +32,10 @@ const useSettingsStore = defineStore(
     // --------- list ---------
     const listViewType = ref<ListViewTypes>('list')
 
-    return { navShow, navWidth, _navWidth, toggleNav, listViewType }
+    return { locale, navShow, navWidth, _navWidth, toggleNav, listViewType }
   },
   {
-    persist: {
-      omit: ['navShow'],
-    },
+    persist: true,
   },
 )
 

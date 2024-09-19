@@ -14,9 +14,9 @@
   "clear": "清空",
   "add": "添加",
   "edit": "编辑",
-  "settings": "设置",
   "application": "应用",
   "videoSources": "视频源",
+  "noVideoSources": "没有视频源",
   "noData": "没有数据",
   "dataLoadFail": "数据加载失败",
   "loading": "加载中",
@@ -26,6 +26,7 @@
   "gallery": "画廊",
   "all": "全部",
   "selectEpisode": "选集",
+  "done": "完成",
   "validate": {
     "requiredField": "这是必填项",
     "url": "无效的 URL"
@@ -35,7 +36,16 @@
     "confirm": "确定要删除吗？",
     "hasChildren": "该文件夹下的子文件夹和内容也会全部删除"
   },
-  "nav": {
-    "videoSourcePlaceholder": "请选择视频源"
+  "settings": {
+    "title": "设置",
+    "basic": "基础",
+    "language": "语言",
+    "ui": "界面",
+    "theme": "主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统",
+    "primaryColor": "主题色",
+    "primaryColorSync": "深浅模式主题色同步"
   }
 }

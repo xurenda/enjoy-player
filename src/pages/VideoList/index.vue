@@ -20,7 +20,7 @@
   </div>
   <div
     v-show="videoListStore.total > pageSize"
-    class="sticky bottom-0 left-0 right-0 flex w-full justify-center border-t bg-white py-2"
+    class="border-color-border bg-color-bg sticky bottom-0 left-0 right-0 flex w-full justify-center border-t py-2"
   >
     <a-pagination
       v-model:current="videoListStore.curPage"

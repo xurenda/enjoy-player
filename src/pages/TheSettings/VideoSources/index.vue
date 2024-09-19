@@ -22,12 +22,20 @@
         :nodeKey="stat => stat.data.key"
       >
         <template #default="{ node, stat }: { node: RVSNode; stat: Stat }">
-          <div class="group box-border flex cursor-pointer items-center rounded-lg px-2 py-1 hover:bg-slate-100">
+          <div class="hover:bg-color-hover group box-border flex cursor-pointer items-center rounded-lg px-2 py-1">
             <div class="mr-2">
               <template v-if="node.type === 'folder'">
                 <i v-if="!node.children?.length" class="iconfont icon-folder-empty"></i>
-                <i v-else-if="stat.open" class="iconfont icon-folder-open" @click="stat.open = !stat.open"></i>
-                <i v-else class="iconfont icon-folder" @click="stat.open = !stat.open"></i>
+                <a-button v-else-if="stat.open" size="small" type="text" @click="stat.open = !stat.open">
+                  <template #icon>
+                    <i class="iconfont icon-folder-open"></i>
+                  </template>
+                </a-button>
+                <a-button v-else size="small" type="text" @click="stat.open = !stat.open">
+                  <template #icon>
+                    <i class="iconfont icon-folder"></i>
+                  </template>
+                </a-button>
               </template>
               <i v-else class="iconfont icon-file"></i>
             </div>

@@ -5,7 +5,7 @@
     </div>
     <div
       ref="resizeBarRef"
-      class="relative before:absolute before:border-transparent"
+      class="border-color-border relative z-50 before:absolute before:border-transparent"
       :class="resizeBarClass"
       :style="barStyle"
       @mousedown="startResize"
@@ -88,7 +88,7 @@ const resizeBarClass = computed(() => {
       : 'h-0 w-full border-t before:left-0 before:right-0 before:top-[-2px] before:border-b-2 before:border-t'
 
   if (!disabled) {
-    classes += ' before:hover:border-slate-500 before:[&.active]:border-slate-500'
+    classes += ' before:hover:border-color-primary before:[&.active]:border-color-primary'
     classes +=
       direction === 'row' ? ' cursor-ew-resize before:cursor-ew-resize' : ' cursor-ns-resize before:cursor-ns-resize'
   }

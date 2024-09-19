@@ -2,7 +2,7 @@
   <template v-if="!loading && !error && !isEmpty">
     <slot />
   </template>
-  <div v-else class="box-border flex h-full w-full flex-1 items-center justify-center">
+  <div v-else class="box-border flex h-full w-full flex-1 items-center justify-center" :class="className">
     <a-result v-if="error" status="error">
       <template #subTitle>
         <div class="text-gray-500">{{ t('dataLoadFail') }}</div>
@@ -24,11 +24,13 @@ const {
   error,
   data,
   checkIsEmpty = data => !data,
+  class: className = '',
 } = defineProps<{
   loading: boolean
   error: Error | string | boolean | null
   data: T
   checkIsEmpty?: (data: T) => boolean
+  class?: string
 }>()
 
 const { t } = useI18n()

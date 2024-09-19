@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
+:root {
+  --color-bg: #ffffff;
+  --color-bg-gray: #f5f5f5;
+  --color-hover: #f0f0f0;
+  --color-border: #d4d4d4;
+  --color-disable: #bfbfbf;
+}
+
+:root.dark {
+  --color-bg: #141414;
+  --color-bg-gray: #1d1d1d;
+  --color-hover: #313131;
+  --color-border: #3a3a3a;
+  --color-disable: #565656;
 }
 
 .ant-tabs,
@@ -12,9 +24,18 @@ body {
   height: 100%;
 }
 
-:where(.css-dev-only-do-not-override-1dgrbo1).ant-collapse > .ant-collapse-item:last-child,
-:where(.css-dev-only-do-not-override-1dgrbo1).ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+.ant-menu-light.ant-menu-root.ant-menu-inline,
+.ant-menu-light.ant-menu-root.ant-menu-vertical {
+  border-inline-end: 0;
+}
+
+.ant-collapse > .ant-collapse-item:last-child,
+.ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
   border-radius: 0;
+}
+
+.ant-modal .ant-modal-content:has(.ant-tabs) {
+  padding-top: 4px;
 }
 
 /* 滚动槽 */

@@ -1,12 +1,14 @@
 <template>
   <ATabs v-model:activeKey="tab">
-    <template #leftExtra>
-      <div class="mr-2">
-        <a-button type="text" @click="router.back()">
-          <template #icon>
-            <i class="iconfont icon-return"></i>
-          </template>
-        </a-button>
+    <template #rightExtra>
+      <div class="ml-2">
+        <a-tooltip :title="t('done')">
+          <a-button type="text" @click="emit('close')">
+            <template #icon>
+              <i class="iconfont icon-done"></i>
+            </template>
+          </a-button>
+        </a-tooltip>
       </div>
     </template>
     <a-tab-pane v-for="item in tabs" :key="item.key">
@@ -22,11 +24,14 @@
 <script setup lang="ts">
 import useSingleQueryParam from '@/hooks/useSingleQueryParam'
 import { useI18n } from 'vue-i18n'
-import AppSettings from './AppSettings.vue'
+import AppSettings from './AppSettings/index.vue'
 import VideoSources from './VideoSources/index.vue'
-import { useRouter } from 'vue-router'
 
 defineOptions({ name: 'TheSettings' })
+
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 
 const { t } = useI18n()
 const tabs = [
@@ -42,5 +47,4 @@ const tabs = [
   },
 ]
 const tab = useSingleQueryParam('tab', tabs[0].key)
-const router = useRouter()
 </script>

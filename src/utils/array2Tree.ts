@@ -40,3 +40,15 @@ export function mapTreeNotLeafNode<T extends { children?: T[]; [key: string]: an
     }
   })
 }
+
+export function mapTreeNode<T extends { children?: T[]; [key: string]: any }, R extends T = T>(
+  tree: T[],
+  fn: (notLeafNode: T) => R,
+) {
+  return tree.map(node => {
+    if (node.children) {
+      node.children = mapTreeNode(node.children, fn)
+    }
+    return fn(node)
+  })
+}

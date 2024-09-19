@@ -1,9 +1,14 @@
 <template>
   <div class="p-2">
     <a-cascader v-model:value="appStore.curVideoSourceIdPath" :options="options" expand-trigger="hover">
-      <a-alert class="w-full cursor-pointer" :message="appStore.curVideoSources?.name || '无缘'" type="info">
+      <a-alert
+        class="w-full cursor-pointer"
+        :class="{ 'text-app-disable': !appStore.curVideoSources?.name }"
+        :message="appStore.curVideoSources?.name || t('noVideoSources')"
+        :type="appStore.curVideoSources?.name ? 'info' : 'error'"
+      >
         <template #action>
-          <i class="iconfont icon-switcher text-xs"></i>
+          <i class="iconfont icon-switcher text-xs font-bold"></i>
         </template>
       </a-alert>
     </a-cascader>

@@ -14,9 +14,9 @@
   "clear": "削除",
   "add": "追加",
   "edit": "編集",
-  "settings": "設定",
   "application": "適用",
   "videoSources": "ビデオソース",
+  "noVideoSources": "ビデオソースがありません",
   "noData": "データなし",
   "dataLoadFail": "データのロードに失敗しました",
   "loading": "読み込み中",
@@ -26,6 +26,7 @@
   "gallery": "ギャラリー",
   "all": "全て",
   "selectEpisode": "エピソードを選択",
+  "done": "終わり",
   "validate": {
     "requiredField": "これは必須フィールドです",
     "url": "URLが無効です"
@@ -35,7 +36,16 @@
     "confirm": "削除してもよろしいですか？",
     "hasChildren": "このフォルダーの下にあるすべてのサブフォルダーとコンテンツも削除されます"
   },
-  "nav": {
-    "videoSourcePlaceholder": "ビデオソースを選択してください"
+  "settings": {
+    "title": "設定",
+    "basic": "基本的な",
+    "language": "言語",
+    "ui": "インタフェース",
+    "theme": "テーマ",
+    "light": "明るい",
+    "dark": "暗い",
+    "system": "システムに従ってください",
+    "primaryColor": "原色",
+    "primaryColorSync": "ダークアンドライトモードの原色同期"
   }
 }

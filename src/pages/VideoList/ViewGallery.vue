@@ -3,10 +3,10 @@
     <div
       v-for="item in list"
       :key="item.type_id"
-      class="group relative w-52 cursor-pointer overflow-hidden rounded-md border transition-shadow duration-200 hover:shadow-lg"
+      class="border-color-border group relative w-52 cursor-pointer overflow-hidden rounded-md border transition-shadow duration-200 hover:shadow-lg"
       @click="goToDetail(item.vod_id)"
     >
-      <img :src="item.vod_pic" class="h-72 w-full object-cover" />
+      <img :src="item.vod_pic" :alt="item.vod_name" class="h-72 w-full object-cover" />
       <div
         class="absolute bottom-0 left-0 right-0 bg-black/10 p-2 opacity-0 backdrop-blur-sm duration-100 group-hover:opacity-100"
       >

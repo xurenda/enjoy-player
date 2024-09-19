@@ -14,9 +14,9 @@
   "clear": "Clear",
   "add": "Add",
   "edit": "Edit",
-  "settings": "Settings",
   "application": "Application",
   "videoSources": "Video Sources",
+  "noVideoSources": "No video sources",
   "noData": "No data",
   "dataLoadFail": "Data load failed",
   "loading": "Loading",
@@ -26,6 +26,7 @@
   "gallery": "Gallery",
   "all": "All",
   "selectEpisode": "Select episode",
+  "done": "Done",
   "validate": {
     "requiredField": "This is a required field",
     "url": "Invalid URL"
@@ -35,7 +36,16 @@
     "confirm": "Are you sure you want to delete it?",
     "hasChildren": "All subfolders and contents under this folder will also be deleted."
   },
-  "nav": {
-    "videoSourcePlaceholder": "Please select the video source"
+  "settings": {
+    "title": "Settings",
+    "basic": "Basic",
+    "language": "Language",
+    "ui": "UI",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "Follow the system",
+    "primaryColor": "Primary Color",
+    "primaryColorSync": "Dark and light mode primary color sync"
   }
 }
