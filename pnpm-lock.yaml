@@ -20,6 +20,9 @@ importers:
       hls.js:
         specifier: ^1.5.15
         version: 1.5.15
+      hotkeys-js:
+        specifier: ^3.13.7
+        version: 3.13.7
       nanoid:
         specifier: ^5.0.7
         version: 5.0.7
@@ -1280,6 +1283,9 @@ packages:
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
+
+  hotkeys-js@3.13.7:
+    resolution: {integrity: sha512-ygFIdTqqwG4fFP7kkiYlvayZppeIQX2aPpirsngkv1xM1lP0piDY5QEh68nQnIKvz64hfocxhBaD/uK3sSK1yQ==}
 
   human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
@@ -3480,6 +3486,8 @@ snapshots:
   hls.js@1.5.15: {}
 
   hookable@5.5.3: {}
+
+  hotkeys-js@3.13.7: {}
 
   human-signals@5.0.0: {}
 

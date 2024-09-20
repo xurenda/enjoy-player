@@ -1,8 +1,9 @@
 <template>
   <div class="h-screen w-screen overflow-hidden text-sm">
     <ResizeBar
-      v-model:resize-size="settingsStore.navWidth"
-      :disabled="settingsStore.navWidth === 0"
+      v-model:resize-size="uiSettingsStore.navWidth"
+      :disabled="uiSettingsStore.navWidth === 0"
+      :range="uiSettingsStore.navWidthRange"
       first-class="flex h-full flex-col overflow-x-hidden overflow-y-auto duration-100"
       second-class="flex flex-col"
     >
@@ -20,14 +21,14 @@
 </template>
 
 <script setup lang="ts">
+import useUISettingsStore from '@/stores/settings/ui'
 import TheHeader from './TheHeader.vue'
 import TheNav from './TheNav.vue'
 import ResizeBar from '@/components/ResizeBar.vue'
-import useSettingsStore from '@/stores/settings'
 
 defineOptions({
   name: 'WithHeader',
 })
 
-const settingsStore = useSettingsStore()
+const uiSettingsStore = useUISettingsStore()
 </script>

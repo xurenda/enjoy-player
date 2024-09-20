@@ -1,12 +1,22 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import useVideoSourcesStore, { rootNodeId, type VSNode } from './videoSources'
+import { watchEffect } from 'vue'
 
 const useAppStore = defineStore(
   'app',
   () => {
     const videoSourcesStore = useVideoSourcesStore()
     const curVideoSourceId = ref('')
+
+    watchEffect(() => {
+      if (!videoSourcesStore.data[curVideoSourceId.value]) {
+        const firstSource = Object.values(videoSourcesStore.data).find(item => item.type === 'source' && item.api)?.id
+        if (firstSource) {
+          curVideoSourceId.value = firstSource
+        }
+      }
+    })
 
     const curVideoSourceIdPath = computed<string[]>({
       get() {

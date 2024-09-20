@@ -7,6 +7,9 @@ import type { VideoDetailResponse } from '@/api/detail'
 import useVideoDetailStore from './videoDetail'
 import { initRotateAndMirror } from '@/utils/plyr'
 import { watchEffect } from 'vue'
+import { getPlyrI18n } from '@/i18n'
+import useBasicSettingsStore from './settings/basic'
+import usePlayerSettingsStore from './settings/player'
 
 export interface PlayerData {
   videoDom: HTMLVideoElement
@@ -20,6 +23,8 @@ const playerMap = new Map<number, PlayerData>()
 const useHlsPlayerStore = defineStore('hlsPlayer', () => {
   const router = useKeepQueryRouter()
   const videoDetailStore = useVideoDetailStore()
+  const basicSettingsStore = useBasicSettingsStore()
+  const playerSettingsStore = usePlayerSettingsStore()
 
   watchEffect(() => {
     const url = videoDetailStore.curEpisode.url
@@ -35,9 +40,21 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
     }
   })
 
+  const plyrOptions: Plyr.Options = {
+    i18n: getPlyrI18n(basicSettingsStore.locale),
+    // loadSprite: false,
+    seekTime: playerSettingsStore.seekTime,
+    volume: 0.2,
+    keyboard: { focused: true, global: true },
+    tooltips: { controls: playerSettingsStore.showTooltip, seek: true },
+    invertTime: playerSettingsStore.invertTime,
+    toggleInvert: true,
+    speed: { selected: 1, options: playerSettingsStore.speed },
+  }
+
   const initPlayer = (data: VideoDetailResponse) => {
     if (!playerMap.has(data.vod_id)) {
-      const playerData = createPlayer({ ...data })
+      const playerData = createPlayer({ ...data }, plyrOptions)
       loadUrlForVideo(playerData, videoDetailStore.curEpisode)
       playerData.videoDom.onleavepictureinpicture = () => {
         if (!playerMap.has(data.vod_id)) {
@@ -87,28 +104,12 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
 
 export default useHlsPlayerStore
 
-const plyrOption: Plyr.Options = {
-  controls: [
-    'play-large',
-    'play',
-    'progress',
-    'current-time',
-    'mute',
-    'volume',
-    'captions',
-    'settings',
-    'pip',
-    'airplay',
-    'fullscreen',
-  ],
-}
-
-function createPlayer(data: VideoDetailResponse): PlayerData {
+function createPlayer(data: VideoDetailResponse, plyrOptions: Plyr.Options): PlayerData {
   const videoContainerDom = document.createElement('div')
   const videoDom = document.createElement('video')
   videoDom.poster = data.vod_pic
   videoContainerDom.appendChild(videoDom)
-  const player = new Plyr(videoDom, plyrOption)
+  const player = new Plyr(videoDom, plyrOptions)
   initRotateAndMirror(player)
   let hls: Hls | undefined
 

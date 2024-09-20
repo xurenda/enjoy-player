@@ -3,21 +3,23 @@
     <TheLoading :loading="videoDetailStore.loading" :error="videoDetailStore.error" :data="videoDetailStore.data">
       <div class="flex">
         <ResizeBar
-          v-model:resize-size="seriesWidth"
+          v-model:resize-size="uiSettingsStore.episodesWidth"
           bind-on="second"
-          :bar-style="heightStyle"
-          :second-style="heightStyle"
+          :disabled="!episodesPositionRight"
+          :range="uiSettingsStore.episodesWidthRange"
+          :bar-style="{ height: `${playerHeight}px` }"
+          :second-style="{ height: `${playerHeight}px`, ...(episodesPositionRight ? {} : { width: '0' }) }"
         >
           <template #first>
             <VideoPlayer ref="playerDataRef" :data="videoDetailStore.data!" />
           </template>
           <template #second>
-            <MiniVideoEpisodes :data="videoDetailStore.data!" />
+            <VideoEpisodes v-if="episodesPositionRight" :data="videoDetailStore.data!" />
           </template>
         </ResizeBar>
       </div>
-
       <VideoDesc :data="videoDetailStore.data!" />
+      <VideoEpisodes v-if="!episodesPositionRight" :data="videoDetailStore.data!" />
     </TheLoading>
   </div>
 </template>
@@ -27,18 +29,20 @@ import TheLoading from '@/components/TheLoading.vue'
 import useVideoDetailStore from '@/stores/videoDetail'
 import VideoPlayer from './VideoPlayer.vue'
 import VideoDesc from './VideoDesc.vue'
-import MiniVideoEpisodes from './MiniVideoEpisodes.vue'
+import VideoEpisodes from './VideoEpisodes.vue'
 import ResizeBar from '@/components/ResizeBar.vue'
-import { computed, ref, useTemplateRef, watchEffect, type CSSProperties } from 'vue'
+import { computed, ref, useTemplateRef, watchEffect } from 'vue'
 import type { ComponentExposed } from 'vue-component-type-helpers'
+import useUISettingsStore from '@/stores/settings/ui'
 
 defineOptions({ name: 'VideoDetail' })
 
 const videoDetailStore = useVideoDetailStore()
+const uiSettingsStore = useUISettingsStore()
 
-const heightStyle = ref<CSSProperties>({})
+const playerHeight = ref<number>(0)
 const resizeObserver = new ResizeObserver(entries => {
-  heightStyle.value = { height: entries[0].target.clientHeight + 'px' }
+  playerHeight.value = entries[0].target.clientHeight
 })
 const playerDataRef = useTemplateRef<ComponentExposed<typeof VideoPlayer>>('playerDataRef')
 const playerContainer = computed(() => playerDataRef.value?.playerData.player.elements.container)
@@ -50,5 +54,5 @@ watchEffect(() => {
   }
 })
 
-const seriesWidth = ref(250)
+const episodesPositionRight = computed(() => uiSettingsStore.episodesPosition === 'right')
 </script>

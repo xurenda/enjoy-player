@@ -4,9 +4,9 @@ export function initRotateAndMirror(plyr: Plyr) {
     return
   }
 
-  const hMirrorLabel = (plyr as any).config.i18n.horizontalMirror || '水平镜像'
-  const vMirrorLabel = (plyr as any).config.i18n.verticalMirror || '垂直镜像'
-  const rotateLabel = (plyr as any).config.i18n.rotate || '旋转'
+  const hMirrorLabel = (plyr as any).config.i18n.horizontalMirror || 'Horizontal Mirror'
+  const vMirrorLabel = (plyr as any).config.i18n.verticalMirror || 'Vertical Mirror'
+  const rotateLabel = (plyr as any).config.i18n.rotate || 'Rotate'
 
   const tmpDom = document.createElement('div')
   tmpDom.innerHTML = `

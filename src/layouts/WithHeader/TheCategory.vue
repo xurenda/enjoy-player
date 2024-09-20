@@ -8,10 +8,11 @@
       :checkIsEmpty="() => !videoListStore.category.length"
     >
       <a-menu
-        v-model:selectedKeys="selectedKeys"
+        :selectedKeys="selectedKeys"
         class="w-full"
         mode="inline"
         :items="videoListStore.categoryTree"
+        @click="(e: any) => videoListStore.changeCategory(e.key)"
       ></a-menu>
     </TheLoading>
   </div>
@@ -23,12 +24,5 @@ import { computed } from 'vue'
 import useVideoListStore from '@/stores/videoList'
 
 const videoListStore = useVideoListStore()
-const selectedKeys = computed<[number]>({
-  get() {
-    return [videoListStore.curCategory]
-  },
-  set(val) {
-    videoListStore.curCategory = val[0]
-  },
-})
+const selectedKeys = computed<[number]>(() => [videoListStore.curCategory])
 </script>

@@ -17,13 +17,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, useTemplateRef, type CSSProperties } from 'vue'
+import { computed, ref, useTemplateRef, watchEffect, type CSSProperties } from 'vue'
 
 defineOptions({ name: 'ResizeBar' })
 
 export interface ResizeBarProps {
   direction?: 'row' | 'column' // 拖拽方向，row 横向，column 纵向
   bindOn?: 'first' | 'second' // 尺寸绑定到哪个元素
+  range?: [number, number] // 尺寸范围
   disabled?: boolean
   firstClass?: string
   secondClass?: string
@@ -35,6 +36,7 @@ export interface ResizeBarProps {
 const {
   direction = 'row',
   bindOn = 'first',
+  range,
   disabled = false,
   firstClass = '',
   secondClass = '',
@@ -47,6 +49,11 @@ const resizeBarRef = useTemplateRef<HTMLDivElement>('resizeBarRef')
 const firstRef = useTemplateRef<HTMLDivElement>('firstRef')
 const secondRef = useTemplateRef<HTMLDivElement>('secondRef')
 
+const resizeSizeImmed = ref(resizeSize.value)
+watchEffect(() => {
+  resizeSizeImmed.value = resizeSize.value
+})
+
 let isResizing = ref(false)
 let distance = 0 // 拖拽距离
 
@@ -55,7 +62,7 @@ const firstSecondStyle = computed(() => {
   let second: CSSProperties
   const flex1: CSSProperties = { flex: 1 }
   const resize: CSSProperties =
-    direction === 'row' ? { width: `${resizeSize.value}px` } : { height: `${resizeSize.value}px` }
+    direction === 'row' ? { width: `${resizeSizeImmed.value}px` } : { height: `${resizeSizeImmed.value}px` }
   if (isResizing.value) {
     resize.transitionDuration = '0s'
     resize.pointerEvents = 'none'
@@ -72,10 +79,10 @@ const firstSecondStyle = computed(() => {
   }
 
   if (firstStyle) {
-    first = { ...firstStyle, ...first }
+    first = { ...first, ...firstStyle }
   }
   if (secondStyle) {
-    second = { ...secondStyle, ...second }
+    second = { ...second, ...secondStyle }
   }
 
   return { first, second }
@@ -112,7 +119,11 @@ const resize = (event: MouseEvent) => {
   if (isResizing.value) {
     const client = direction === 'row' ? event.clientX : event.clientY
     const delta = client - distance
-    resizeSize.value += bindOn === 'first' ? delta : -delta
+    resizeSizeImmed.value += bindOn === 'first' ? delta : -delta
+    if (range) {
+      if (resizeSizeImmed.value < range[0]) resizeSizeImmed.value = range[0]
+      if (resizeSizeImmed.value > range[1]) resizeSizeImmed.value = range[1]
+    }
     distance = client
   }
 }
@@ -122,6 +133,7 @@ const stopResize = () => {
   isResizing.value = false
   resizeBarRef.value?.classList.remove('active')
   document.body.style.cursor = 'default'
+  resizeSize.value = resizeSizeImmed.value
   document.removeEventListener('mousemove', resize)
   document.removeEventListener('mouseup', stopResize)
 }

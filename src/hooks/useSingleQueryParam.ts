@@ -5,6 +5,7 @@ export default function useSingleQueryParam<T>(
   key: string,
   defaultValue: T,
   transFn: (value: string) => T = value => value as T,
+  readOnly = false,
 ) {
   const route = useRoute()
   const router = useRouter()
@@ -21,7 +22,11 @@ export default function useSingleQueryParam<T>(
       return transFn(val)
     },
     set(val) {
+      if (readOnly) return
       const value = transFn(`${val}`)
+      if (value === route.query[key]) {
+        return
+      }
       router.replace({
         query: {
           ...route.query,

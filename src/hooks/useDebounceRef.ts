@@ -1,18 +1,20 @@
-import { ref, watch, type Ref } from 'vue'
+import { customRef, isRef, ref, type Ref } from 'vue'
 
-export default function useDebounceRef<T>(watchSources: () => T, delay: number): Ref<T> {
-  const debouncedValue = ref<T>(watchSources()) as Ref<T>
+export default function useDebounceRef<T>(value: T | Ref<T>, delay = 300) {
+  const valueRef = isRef(value) ? value : (ref(value) as Ref<T>)
   let timer: number | null = null
-
-  watch(watchSources, val => {
-    if (timer) {
-      clearTimeout(timer)
-    }
-    timer = setTimeout(() => {
-      debouncedValue.value = val
-      timer = null
-    }, delay)
-  })
-
-  return debouncedValue
+  return customRef((track, trigger) => ({
+    get() {
+      track()
+      return valueRef.value
+    },
+    set(val) {
+      timer && clearTimeout(timer)
+      timer = setTimeout(() => {
+        valueRef.value = val
+        timer = null
+        trigger()
+      }, delay)
+    },
+  }))
 }

@@ -1,5 +1,8 @@
 <template>
-  <div class="border-color-border box-border flex h-full flex-col border-r border-t">
+  <div
+    class="border-color-border box-border flex flex-col"
+    :class="uiSettingsStore.episodesPosition === 'right' ? 'h-full border-r border-t' : ''"
+  >
     <div class="flex items-baseline space-x-1 p-2">
       <div class="text-nowrap text-base font-bold">{{ t('selectEpisode') }}</div>
       <div class="text-color-disable truncate text-sm">{{ data.vod_remarks }}</div>
@@ -34,6 +37,7 @@
 
 <script setup lang="ts">
 import type { VideoDetailResponse } from '@/api/detail'
+import useUISettingsStore from '@/stores/settings/ui'
 import useVideoDetailStore from '@/stores/videoDetail'
 import { computed, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -44,6 +48,7 @@ const { data } = defineProps<{
 
 const { t } = useI18n()
 const videoDetailStore = useVideoDetailStore()
+const uiSettingsStore = useUISettingsStore()
 const textWidthRef = useTemplateRef<HTMLDivElement>('textWidthRef')
 const textWidth = computed(() => Math.max(textWidthRef.value?.offsetWidth || 0, 50))
 </script>
@@ -57,13 +62,13 @@ const textWidth = computed(() => Math.max(textWidthRef.value?.offsetWidth || 0, 
 
 @keyframes playon {
   0% {
-    height: 70%;
+    transform: scaleY(0.7);
   }
   50% {
-    height: 100%;
+    transform: scaleY(1);
   }
   100% {
-    height: 35%;
+    transform: scaleY(0.35);
   }
 }
 
@@ -80,6 +85,7 @@ const textWidth = computed(() => Math.max(textWidthRef.value?.offsetWidth || 0, 
   position: absolute;
   bottom: 0;
   left: 0;
+  transform-origin: center bottom;
 }
 .playon i:nth-last-child(1) {
   animation: playon 0.8s 0.3s infinite;

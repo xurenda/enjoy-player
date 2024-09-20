@@ -3,11 +3,11 @@ import useAppStore from './app'
 import getList, { type CategoryResponse } from '@/api/list'
 import getDetail, { type VideoDetailResponse } from '@/api/detail'
 import { computed, ref, watch, watchEffect } from 'vue'
-import useSingleQueryParam from '@/hooks/useSingleQueryParam'
 import { array2Tree, mapTreeNode, mapTreeNotLeafNode } from '@/utils/array2Tree'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
+import useQueryParam from '@/hooks/useQueryParam'
 
 export const allCategoryId = 0
 
@@ -17,37 +17,76 @@ const useVideoListStore = defineStore('videoList', () => {
   const route = useRoute()
   const router = useKeepQueryRouter()
   const routeName = computed(() => route.name)
-  const word = useSingleQueryParam('word', '', value => value.trim())
-  const curCategory = ref(allCategoryId)
-  const curPage = ref(1)
+  const { data, change } = useQueryParam({
+    word: { defaultValue: '', transFn: value => value.trim() },
+    class: {
+      defaultValue: allCategoryId,
+      transFn: value => {
+        const num = +value
+        if (Number.isNaN(num) || !Number.isInteger(num)) {
+          return allCategoryId
+        }
+        return num
+      },
+    },
+    page: {
+      defaultValue: 1,
+      transFn: value => {
+        const num = +value
+        if (Number.isNaN(num) || num < 1 || !Number.isInteger(num)) {
+          return 1
+        }
+        return num
+      },
+    },
+  })
+  let onlyChangePage = false
+
+  const { word: curKeyword, class: curCategory, page: curPage } = data
 
   const gotoList = () => {
-    if (routeName.value !== 'videoList') {
-      router.push({ name: 'videoList', query: { ep: undefined } })
+    setTimeout(() => {
+      if (routeName.value !== 'videoList') {
+        router.push({ name: 'videoList', query: { ep: undefined } })
+      }
+    })
+  }
+
+  const changeKeyword = (val: string) => {
+    val = val.trim()
+    if (val !== curKeyword.value) {
+      onlyChangePage = false
+      change({ word: val, class: allCategoryId, page: 1 })
     }
+    gotoList()
+  }
+
+  const changeCategory = (val: number) => {
+    if (val !== curCategory.value) {
+      onlyChangePage = false
+      change({ word: '', class: val, page: 1 })
+    }
+    gotoList()
+  }
+
+  const changePage = (val: number) => {
+    if (val !== curPage.value) {
+      onlyChangePage = true
+      change({ page: val })
+    }
+    gotoList()
   }
 
   watch(
     () => appStore.curVideoSources?.api,
     () => {
-      word.value = ''
+      onlyChangePage = false
+      curKeyword.value = ''
       curCategory.value = allCategoryId
       curPage.value = 1
       gotoList()
     },
   )
-
-  watch(word, () => {
-    curCategory.value = allCategoryId
-    curPage.value = 1
-    gotoList()
-  })
-
-  watch(curCategory, () => {
-    word.value = ''
-    curPage.value = 1
-    gotoList()
-  })
 
   const loading = ref(false)
   const error = ref<Error | null>(null)
@@ -66,7 +105,9 @@ const useVideoListStore = defineStore('videoList', () => {
     loading.value = true
     error.value = null
     list.value = []
-    total.value = 0
+    if (!onlyChangePage) {
+      total.value = 0
+    }
     if (isNewApi) {
       categoryLoading.value = true
       categoryError.value = null
@@ -74,7 +115,7 @@ const useVideoListStore = defineStore('videoList', () => {
     }
     const res = await getList(url, {
       pg: curPage.value,
-      wd: word.value ? word.value : undefined,
+      wd: curKeyword.value ? curKeyword.value : undefined,
       t: curCategory.value !== allCategoryId ? curCategory.value : undefined,
     }).catch(err => {
       if (isNewApi) {
@@ -137,7 +178,7 @@ const useVideoListStore = defineStore('videoList', () => {
     mapTreeNotLeafNode(tree, node => {
       node.children?.unshift({
         type_id: node.type_id,
-        type_name: `${t('all')}${node.type_name}`,
+        type_name: `${node.type_name}[${t('all')}]`,
         type_pid: node.type_pid,
       })
     })
@@ -157,7 +198,22 @@ const useVideoListStore = defineStore('videoList', () => {
     return tree2
   })
 
-  return { loading, error, list, total, categoryLoading, categoryError, category, curPage, curCategory, categoryTree }
+  return {
+    loading,
+    error,
+    list,
+    total,
+    categoryLoading,
+    categoryError,
+    category,
+    curKeyword,
+    curCategory,
+    curPage,
+    categoryTree,
+    changeKeyword,
+    changeCategory,
+    changePage,
+  }
 })
 
 export default useVideoListStore

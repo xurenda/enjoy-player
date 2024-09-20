@@ -26,6 +26,7 @@ import useSingleQueryParam from '@/hooks/useSingleQueryParam'
 import { useI18n } from 'vue-i18n'
 import AppSettings from './AppSettings/index.vue'
 import VideoSources from './VideoSources/index.vue'
+import TheShortcuts from './TheShortcuts.vue'
 
 defineOptions({ name: 'TheSettings' })
 
@@ -44,6 +45,11 @@ const tabs = [
     key: 'video-sources',
     text: 'videoSources',
     component: VideoSources,
+  },
+  {
+    key: 'shortcuts',
+    text: 'shortcuts',
+    component: TheShortcuts,
   },
 ]
 const tab = useSingleQueryParam('tab', tabs[0].key)

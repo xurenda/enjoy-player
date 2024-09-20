@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import type { VideoDetailResponse } from '@/api/detail'
 import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
+import { getColorByKey } from '@/utils/color'
 
 const { list } = defineProps<{
   list: VideoDetailResponse[]
@@ -36,23 +37,4 @@ const router = useKeepQueryRouter()
 const goToDetail = (id: number) => {
   router.push({ name: 'videoDetail', params: { id: `${id}` } })
 }
-
-const colors = [
-  'processing',
-  'success',
-  'error',
-  'warning',
-  'magenta',
-  'red',
-  'volcano',
-  'orange',
-  'gold',
-  'lime',
-  'green',
-  'blue',
-  'geekblue',
-  'purple',
-]
-
-const getColorByKey = (key: string) => colors[key.charCodeAt(0) % colors.length]
 </script>

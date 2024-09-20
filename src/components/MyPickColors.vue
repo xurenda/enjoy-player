@@ -4,13 +4,13 @@
     class="border-color-border hover:border-color-primary [&.active]:border-color-primary flex cursor-pointer items-center rounded-md border duration-200"
     @click="showPicker = true"
   >
-    <div v-if="title" class="text-color-disable ml-2">{{ title }}</div>
     <pick-colors
       v-model:value="value"
       v-model:show-picker="showPicker"
       :theme="uiSettingsStore.realTheme"
       v-bind="$attrs"
     />
+    <div v-if="title" class="text-color-disable mr-2">{{ title }}</div>
   </div>
 </template>
 
