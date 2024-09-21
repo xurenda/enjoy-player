@@ -2,11 +2,14 @@
   <a-typography-title :level="5">{{ t('settings.player') }}</a-typography-title>
   <a-typography-paragraph type="secondary" :content="t('settings.playerDesc')" />
   <a-form :label-col="{ span: formColWidth[0] }" :wrapper-col="{ span: formColWidth[1] }">
-    <a-form-item :label="t('settings.seekTime')" :tooltip="t('settings.seekTimeTooltip')">
+    <a-form-item :label="t('settings.seekStep')" :tooltip="t('settings.seekStepTooltip')">
+      <a-input-number v-model:value="playerSettingsStore.seekStep" :min="seekStepRange[0]" :max="seekStepRange[1]" />
+    </a-form-item>
+    <a-form-item :label="t('settings.volumeStep')" :tooltip="t('settings.volumeStepTooltip')">
       <a-input-number
-        v-model:value="playerSettingsStore.seekTime"
-        :min="maxSeekTimeRange[0]"
-        :max="maxSeekTimeRange[1]"
+        v-model:value="playerSettingsStore.volumeStep"
+        :min="volumeStepRange[0]"
+        :max="volumeStepRange[1]"
       />
     </a-form-item>
     <a-form-item :label="t('settings.playMode')">
@@ -45,7 +48,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import usePlayerSettingsStore, { maxSeekTimeRange, playModes } from '@/stores/settings/player'
+import usePlayerSettingsStore, { seekStepRange, volumeStepRange, playModes } from '@/stores/settings/player'
 import CanAddedSelect from '@/components/CanAddedSelect.vue'
 import { computed } from 'vue'
 

@@ -1,4 +1,6 @@
 {
+  "toggleSideNav": "切换侧边栏",
+  "returnToList": "返回列表页",
   "ok": "确定",
   "cancel": "取消",
   "type": "类型",
@@ -40,7 +42,9 @@
     "year": "上映年份",
     "time": "收录时间",
     "content": "剧情",
-    "nothing": "暂无"
+    "nothing": "暂无",
+    "errorTitle": "视频解析失败",
+    "errorContent": "可能是视频源无法访问或网络异常，请检查后重试。"
   },
   "validate": {
     "requiredField": "这是必填项",
@@ -74,8 +78,10 @@
     "episodesWidthRange": "选集栏宽度范围",
     "player": "播放器",
     "playerDesc": "视频播放器的大部分设置修改需要刷新页面才能生效。",
-    "seekTime": "跳转时间",
-    "seekTimeTooltip": "一次前进或后退的跳转时间（秒）",
+    "seekStep": "跳转步长",
+    "seekStepTooltip": "一次前进或后退的跳转时间（秒）",
+    "volumeStep": "音量步长",
+    "volumeStepTooltip": "快捷键增加或减少音量的步长（百分比）",
     "playMode": "播放模式",
     "pause": "播完暂停",
     "loop": "自动重播",

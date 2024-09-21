@@ -1,4 +1,6 @@
 {
+  "toggleSideNav": "Toggle side nav",
+  "returnToList": "Return to list page",
   "ok": "OK",
   "cancel": "Cancel",
   "type": "Type",
@@ -40,7 +42,9 @@
     "year": "Year of release",
     "time": "Collection time",
     "content": "Plot",
-    "nothing": "No information"
+    "nothing": "No information",
+    "errorTitle": "Video parsing failed",
+    "errorContent": "It may be that the video source is inaccessible or the network is abnormal. Please check and try again."
   },
   "validate": {
     "requiredField": "This is a required field",
@@ -74,8 +78,10 @@
     "episodesWidthRange": "Episodes bar width range",
     "player": "Player",
     "playerDesc": "Most settings modifications to the video player require a page refresh to take effect.",
-    "seekTime": "Seek time",
-    "seekTimeTooltip": "Time to seek(s)",
+    "seekStep": "Seek step size",
+    "seekStepTooltip": "Time to seek forward or backward (s)",
+    "volumeStep": "Volume step size",
+    "volumeStepTooltip": "Shortcut keys increase or decrease the volume step size (percentage)",
     "playMode": "Play Mode",
     "pause": "Complete stop",
     "loop": "Auto heavy play",

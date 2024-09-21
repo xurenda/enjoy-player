@@ -1,3 +1,5 @@
+import { playerMap } from '@/stores/hlsPlayer'
+import usePlayerSettingsStore from '@/stores/settings/player'
 import useUISettingsStore from '@/stores/settings/ui'
 import hotkeys from 'hotkeys-js'
 
@@ -22,5 +24,21 @@ hotkeys('command+i, ctrl+i', () => {
 
 // 禁用 Plyr 的 Toggle loop
 hotkeys('l', e => {
+  e.stopPropagation()
+})
+
+// 修改 Plyr 的音量调整步长
+hotkeys('up', e => {
+  const { volumeStep } = usePlayerSettingsStore()
+  playerMap.forEach(({ player }) => {
+    player.increaseVolume(volumeStep / 100)
+  })
+  e.stopPropagation()
+})
+hotkeys('down', e => {
+  const { volumeStep } = usePlayerSettingsStore()
+  playerMap.forEach(({ player }) => {
+    player.decreaseVolume(volumeStep / 100)
+  })
   e.stopPropagation()
 })

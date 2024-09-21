@@ -1,11 +1,13 @@
 <template>
-  <div class="border-color-border bg-color-bg-gray flex items-center justify-between border-b px-6 py-3">
+  <div class="flex items-center justify-between border-b border-color-border bg-color-bg-gray px-6 py-3">
     <div class="flex items-center space-x-4">
-      <a-button @click="uiSettingsStore.navShow = !uiSettingsStore.navShow">
-        <template #icon>
-          <i class="iconfont icon-menu"></i>
-        </template>
-      </a-button>
+      <a-tooltip :title="t('toggleSideNav')">
+        <a-button @click="uiSettingsStore.navShow = !uiSettingsStore.navShow">
+          <template #icon>
+            <i class="iconfont icon-menu"></i>
+          </template>
+        </a-button>
+      </a-tooltip>
 
       <div class="relative">
         <a-input

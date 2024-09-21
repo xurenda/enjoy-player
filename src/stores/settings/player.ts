@@ -1,7 +1,8 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const maxSeekTimeRange: [number, number] = [1, 600]
+export const seekStepRange: [number, number] = [1, 600]
+export const volumeStepRange: [number, number] = [1, 100]
 export const playModes = ['pause', 'loop', 'next'] as const
 export type PlayModes = (typeof playModes)[number]
 
@@ -11,7 +12,8 @@ const defaultSpeeds = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4]
 const usePlayerSettingsStore = defineStore(
   'playerSettings',
   () => {
-    const seekTime = ref(10)
+    const seekStep = ref(10)
+    const volumeStep = ref(10)
     const playMode = ref<PlayModes>('next')
     const showTooltip = ref(true)
     const invertTime = ref(true)
@@ -29,7 +31,7 @@ const usePlayerSettingsStore = defineStore(
     const speed = ref(defaultSpeeds)
     const speeds = ref(defaultSpeeds)
 
-    return { seekTime, playMode, showTooltip, invertTime, ratio, ratios, ratiosWithValue, speed, speeds }
+    return { seekStep, volumeStep, playMode, showTooltip, invertTime, ratio, ratios, ratiosWithValue, speed, speeds }
   },
   {
     persist: true,

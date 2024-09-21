@@ -18,7 +18,7 @@ export interface PlayerData {
   hls: Hls | undefined
 }
 
-const playerMap = new Map<number, PlayerData>()
+export const playerMap = new Map<number, PlayerData>()
 
 const useHlsPlayerStore = defineStore('hlsPlayer', () => {
   const router = useKeepQueryRouter()
@@ -50,7 +50,7 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
   const plyrOptions: Plyr.Options = {
     i18n: getPlyrI18n(basicSettingsStore.locale),
     // loadSprite: false,
-    seekTime: playerSettingsStore.seekTime,
+    seekTime: playerSettingsStore.seekStep,
     volume: 0.2,
     keyboard: { focused: true, global: true },
     tooltips: { controls: playerSettingsStore.showTooltip, seek: true },
@@ -66,7 +66,6 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
       playerData.videoDom.onenterpictureinpicture = () => {
         playerData.data.leavePip = false
       }
-
       playerData.videoDom.onleavepictureinpicture = () => {
         if (!playerMap.has(data.vod_id)) {
           return

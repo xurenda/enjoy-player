@@ -1,4 +1,6 @@
 {
+  "toggleSideNav": "サイドバーの切り替え",
+  "returnToList": "一覧ページに戻る",
   "ok": "確認する",
   "cancel": "キャンセル",
   "type": "タイプ",
@@ -40,7 +42,9 @@
     "year": "発売年",
     "time": "収集時間",
     "content": "プロット",
-    "nothing": "情報なし"
+    "nothing": "情報なし",
+    "errorTitle": "ビデオの解析に失敗しました",
+    "errorContent": "ビデオソースにアクセスできないか、ネットワークに異常がある可能性があります。確認してもう一度お試しください。"
   },
   "validate": {
     "requiredField": "これは必須フィールドです",
@@ -74,8 +78,10 @@
     "episodesWidthRange": "エピソードバーの幅の範囲",
     "player": "プレーヤー",
     "playerDesc": "ビデオ プレーヤーに対するほとんどの設定変更を有効にするには、ページを更新する必要があります。",
-    "seekTime": "シークタイム",
-    "seekTimeTooltip": "前後にジャンプする時間（秒）",
+    "seekStep": "シークタイム",
+    "seekStepTooltip": "前後にジャンプする時間（秒）",
+    "volumeStep": "ボリュームステップサイズ",
+    "volumeStepTooltip": "ショートカット キーで音量ステップ サイズ（パーセンテージ）を増減します",
     "playMode": "プレイモード",
     "pause": "再生が終了して停止する",
     "loop": "オートヘビープレイ",
