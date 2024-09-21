@@ -6,7 +6,7 @@ import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
 import type { VideoDetailResponse } from '@/api/detail'
 import useVideoDetailStore from './videoDetail'
 import { initRotateAndMirror } from '@/utils/plyr'
-import { watchEffect } from 'vue'
+import { watch } from 'vue'
 import { getPlyrI18n } from '@/i18n'
 import useBasicSettingsStore from './settings/basic'
 import usePlayerSettingsStore from './settings/player'
@@ -26,19 +26,26 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
   const basicSettingsStore = useBasicSettingsStore()
   const playerSettingsStore = usePlayerSettingsStore()
 
-  watchEffect(() => {
-    const url = videoDetailStore.curEpisode.url
-    const id = videoDetailStore.data?.vod_id
-    if (id && url) {
-      const playerData = playerMap.get(id)
-      if (playerData) {
-        loadUrlForVideo(playerData, videoDetailStore.curEpisode)
-        playerData.videoDom.oncanplay = () => {
-          playerData.player.play()
+  watch(
+    () => videoDetailStore.curEpisode,
+    () => {
+      const url = videoDetailStore.curEpisode.url
+      const id = videoDetailStore.data?.vod_id
+      if (id && url) {
+        const playerData = playerMap.get(id)
+        if (playerData) {
+          if (playerData.data.leavePip) {
+            playerData.data.leavePip = false
+            return
+          }
+          loadUrlForVideo(playerData, videoDetailStore.curEpisode)
+          playerData.videoDom.oncanplay = () => {
+            playerData.player.play()
+          }
         }
       }
-    }
-  })
+    },
+  )
 
   const plyrOptions: Plyr.Options = {
     i18n: getPlyrI18n(basicSettingsStore.locale),
@@ -56,28 +63,43 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
     if (!playerMap.has(data.vod_id)) {
       const playerData = createPlayer({ ...data }, plyrOptions)
       loadUrlForVideo(playerData, videoDetailStore.curEpisode)
+      playerData.videoDom.onenterpictureinpicture = () => {
+        playerData.data.leavePip = false
+      }
+
       playerData.videoDom.onleavepictureinpicture = () => {
         if (!playerMap.has(data.vod_id)) {
           return
         }
         const id = playerData.data.vod_id
         if (videoDetailStore.data?.vod_id !== id) {
-          router.push({ name: 'videoDetail', params: { id } })
+          playerData.data.leavePip = true
+          router.push({ name: 'videoDetail', params: { id }, query: { ep: playerData.data.epIdx } })
         }
       }
       playerData.videoDom.onended = () => {
-        if (typeof playerData.data.epIdx !== 'number') {
-          return
+        switch (playerSettingsStore.playMode) {
+          case 'pause':
+            break
+          case 'loop':
+            playerData.player.play()
+            break
+          case 'next': {
+            if (typeof playerData.data.epIdx !== 'number') {
+              return
+            }
+            const id = playerData.data.vod_id
+            if (videoDetailStore.data?.vod_id !== id) {
+              return
+            }
+            const next = playerData.data.vod_play_url[playerData.data.epIdx + 1]
+            if (!next) {
+              return
+            }
+            videoDetailStore.changeEpisode(playerData.data.epIdx + 1)
+            break
+          }
         }
-        const id = playerData.data.vod_id
-        if (videoDetailStore.data?.vod_id !== id) {
-          return
-        }
-        const next = playerData.data.vod_play_url[playerData.data.epIdx + 1]
-        if (!next) {
-          return
-        }
-        videoDetailStore.changeEpisode(playerData.data.epIdx + 1)
       }
       playerMap.set(data.vod_id, playerData)
     }
@@ -107,13 +129,13 @@ export default useHlsPlayerStore
 function createPlayer(data: VideoDetailResponse, plyrOptions: Plyr.Options): PlayerData {
   const videoContainerDom = document.createElement('div')
   const videoDom = document.createElement('video')
-  videoDom.poster = data.vod_pic
+  if (data.vod_pic) {
+    videoDom.poster = data.vod_pic
+  }
   videoContainerDom.appendChild(videoDom)
   const player = new Plyr(videoDom, plyrOptions)
   initRotateAndMirror(player)
   let hls: Hls | undefined
-
-  // videoDom.onenterpictureinpicture = () => {}
 
   return {
     videoDom,

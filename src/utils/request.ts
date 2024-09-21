@@ -15,6 +15,10 @@ request.interceptors.response.use(
     return response.data
   },
   error => {
+    if (axios.isCancel(error)) {
+      // 永远 padding 的 promise
+      return new Promise(() => {})
+    }
     return Promise.reject(error)
   },
 )

@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import type { AxiosRequestConfig } from 'axios'
 
 export interface GetListQuery {
   /**
@@ -140,11 +141,16 @@ const defaultParams = {
   at: 'json',
 }
 
-export default function getList(url: string, query?: GetListQuery): Promise<GetListResponse> {
+export default function getList(
+  url: string,
+  query?: GetListQuery,
+  options?: AxiosRequestConfig<any>,
+): Promise<GetListResponse> {
   return request.get(url, {
     params: {
       ...defaultParams,
       ...query,
     },
+    ...options,
   })
 }

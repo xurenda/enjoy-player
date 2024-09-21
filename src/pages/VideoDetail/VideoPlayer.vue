@@ -1,5 +1,5 @@
 <template>
-  <div ref="playerContainer" class="flex w-full justify-center"></div>
+  <div ref="playerContainer" class="border-color-border flex w-full justify-center border-l border-t"></div>
 </template>
 
 <script setup lang="ts">

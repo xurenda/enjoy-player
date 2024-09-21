@@ -29,9 +29,24 @@
   "selectEpisode": "Select episode",
   "done": "Done",
   "addItem": "Add new item",
+  "width": "width",
+  "height": "height",
+  "videoInfo": {
+    "tags": "Tags",
+    "author": "Director",
+    "actor": "Actor",
+    "lang": "Language",
+    "area": "Area",
+    "year": "Year of release",
+    "time": "Collection time",
+    "content": "Plot",
+    "nothing": "No information"
+  },
   "validate": {
     "requiredField": "This is a required field",
-    "url": "Invalid URL"
+    "url": "Invalid URL",
+    "invalid": "Invalid value, correct format should be: ",
+    "duplicate": "and {value} are duplicated"
   },
   "delete": {
     "title": "Delete",
@@ -68,7 +83,7 @@
     "showTooltip": "Show tooltip",
     "showTooltipTooltip": "Show tooltip when mouse hover on player control buttons",
     "invertTime": "Show invert time",
-    "invertTimeTooltip": "open: show remaining time; close: show total time",
+    "invertTimeTooltip": "open: show remaining time; close: show the current played time (click to switch)",
     "ratio": "Player ratio",
     "speed": "Play speed"
   },
@@ -133,5 +148,7 @@
     "horizontalMirror": "Horizontal Mirror",
     "verticalMirror": "Vertical Mirror",
     "rotate": "Rotate"
-  }
+  },
+  "colonSymbol": ": ",
+  "splittingSymbol": ", "
 }

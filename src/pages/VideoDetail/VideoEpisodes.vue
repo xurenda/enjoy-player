@@ -5,7 +5,7 @@
   >
     <div class="flex items-baseline space-x-1 p-2">
       <div class="text-nowrap text-base font-bold">{{ t('selectEpisode') }}</div>
-      <div class="text-color-disable truncate text-sm">{{ data.vod_remarks }}</div>
+      <div class="text-color-disable truncate">{{ data.vod_remarks }}</div>
     </div>
     <div class="pointer-events-none absolute -z-50 h-1 w-max overflow-hidden opacity-0" ref="textWidthRef">
       <div v-for="item in data.vod_play_url" :key="item.url">

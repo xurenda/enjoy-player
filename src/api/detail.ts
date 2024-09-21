@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import type { AxiosRequestConfig } from 'axios'
 import { stringify } from 'qs'
 
 export interface getDetailQuery {
@@ -77,9 +78,19 @@ export interface VideoDetailResponse {
   vod_blurb: string
 
   /**
+   * 剧情
+   */
+  vod_content: string
+
+  /**
    * 导演
    */
   vod_author: string
+
+  /**
+   * 导演
+   */
+  vod_director: string
 
   /**
    * 演员
@@ -171,7 +182,11 @@ const defaultParams = {
   at: 'json',
 }
 
-export default function getDetail(url: string, query: getDetailQuery): Promise<GetDetailResponse> {
+export default function getDetail(
+  url: string,
+  query: getDetailQuery,
+  options?: AxiosRequestConfig<any>,
+): Promise<GetDetailResponse> {
   return request
     .get(url, {
       params: {
@@ -181,14 +196,19 @@ export default function getDetail(url: string, query: getDetailQuery): Promise<G
       paramsSerializer(query) {
         return stringify(query, { arrayFormat: 'comma' })
       },
+      ...options,
     })
     .then((res: any) => {
       if (Array.isArray(res?.list)) {
         res.list.forEach((item: any) => {
-          item.vod_play_url = item.vod_play_url.split('#').map((i: any) => {
-            const [name, url] = i.split('$')
-            return { name, url }
-          })
+          item.vod_play_url = item.vod_play_url
+            .split('#')
+            .map((i: any) => {
+              const [name, url] = i.split('$')
+              return { name, url }
+            })
+            .filter((i: any) => i.url)
+          item.vod_content = (item.vod_content || item.vod_blurb)?.replaceAll(/<[^>]+>/gi, '').trim()
         })
       }
       return res

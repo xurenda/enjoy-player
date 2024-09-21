@@ -47,9 +47,13 @@ const rules = reactive({
 const { validate, validateInfos } = Form.useForm(data, rules)
 
 const addNewValue = () => {
-  validate().then(() => {
-    emit('add', data.newValue)
-    data.newValue = ''
-  })
+  validate()
+    .then(() => {
+      emit('add', data.newValue)
+      data.newValue = ''
+    })
+    .catch(() => {
+      // ignore
+    })
 }
 </script>

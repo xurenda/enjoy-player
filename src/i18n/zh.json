@@ -29,9 +29,24 @@
   "selectEpisode": "选集",
   "done": "完成",
   "addItem": "添加新项",
+  "width": "宽度",
+  "height": "高度",
+  "videoInfo": {
+    "tags": "标签",
+    "author": "导演",
+    "actor": "演员",
+    "lang": "语言",
+    "area": "地区",
+    "year": "上映年份",
+    "time": "收录时间",
+    "content": "剧情",
+    "nothing": "暂无"
+  },
   "validate": {
     "requiredField": "这是必填项",
-    "url": "无效的 URL"
+    "url": "无效的 URL",
+    "invalid": "无效的值，正确的格式应为：",
+    "duplicate": "与 {value} 重复"
   },
   "delete": {
     "title": "删除",
@@ -68,7 +83,7 @@
     "showTooltip": "显示提示文字",
     "showTooltipTooltip": "鼠标悬停到播放器控制按钮时显示提示文字",
     "invertTime": "显示反转时间",
-    "invertTimeTooltip": "开：显示视频剩余时间；关：显示视频总时长",
+    "invertTimeTooltip": "开：显示视频剩余时间；关：显示当前已播放时间（点击可切换）",
     "ratio": "播放器比例",
     "speed": "播放速度"
   },
@@ -133,5 +148,7 @@
     "horizontalMirror": "水平镜像",
     "verticalMirror": "垂直镜像",
     "rotate": "旋转"
-  }
+  },
+  "colonSymbol": "：",
+  "splittingSymbol": "、"
 }

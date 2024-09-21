@@ -29,9 +29,24 @@
   "selectEpisode": "エピソードを選択",
   "done": "終わり",
   "addItem": "新しいアイテムを追加",
+  "width": "幅",
+  "height": "高い",
+  "videoInfo": {
+    "tags": "タグ",
+    "author": "監督",
+    "actor": "俳優",
+    "lang": "言語",
+    "area": "エリア",
+    "year": "発売年",
+    "time": "収集時間",
+    "content": "プロット",
+    "nothing": "情報なし"
+  },
   "validate": {
     "requiredField": "これは必須フィールドです",
-    "url": "URLが無効です"
+    "url": "URLが無効です",
+    "invalid": "値が無効です，正しい形式は次のとおりです：",
+    "duplicate": "と {value} が重複しています"
   },
   "delete": {
     "title": "消去",
@@ -68,7 +83,7 @@
     "showTooltip": "プロンプトテキストを表示",
     "showTooltipTooltip": "プレーヤーのコントロール ボタン上にマウスを置くとツールチップを表示します",
     "invertTime": "表示反転時間",
-    "invertTimeTooltip": "開く：残り時間を表示します；閉じる：合計時間を表示",
+    "invertTimeTooltip": "開く：残り時間を表示します；閉じる：現在の再生時間を表示します（クリックすると切り替わります）",
     "ratio": "プレーヤースケール",
     "speed": "再生速度"
   },
@@ -133,5 +148,7 @@
     "horizontalMirror": "水平ミラーリング",
     "verticalMirror": "垂直ミラー",
     "rotate": "回転させる"
-  }
+  },
+  "colonSymbol": "：",
+  "splittingSymbol": "、"
 }

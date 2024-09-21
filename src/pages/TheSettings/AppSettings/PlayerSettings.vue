@@ -32,11 +32,12 @@
     </a-form-item>
     <a-form-item :label="t('settings.speed')">
       <CanAddedSelect
-        v-model:value="playerSettingsStore.speed"
+        :value="playerSettingsStore.speed"
         :options="playerSettingsStore.speeds.map(i => ({ value: i }))"
         mode="tags"
         :newValueRules="newSpeedRules"
         @add="addNewSpeed"
+        @change="changeSpeed"
       />
     </a-form-item>
   </a-form>
@@ -46,6 +47,7 @@
 import { useI18n } from 'vue-i18n'
 import usePlayerSettingsStore, { maxSeekTimeRange, playModes } from '@/stores/settings/player'
 import CanAddedSelect from '@/components/CanAddedSelect.vue'
+import { computed } from 'vue'
 
 const { formColWidth } = defineProps<{ formColWidth: [number, number] }>()
 
@@ -56,43 +58,49 @@ const checkRatioNum = (num: number) => {
   return !Number.isNaN(num) && Number.isInteger(num) && num > 0
 }
 
-const newRatioRules = [
+const newRatioRules = computed(() => [
   {
     async validator(_: unknown, value: string) {
       value = value.trim()
       if (!value) {
-        throw new Error('Required')
+        throw new Error(t('validate.requiredField'))
       }
       const [w, h] = value.split(':').map(i => +i.trim())
       if (!checkRatioNum(w) || !checkRatioNum(h)) {
-        throw new Error('Invalid ratio')
+        throw new Error(`${t('validate.invalid')}${t('width')}:${t('height')}`)
       }
       const ratio = {
         text: `${w}:${h}`,
         value: w / h,
       }
       const ratios = playerSettingsStore.ratiosWithValue
-      if (ratios.some(i => i.value === ratio.value)) {
-        throw new Error('Duplicate ratio')
+      const sameRatio = ratios.find(i => i.text === ratio.text)
+      if (sameRatio) {
+        throw new Error(t('validate.duplicate', { value: sameRatio.text }))
       }
     },
   },
-]
+])
 
-const newSpeedRules = [
+const newSpeedRules = computed(() => [
   {
     async validator(_: unknown, value: string) {
       value = value.trim()
       if (!value) {
-        throw new Error('Required')
+        throw new Error(t('validate.requiredField'))
       }
       const num = +value
       if (Number.isNaN(num) || num < 0.1 || num > 16) {
-        throw new Error('Invalid speed')
+        throw new Error(`${t('validate.invalid')}0.1~16`)
+      }
+      const speeds = playerSettingsStore.speeds
+      const sameSpeed = speeds.find(i => i === num)
+      if (sameSpeed) {
+        throw new Error(t('validate.duplicate', { value: sameSpeed }))
       }
     },
   },
-]
+])
 
 const addNewRatio = (newRatio: string) => {
   const ratios = playerSettingsStore.ratiosWithValue
@@ -107,6 +115,10 @@ const addNewRatio = (newRatio: string) => {
 const addNewSpeed = (newSpeed: string) => {
   const speeds = playerSettingsStore.speeds
   speeds.push(+newSpeed)
-  playerSettingsStore.speeds = speeds.sort((a, b) => a - b)
+  playerSettingsStore.speeds = speeds.sort()
+}
+
+const changeSpeed = (newSpeed: number[]) => {
+  playerSettingsStore.speed = newSpeed.sort()
 }
 </script>

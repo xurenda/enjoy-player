@@ -81,9 +81,7 @@ const useVideoListStore = defineStore('videoList', () => {
     () => appStore.curVideoSources?.api,
     () => {
       onlyChangePage = false
-      curKeyword.value = ''
-      curCategory.value = allCategoryId
-      curPage.value = 1
+      change({ word: '', class: allCategoryId, page: 1 })
       gotoList()
     },
   )
@@ -96,8 +94,10 @@ const useVideoListStore = defineStore('videoList', () => {
   const categoryError = ref<Error | null>(null)
   const category = ref<CategoryResponse[]>([])
 
+  let abortController: AbortController | null = null
+
   let lastUrl = ''
-  const fetchData = async (url: string) => {
+  const fetchData = async (url: string, signal: AbortSignal) => {
     const isNewApi = lastUrl !== url
     if (isNewApi) {
       lastUrl = url
@@ -113,11 +113,17 @@ const useVideoListStore = defineStore('videoList', () => {
       categoryError.value = null
       category.value = []
     }
-    const res = await getList(url, {
-      pg: curPage.value,
-      wd: curKeyword.value ? curKeyword.value : undefined,
-      t: curCategory.value !== allCategoryId ? curCategory.value : undefined,
-    }).catch(err => {
+    const res = await getList(
+      url,
+      {
+        pg: curPage.value,
+        wd: curKeyword.value ? curKeyword.value : undefined,
+        t: curCategory.value !== allCategoryId ? curCategory.value : undefined,
+      },
+      {
+        signal,
+      },
+    ).catch(err => {
       if (isNewApi) {
         categoryLoading.value = false
         categoryError.value = err
@@ -144,9 +150,15 @@ const useVideoListStore = defineStore('videoList', () => {
         total: res.total,
       }
     }
-    const res2 = await getDetail(url, {
-      ids: res.list.map(i => i.vod_id),
-    })
+    const res2 = await getDetail(
+      url,
+      {
+        ids: res.list.map(i => i.vod_id),
+      },
+      {
+        signal,
+      },
+    )
     if (!Array.isArray(res2?.list)) {
       throw new Error('list is not an array')
     }
@@ -160,7 +172,9 @@ const useVideoListStore = defineStore('videoList', () => {
     if (!appStore.curVideoSources?.api) {
       return
     }
-    fetchData(appStore.curVideoSources.api)
+    abortController?.abort()
+    abortController = new AbortController()
+    fetchData(appStore.curVideoSources.api, abortController.signal)
       .then(res => {
         list.value = res.list
         total.value = res.total

@@ -1,4 +1,4 @@
-const colors = [
+const antdColors = [
   'processing',
   'success',
   'error',
@@ -16,5 +16,5 @@ const colors = [
 ]
 
 export function getColorByKey(key: string) {
-  return colors[key.charCodeAt(0) % colors.length]
+  return antdColors[key.charCodeAt(0) % antdColors.length]
 }

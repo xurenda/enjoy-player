@@ -14,7 +14,7 @@ const usePlayerSettingsStore = defineStore(
     const seekTime = ref(10)
     const playMode = ref<PlayModes>('next')
     const showTooltip = ref(true)
-    const invertTime = ref(false)
+    const invertTime = ref(true)
     const ratio = ref(defaultRatios[0])
     const ratios = ref(defaultRatios)
     const ratiosWithValue = computed(() =>
