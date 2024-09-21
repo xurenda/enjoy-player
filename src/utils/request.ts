@@ -4,7 +4,7 @@ const request = axios.create({})
 
 request.interceptors.request.use(config => {
   // dev server 代理，解决跨域
-  if (import.meta.env.DEV) {
+  if (import.meta.env.DEV && !window.electronAPI) {
     config.url = '/proxy/' + config.url
   }
   return config

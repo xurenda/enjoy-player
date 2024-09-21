@@ -1,11 +1,17 @@
 {
   "name": "h-player-web",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
+  "main": "./electron/main.js",
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:electron\"",
+    "dev:web": "vite",
+    "dev:electron": "nodemon --exec electron . --watch ./ --ext .js,.html,.scss,.vue,.ts,.css",
+    "build:web": "run-p type-check \"build-only {@}\" --",
+    "build:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --x64",
+    "build:win": "electron-builder --win --x64",
+    "build:linux": " electron-builder --linux",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
@@ -16,6 +22,7 @@
     "@he-tree/vue": "^2.8.6",
     "ant-design-vue": "4.x",
     "axios": "^1.7.7",
+    "electron-is-dev": "^3.0.1",
     "hls.js": "^1.5.15",
     "hotkeys-js": "^3.13.7",
     "nanoid": "^5.0.7",
@@ -38,8 +45,12 @@
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
+    "electron": "^32.1.2",
+    "electron-builder": "^25.0.5",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
+    "nodemon": "^3.1.7",
     "npm-run-all2": "^6.2.0",
     "postcss": "^8.4.45",
     "prettier": "^3.2.5",
@@ -50,5 +61,58 @@
     "vite": "^5.3.1",
     "vue-component-type-helpers": "^2.1.6",
     "vue-tsc": "^2.0.21"
+  },
+  "build": {
+    "appId": "com.xurenda.h-player",
+    "productName": "光影畅享",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "./dist",
+      "./package.json",
+      "./electron"
+    ],
+    "win": {
+      "icon": "./public/logo.png",
+      "artifactName": "${productName}_${version}.${ext}",
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true,
+      "installerIcon": "./public/logo.png",
+      "uninstallerIcon": "./public/logo.png",
+      "installerHeaderIcon": "./public/logo.png",
+      "shortcutName": "光影畅享"
+    },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "./public/logo.png",
+      "artifactName": "${productName}_${version}.${ext}",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "target": [
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "sign": false,
+      "iconSize": 108,
+      "window": {
+        "width": 540,
+        "height": 380
+      }
+    },
+    "linux": {
+      "icon": "./public/logo.png",
+      "artifactName": "${productName}_${version}.${ext}"
+    }
   }
 }

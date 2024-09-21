@@ -10,6 +10,7 @@ import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
 import useQueryParam from '@/hooks/useQueryParam'
 
 export const allCategoryId = 0
+export const defaultLimit = 20
 
 const useVideoListStore = defineStore('videoList', () => {
   const appStore = useAppStore()
@@ -90,6 +91,7 @@ const useVideoListStore = defineStore('videoList', () => {
   const error = ref<Error | null>(null)
   const list = ref<VideoDetailResponse[]>([])
   const total = ref(0)
+  const limit = ref(defaultLimit)
   const categoryLoading = ref(false)
   const categoryError = ref<Error | null>(null)
   const category = ref<CategoryResponse[]>([])
@@ -141,6 +143,8 @@ const useVideoListStore = defineStore('videoList', () => {
         category.value = res.class
       }
     }
+    const l = Number(res?.limit)
+    l && (limit.value = l)
     if (!Array.isArray(res?.list)) {
       throw new Error('list is not an array')
     }
@@ -217,6 +221,7 @@ const useVideoListStore = defineStore('videoList', () => {
     error,
     list,
     total,
+    limit,
     categoryLoading,
     categoryError,
     category,

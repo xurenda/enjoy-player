@@ -1,6 +1,5 @@
 {
   "toggleSideNav": "切换侧边栏",
-  "returnToList": "返回列表页",
   "ok": "确定",
   "cancel": "取消",
   "type": "类型",
@@ -94,9 +93,11 @@
     "speed": "播放速度"
   },
   "shortcutsDesc": {
+    "reload": "刷新页面",
     "toggleNav": "开启/关闭侧边栏",
     "focusSearch": "聚焦搜索框",
     "toggleSettings": "开启/关闭设置弹窗",
+    "returnToList": "返回列表页",
     "seekTo": "跳转视频到 0 ～ 90% 的位置",
     "togglePlayback": "播放/暂停视频",
     "seekBackward": "回退视频",

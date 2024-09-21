@@ -1,6 +1,5 @@
 {
   "toggleSideNav": "サイドバーの切り替え",
-  "returnToList": "一覧ページに戻る",
   "ok": "確認する",
   "cancel": "キャンセル",
   "type": "タイプ",
@@ -94,9 +93,11 @@
     "speed": "再生速度"
   },
   "shortcutsDesc": {
+    "reload": "ページをリロードする",
     "toggleNav": "サイドナビゲーションを切り替えます",
     "focusSearch": "フォーカスサーチ入力",
     "toggleSettings": "設定ポップアップの切り替え",
+    "returnToList": "一覧ページに戻る",
     "seekTo": "それぞれ 0 ～ 90% までシーク",
     "togglePlayback": "再生の切り替え",
     "seekBackward": "逆方向にシークする",

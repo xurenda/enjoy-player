@@ -19,14 +19,14 @@
     </TheLoading>
   </div>
   <div
-    v-show="videoListStore.total > pageSize"
-    class="border-color-border bg-color-bg sticky bottom-0 left-0 right-0 flex w-full justify-center border-t py-2"
+    v-show="videoListStore.total > videoListStore.limit"
+    class="sticky bottom-0 left-0 right-0 flex w-full justify-center border-t border-color-border bg-color-bg py-2"
   >
     <a-pagination
       v-model:current="curPage"
       :total="videoListStore.total"
       show-less-items
-      :pageSize="pageSize"
+      :pageSize="videoListStore.limit"
       :showSizeChanger="false"
       show-quick-jumper
     />
@@ -47,7 +47,6 @@ defineOptions({ name: 'VideoList' })
 const { t } = useI18n()
 const uiSettingsStore = useUISettingsStore()
 const videoListStore = useVideoListStore()
-const pageSize = 20
 const curPage = computed({
   get() {
     return videoListStore.curPage

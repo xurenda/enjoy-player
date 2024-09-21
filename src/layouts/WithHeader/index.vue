@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-screen overflow-hidden text-sm">
+  <div class="h-screen w-screen min-w-[720px] overflow-hidden text-sm">
     <ResizeBar
       v-model:resize-size="uiSettingsStore.navWidth"
       :disabled="uiSettingsStore.navWidth === 0"

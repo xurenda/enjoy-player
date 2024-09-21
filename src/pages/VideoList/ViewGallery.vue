@@ -3,7 +3,7 @@
     <div
       v-for="item in list"
       :key="item.vod_id"
-      class="border-color-border group relative w-52 cursor-pointer overflow-hidden rounded-md border transition-shadow duration-200 hover:shadow-lg"
+      class="group relative w-52 cursor-pointer overflow-hidden rounded-md border border-color-border transition-shadow duration-200 hover:shadow-lg"
       @click="goToDetail(item.vod_id)"
     >
       <img :src="item.vod_pic" :alt="item.vod_name" class="h-72 w-full object-cover" />

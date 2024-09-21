@@ -1,6 +1,5 @@
 {
   "toggleSideNav": "Toggle side nav",
-  "returnToList": "Return to list page",
   "ok": "OK",
   "cancel": "Cancel",
   "type": "Type",
@@ -94,13 +93,15 @@
     "speed": "Play speed"
   },
   "shortcutsDesc": {
+    "reload": "Reload page",
     "toggleNav": "Toggle side nav",
     "focusSearch": "Focus search input",
     "toggleSettings": "Toggle settings popup",
+    "returnToList": "Return to list page",
     "seekTo": "Seek from 0 to 90% respectively",
     "togglePlayback": "Toggle playback",
-    "seekBackward": "Seek backward by the seekTime option",
-    "seekForward": "Seek forward by the seekTime option",
+    "seekBackward": "Seek backward",
+    "seekForward": "Seek forward",
     "increaseVolume": "Increase volume",
     "decreaseVolume": "Decrease volume",
     "toggleMute": "Toggle mute",
