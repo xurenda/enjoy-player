@@ -108,20 +108,25 @@ const newSpeedRules = computed(() => [
 const addNewRatio = (newRatio: string) => {
   const ratios = playerSettingsStore.ratiosWithValue
   const [w, h] = newRatio.split(':').map(i => +i.trim())
-  ratios.push({
+  const n = {
     text: `${w}:${h}`,
     value: w / h,
-  })
+  }
+  ratios.push(n)
   playerSettingsStore.ratios = ratios.sort((a, b) => b.value - a.value).map(i => i.text)
+  playerSettingsStore.ratio = n.text
 }
 
 const addNewSpeed = (newSpeed: string) => {
   const speeds = playerSettingsStore.speeds
+  const speed = playerSettingsStore.speed
   speeds.push(+newSpeed)
-  playerSettingsStore.speeds = speeds.sort()
+  speed.push(+newSpeed)
+  playerSettingsStore.speeds = speeds.sort((a, b) => a - b)
+  playerSettingsStore.speed = speed.sort((a, b) => a - b)
 }
 
 const changeSpeed = (newSpeed: number[]) => {
-  playerSettingsStore.speed = newSpeed.sort()
+  playerSettingsStore.speed = newSpeed.sort((a, b) => a - b)
 }
 </script>

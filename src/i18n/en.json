@@ -12,6 +12,7 @@
   "menu": "Menu",
   "import": "Import",
   "export": "Export",
+  "reset": "Reset",
   "clear": "Clear",
   "add": "Add",
   "edit": "Edit",
@@ -90,7 +91,12 @@
     "invertTime": "Show invert time",
     "invertTimeTooltip": "open: show remaining time; close: show the current played time (click to switch)",
     "ratio": "Player ratio",
-    "speed": "Play speed"
+    "speed": "Play speed",
+    "backup": "Backup",
+    "backupDesc1": "1. Reinstalling the software or clearing cache data will cause data loss such as settings and video sources. It is strongly recommended to back up before these operations.",
+    "backupDesc2": "2. Drag the backup file directly to the window or paste the backup file directly into the window can also be imported.",
+    "backupDesc3": "3. More refined video source import and export operations can be performed in the video source tab, such as importing to the specified directory, exporting specified files or folders, etc.",
+    "resetSettings": "Reset settings"
   },
   "shortcutsDesc": {
     "reload": "Reload page",
@@ -157,5 +163,6 @@
     "rotate": "Rotate"
   },
   "colonSymbol": ": ",
-  "splittingSymbol": ", "
+  "splittingSymbol": ", ",
+  "wordSplitSymbol": " "
 }

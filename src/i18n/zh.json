@@ -12,6 +12,7 @@
   "menu": "菜单",
   "import": "导入",
   "export": "导出",
+  "reset": "重置",
   "clear": "清空",
   "add": "添加",
   "edit": "编辑",
@@ -90,7 +91,12 @@
     "invertTime": "显示反转时间",
     "invertTimeTooltip": "开：显示视频剩余时间；关：显示当前已播放时间（点击可切换）",
     "ratio": "播放器比例",
-    "speed": "播放速度"
+    "speed": "播放速度",
+    "backup": "备份",
+    "backupDesc1": "1. 重装软件或清除缓存数据会导致设置、视频源等数据丢失，强烈建议在这些操作前，进行备份。",
+    "backupDesc2": "2. 直接拖入备份文件到窗口或直接在窗口粘贴备份文件同样可以导入。",
+    "backupDesc3": "3. 可以在视频源选项卡中进行更精细的视频源导入导出操作，如：导入到指定目录下、导出指定文件或文件夹等。",
+    "resetSettings": "重置设置"
   },
   "shortcutsDesc": {
     "reload": "刷新页面",
@@ -157,5 +163,6 @@
     "rotate": "旋转"
   },
   "colonSymbol": "：",
-  "splittingSymbol": "、"
+  "splittingSymbol": "、",
+  "wordSplitSymbol": ""
 }

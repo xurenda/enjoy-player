@@ -11,12 +11,10 @@ export default {
         'color-hover': 'var(--color-hover)',
         'color-border': 'var(--color-border)',
         'color-disable': 'var(--color-disable)',
+        'color-gray': 'var(--color-gray)',
       },
       transitionDuration: {
         normal: '300ms',
-      },
-      width: {
-        1024: '1024px',
       },
     },
   },

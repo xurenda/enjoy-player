@@ -1,6 +1,6 @@
 import { ref, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
-import { getLocaleFromNavigator } from '@/i18n'
+import { availableLocales, getLocaleFromNavigator } from '@/i18n'
 import { useI18n } from 'vue-i18n'
 
 const useBasicSettingsStore = defineStore(
@@ -13,7 +13,17 @@ const useBasicSettingsStore = defineStore(
       i18n.locale.value = locale.value
     })
 
-    return { locale }
+    const importSettings = (data: Record<string, any>) => {
+      if (availableLocales.find(i => i.key === data.locale)) {
+        locale.value = data.locale
+      }
+    }
+
+    const resetSettings = () => {
+      locale.value = getLocaleFromNavigator().key
+    }
+
+    return { locale, importSettings, resetSettings }
   },
   {
     persist: true,

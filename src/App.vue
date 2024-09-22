@@ -9,6 +9,7 @@
     }"
   >
     <RouterView />
+    <FullScreenDrop />
   </a-config-provider>
 </template>
 
@@ -21,6 +22,7 @@ import zh from 'ant-design-vue/es/locale/zh_CN'
 import jp from 'ant-design-vue/es/locale/ja_JP'
 import useBasicSettingsStore from './stores/settings/basic'
 import useUISettingsStore from './stores/settings/ui'
+import FullScreenDrop from './components/FullScreenDrop.vue'
 
 const basicSettingsStore = useBasicSettingsStore()
 const uiSettingsStore = useUISettingsStore()

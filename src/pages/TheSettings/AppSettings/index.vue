@@ -3,6 +3,7 @@
     <BasicSettings :formColWidth="formColWidth" />
     <UISettings :formColWidth="formColWidth" />
     <PlayerSettings :formColWidth="formColWidth" />
+    <BackupSettings />
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import UISettings from './UISettings.vue'
 import PlayerSettings from './PlayerSettings.vue'
 import { computed } from 'vue'
 import useBasicSettingsStore from '@/stores/settings/basic'
+import BackupSettings from './BackupSettings.vue'
 
 defineOptions({ name: 'AppSettings' })
 

@@ -155,9 +155,6 @@ function loadUrlForVideo(data: PlayerData, epData: { name?: string; url?: string
   }
   if (Hls.isSupported()) {
     data.hls = new Hls()
-    // hls.on(Hls.Events.ERROR, (event, data) => {
-    //   console.log('~~~~~!Hls.Events.ERROR', event, data)
-    // })
     data.hls.loadSource(epData.url)
     data.hls.attachMedia(data.videoDom)
   } else if (data.videoDom.canPlayType('application/vnd.apple.mpegurl')) {

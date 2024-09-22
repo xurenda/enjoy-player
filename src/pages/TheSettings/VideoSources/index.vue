@@ -22,7 +22,7 @@
         :nodeKey="stat => stat.data.key"
       >
         <template #default="{ node, stat }: { node: RVSNode; stat: Stat }">
-          <div class="hover:bg-color-hover group box-border flex cursor-pointer items-center rounded-lg px-2 py-1">
+          <div class="group box-border flex cursor-pointer items-center rounded-lg px-2 py-1 hover:bg-color-hover">
             <div class="mr-2">
               <template v-if="node.type === 'folder'">
                 <i v-if="!node.children?.length" class="iconfont icon-folder-empty"></i>
@@ -86,21 +86,23 @@
     >
       <SourcesModal :type="modalType" :node="curNode" ref="sourcesModal" />
     </a-modal>
-    <input ref="fileRef" class="hidden" type="file" accept=".json" multiple @change="fileInputChange" />
+    <FileSelector ref="fileSelectorRef" @change="fileSelectorChange" />
     <contextHolder />
   </div>
 </template>
 
 <script setup lang="ts">
-import useVideoSourcesStore, { toPersistentData, type RVSNode, type VSPersistentData } from '@/stores/videoSources'
+import useVideoSourcesStore, { type RVSNode } from '@/stores/videoSources'
 import { Draggable, type PropDraggable } from '@he-tree/vue'
 import { useI18n } from 'vue-i18n'
 import SourcesModal, { type SourcesModalProps } from './SourcesModal.vue'
 import { ref, unref, useTemplateRef } from 'vue'
 import { message, Modal } from 'ant-design-vue'
 import type { ComponentExposed } from 'vue-component-type-helpers'
+import { exportVideoSources } from '@/handles/export'
 import '@he-tree/vue/style/default.css'
-import { createFile, downloadFile, readFileAsJson } from '@/utils/file'
+import FileSelector from '@/components/FileSelector.vue'
+import { getBackupData, importVideoSources } from '@/handles/import'
 
 defineOptions({
   name: 'VideoSources',
@@ -116,7 +118,7 @@ const modalOpen = ref(false)
 const modalType = ref<SourcesModalProps['type']>('add')
 const curNode = ref<SourcesModalProps['node']>(rootNode)
 const sourcesModalRef = useTemplateRef<ComponentExposed<typeof SourcesModal>>('sourcesModal')
-const fileRef = useTemplateRef<HTMLInputElement>('fileRef')
+const fileSelectorRef = useTemplateRef<ComponentExposed<typeof FileSelector>>('fileSelectorRef')
 
 const openModal = (type: SourcesModalProps['type'], node: SourcesModalProps['node']) => {
   modalType.value = type
@@ -157,51 +159,20 @@ const handleOk = async () => {
   }
 }
 
-const exportVideoSources = (node: RVSNode) => {
-  const data = toPersistentData(node)
-  downloadFile(createFile(data, 'application/json'), `${node.name}.json`)
-}
-
 const openFileSelector = (node: RVSNode) => {
-  if (!fileRef.value) {
-    return
+  if (fileSelectorRef.value) {
+    curNode.value = unref(node)
+    fileSelectorRef.value.openFileSelector()
   }
-  fileRef.value.value = ''
-  curNode.value = unref(node)
-  fileRef.value.click()
 }
 
-const fileInputChange = (e: Event) => {
-  const files = (e.target as HTMLInputElement)?.files
-  if (!files?.length) {
-    return
-  }
-  _importNodes(files, curNode.value.id)
-}
-
-const _importNodes = async (files: FileList, id: string) => {
-  const importMsgKey = 'importMsg'
+const fileSelectorChange = async (files: FileList) => {
+  const backupData = await getBackupData(files)
   const total = files.length
-  let cur = 0
-  let success = 0
-  let fail = 0
-  const _importNode = async (file: File) => {
-    const data = await readFileAsJson<VSPersistentData>(file)
-    videoSourcesStore.importNode(data, id)
-  }
-  for (const file of files) {
-    messageApi.loading({ content: `${t('loading')}... (${++cur}/${total})`, key: importMsgKey })
-    try {
-      await _importNode(file)
-      success++
-    } catch (e) {
-      console.log('[import Error]', e)
-      fail++
-    }
-  }
+  const success = importVideoSources(backupData, curNode.value.id)
+  const fail = total - success
   messageApi[fail > 0 ? 'error' : 'success']({
-    content: `${t('success')}: ${success}; ${t('fail')}: ${fail}`,
-    key: importMsgKey,
+    content: `${t('import')}${t('wordSplitSymbol')}${t('success')}: ${success}; ${t('fail')}: ${fail}`,
   })
 }
 </script>

@@ -28,7 +28,7 @@
         range
         :min="maxWidthRange[0]"
         :max="maxWidthRange[1]"
-        :marks="{ [uiSettingsStore.navWidth]: t('settings.curWidth') }"
+        :marks="{ [uiSettingsStore._navWidth]: t('settings.curWidth') }"
       />
     </a-form-item>
     <a-form-item :label="t('settings.episodesPosition')">
@@ -58,7 +58,7 @@
 import { useI18n } from 'vue-i18n'
 import MyPickColors from '@/components/MyPickColors.vue'
 import useUISettingsStore, { themes, maxWidthRange, episodesPositions } from '@/stores/settings/ui'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import useWatchDebouncedValue from '@/hooks/useWatchDebouncedValue'
 
 const { formColWidth } = defineProps<{ formColWidth: [number, number] }>()
@@ -69,8 +69,14 @@ const navWidthRange = ref(uiSettingsStore.navWidthRange)
 useWatchDebouncedValue(navWidthRange, val => {
   uiSettingsStore.navWidthRange = val
 })
+watchEffect(() => {
+  navWidthRange.value = uiSettingsStore.navWidthRange
+})
 const episodesWidthRange = ref(uiSettingsStore.episodesWidthRange)
 useWatchDebouncedValue(episodesWidthRange, val => {
   uiSettingsStore.episodesWidthRange = val
+})
+watchEffect(() => {
+  episodesWidthRange.value = uiSettingsStore.episodesWidthRange
 })
 </script>

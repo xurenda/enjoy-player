@@ -8,6 +8,7 @@
   --color-hover: #f0f0f0;
   --color-border: #d4d4d4;
   --color-disable: #bfbfbf;
+  --color-gray: rgba(0, 0, 0, 0.6);
 }
 
 :root.dark {
@@ -16,6 +17,7 @@
   --color-hover: #313131;
   --color-border: #3a3a3a;
   --color-disable: #565656;
+  --color-gray: rgba(255, 255, 255, 0.6);
 }
 
 .ant-tabs,

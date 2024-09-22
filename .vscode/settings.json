@@ -10,5 +10,6 @@
   },
   "editor.formatOnSaveMode": "file",
   "i18n-ally.localesPaths": ["src/i18n"],
-  "i18n-ally.sourceLanguage": "en"
+  "i18n-ally.sourceLanguage": "en",
+  "i18n-ally.keystyle": "nested"
 }
