@@ -162,6 +162,10 @@
     "verticalMirror": "垂直ミラー",
     "rotate": "回転させる"
   },
+  "drop": {
+    "title": "そのままインポートしてください",
+    "desc": "JSON ファイルをドラッグして設定、ビデオ ソースをインポートします"
+  },
   "colonSymbol": "：",
   "splittingSymbol": "、",
   "wordSplitSymbol": ""

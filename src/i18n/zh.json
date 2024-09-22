@@ -162,6 +162,10 @@
     "verticalMirror": "垂直镜像",
     "rotate": "旋转"
   },
+  "drop": {
+    "title": "松手即可导入",
+    "desc": "拖入 JSON 文件，以导入设置、视频源"
+  },
   "colonSymbol": "：",
   "splittingSymbol": "、",
   "wordSplitSymbol": ""

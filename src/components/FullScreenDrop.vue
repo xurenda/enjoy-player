@@ -10,8 +10,8 @@
     <div
       class="pointer-events-none box-border flex h-full w-full flex-col items-center justify-center border-2 border-dashed border-color-primary bg-white/80 dark:bg-black/80"
     >
-      <div class="mb-2 text-2xl font-bold tracking-widest">松手即可导入</div>
-      <div class="mb-8 text-color-gray">拖入 JSON 文件，以导入设置、视频源</div>
+      <div class="mb-2 text-2xl font-bold tracking-widest">{{ t('drop.title') }}</div>
+      <div class="mb-8 text-color-gray">{{ t('drop.desc') }}</div>
       <i class="iconfont icon-json-file text-[50px]"></i>
     </div>
   </div>

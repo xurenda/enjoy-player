@@ -6,8 +6,8 @@ export const volumeStepRange: [number, number] = [1, 100]
 export const playModes = ['pause', 'loop', 'next'] as const
 export type PlayModes = (typeof playModes)[number]
 
-const defaultRatios = ['16:9', '4:3', '1:1', '9:16']
-const defaultSpeeds = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4]
+export const defaultRatios = ['16:9', '4:3', '1:1', '9:16']
+export const defaultSpeeds = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 4]
 
 const getRatioWithValue = (i: string) => {
   const [w, h] = i.split(':')

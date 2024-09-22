@@ -162,6 +162,10 @@
     "verticalMirror": "Vertical Mirror",
     "rotate": "Rotate"
   },
+  "drop": {
+    "title": "Release to import",
+    "desc": "Drag into JSON file to import settings and video sources"
+  },
   "colonSymbol": ": ",
   "splittingSymbol": ", ",
   "wordSplitSymbol": " "

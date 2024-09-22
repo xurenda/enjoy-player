@@ -29,8 +29,9 @@
       <CanAddedSelect
         v-model:value="playerSettingsStore.ratio"
         :options="playerSettingsStore.ratios.map(i => ({ value: i }))"
-        :newValueRules="newRatioRules"
+        :cannot-del="cannotDelRatio"
         @add="addNewRatio"
+        @del="delRatio"
       />
     </a-form-item>
     <a-form-item :label="t('settings.speed')">
@@ -38,92 +39,120 @@
         :value="playerSettingsStore.speed"
         :options="playerSettingsStore.speeds.map(i => ({ value: i }))"
         mode="tags"
-        :newValueRules="newSpeedRules"
+        :cannot-del="cannotDelSpeed"
         @add="addNewSpeed"
         @change="changeSpeed"
+        @del="delSpeed"
       />
     </a-form-item>
   </a-form>
+  <contextHolder />
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import usePlayerSettingsStore, { seekStepRange, volumeStepRange, playModes } from '@/stores/settings/player'
+import usePlayerSettingsStore, {
+  seekStepRange,
+  volumeStepRange,
+  playModes,
+  defaultRatios,
+  defaultSpeeds,
+} from '@/stores/settings/player'
 import CanAddedSelect from '@/components/CanAddedSelect.vue'
-import { computed } from 'vue'
+import { message } from 'ant-design-vue'
 
 const { formColWidth } = defineProps<{ formColWidth: [number, number] }>()
 
 const { t } = useI18n()
 const playerSettingsStore = usePlayerSettingsStore()
+const [messageApi, contextHolder] = message.useMessage()
+
+const cannotDelRatio = new Set(defaultRatios)
+const cannotDelSpeed = new Set(defaultSpeeds)
 
 const checkRatioNum = (num: number) => {
   return !Number.isNaN(num) && Number.isInteger(num) && num > 0
 }
 
-const newRatioRules = computed(() => [
-  {
-    async validator(_: unknown, value: string) {
-      value = value.trim()
-      if (!value) {
-        throw new Error(t('validate.requiredField'))
-      }
-      const [w, h] = value.split(':').map(i => +i.trim())
-      if (!checkRatioNum(w) || !checkRatioNum(h)) {
-        throw new Error(`${t('validate.invalid')}${t('width')}:${t('height')}`)
-      }
-      const ratio = {
-        text: `${w}:${h}`,
-        value: w / h,
-      }
-      const ratios = playerSettingsStore.ratiosWithValue
-      const sameRatio = ratios.find(i => i.text === ratio.text)
-      if (sameRatio) {
-        throw new Error(t('validate.duplicate', { value: sameRatio.text }))
-      }
-    },
-  },
-])
-
-const newSpeedRules = computed(() => [
-  {
-    async validator(_: unknown, value: string) {
-      value = value.trim()
-      if (!value) {
-        throw new Error(t('validate.requiredField'))
-      }
-      const num = +value
-      if (Number.isNaN(num) || num < 0.1 || num > 16) {
-        throw new Error(`${t('validate.invalid')}0.1~16`)
-      }
-      const speeds = playerSettingsStore.speeds
-      const sameSpeed = speeds.find(i => i === num)
-      if (sameSpeed) {
-        throw new Error(t('validate.duplicate', { value: sameSpeed }))
-      }
-    },
-  },
-])
-
-const addNewRatio = (newRatio: string) => {
-  const ratios = playerSettingsStore.ratiosWithValue
-  const [w, h] = newRatio.split(':').map(i => +i.trim())
-  const n = {
+const ratioValidator = async (value: string) => {
+  value = value.trim()
+  if (!value) {
+    throw new Error(t('validate.requiredField'))
+  }
+  const [w, h] = value.split(':').map(i => +i.trim())
+  if (!checkRatioNum(w) || !checkRatioNum(h)) {
+    throw new Error(`${t('validate.invalid')}${t('width')}:${t('height')}`)
+  }
+  const ratio = {
     text: `${w}:${h}`,
     value: w / h,
   }
-  ratios.push(n)
-  playerSettingsStore.ratios = ratios.sort((a, b) => b.value - a.value).map(i => i.text)
-  playerSettingsStore.ratio = n.text
+  const ratios = playerSettingsStore.ratiosWithValue
+  const sameRatio = ratios.find(i => i.value === ratio.value)
+  if (sameRatio) {
+    throw new Error(t('validate.duplicate', { value: sameRatio.text }))
+  }
+}
+
+const speedValidator = async (value: string) => {
+  value = value.trim()
+  if (!value) {
+    throw new Error(t('validate.requiredField'))
+  }
+  const num = +value
+  if (Number.isNaN(num) || num < 0.1 || num > 16) {
+    throw new Error(`${t('validate.invalid')}0.1~16`)
+  }
+  const speeds = playerSettingsStore.speeds
+  const sameSpeed = speeds.find(i => i === num)
+  if (sameSpeed) {
+    throw new Error(t('validate.duplicate', { value: sameSpeed }))
+  }
+}
+
+const addNewRatio = (newRatio: string) => {
+  ratioValidator(newRatio)
+    .then(() => {
+      const ratios = playerSettingsStore.ratiosWithValue
+      const [w, h] = newRatio.split(':').map(i => +i.trim())
+      const n = {
+        text: `${w}:${h}`,
+        value: w / h,
+      }
+      ratios.push(n)
+      playerSettingsStore.ratios = ratios.sort((a, b) => b.value - a.value).map(i => i.text)
+      playerSettingsStore.ratio = n.text
+    })
+    .catch(err => {
+      messageApi.error(err.message)
+    })
 }
 
 const addNewSpeed = (newSpeed: string) => {
-  const speeds = playerSettingsStore.speeds
-  const speed = playerSettingsStore.speed
-  speeds.push(+newSpeed)
-  speed.push(+newSpeed)
-  playerSettingsStore.speeds = speeds.sort((a, b) => a - b)
-  playerSettingsStore.speed = speed.sort((a, b) => a - b)
+  speedValidator(newSpeed)
+    .then(() => {
+      const speeds = playerSettingsStore.speeds
+      const speed = playerSettingsStore.speed
+      speeds.push(+newSpeed)
+      speed.push(+newSpeed)
+      playerSettingsStore.speeds = speeds.sort((a, b) => a - b)
+      playerSettingsStore.speed = speed.sort((a, b) => a - b)
+    })
+    .catch(err => {
+      messageApi.error(err.message)
+    })
+}
+
+const delRatio = (ratio: string) => {
+  playerSettingsStore.ratios = playerSettingsStore.ratios.filter(i => i !== ratio)
+  if (playerSettingsStore.ratio === ratio) {
+    playerSettingsStore.ratio = playerSettingsStore.ratios[0]
+  }
+}
+
+const delSpeed = (speed: number) => {
+  playerSettingsStore.speeds = playerSettingsStore.speeds.filter(i => i !== speed)
+  playerSettingsStore.speed = playerSettingsStore.speed.filter(i => i !== speed)
 }
 
 const changeSpeed = (newSpeed: number[]) => {
