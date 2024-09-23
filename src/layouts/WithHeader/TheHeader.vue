@@ -25,14 +25,25 @@
       </div>
     </div>
 
-    <a-tooltip :title="t('settings.title')">
-      <a-button @click="uiSettingsStore.settingsShow = true">
-        <template #icon>
-          <i class="iconfont icon-settings"></i>
+    <div class="flex items-center space-x-4">
+      <a-switch v-model:checked="isLight" class="checked-no-active">
+        <template #checkedChildren>
+          <i class="iconfont icon-light block"></i>
         </template>
-      </a-button>
-    </a-tooltip>
+        <template #unCheckedChildren>
+          <i class="iconfont icon-dark block"></i>
+        </template>
+      </a-switch>
+      <a-tooltip :title="t('settings.title')">
+        <a-button id="tour-settings-btn" @click="uiSettingsStore.settingsShow = true">
+          <template #icon>
+            <i class="iconfont icon-settings"></i>
+          </template>
+        </a-button>
+      </a-tooltip>
+    </div>
   </div>
+
   <a-modal
     v-model:open="uiSettingsStore.settingsShow"
     centered
@@ -47,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useTemplateRef, watchEffect } from 'vue'
+import { computed, ref, useTemplateRef, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TheSettings from '@/pages/TheSettings/index.vue'
 import useUISettingsStore from '@/stores/settings/ui'
@@ -60,6 +71,14 @@ const videoListStore = useVideoListStore()
 
 const keyword = ref(videoListStore.curKeyword)
 const searchInputRef = useTemplateRef<HTMLInputElement>('searchInputRef')
+const isLight = computed({
+  get() {
+    return uiSettingsStore.realTheme === 'light'
+  },
+  set(checked) {
+    uiSettingsStore.theme = checked ? 'light' : 'dark'
+  },
+})
 
 watchEffect(() => {
   window.searchInputRef = searchInputRef.value

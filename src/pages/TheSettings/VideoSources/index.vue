@@ -22,7 +22,10 @@
         :nodeKey="stat => stat.data.key"
       >
         <template #default="{ node, stat }: { node: RVSNode; stat: Stat }">
-          <div class="group box-border flex cursor-pointer items-center rounded-lg px-2 py-1 hover:bg-color-hover">
+          <div
+            :class="{ active: appStore.curVideoSourceId === node.id }"
+            class="group box-border flex cursor-pointer items-center rounded-lg px-2 py-1 hover:bg-color-hover [&.active]:bg-color-primary/10 [&.active]:text-color-primary"
+          >
             <div class="mr-2">
               <template v-if="node.type === 'folder'">
                 <i v-if="!node.children?.length" class="iconfont icon-folder-empty"></i>
@@ -39,8 +42,15 @@
               </template>
               <i v-else class="iconfont icon-file"></i>
             </div>
-            <div class="flex-1" @click="openModal('edit', node)">{{ node.name }}</div>
+            <div class="flex-1" @click="changeCurVideoSource(node, stat)">{{ node.name }}</div>
             <div class="opacity-0 group-hover:opacity-100">
+              <a-tooltip :title="t('edit')">
+                <a-button v-if="node.id !== rootNode.id" size="small" type="text" @click="openModal('edit', node)">
+                  <template #icon>
+                    <i class="iconfont icon-edit"></i>
+                  </template>
+                </a-button>
+              </a-tooltip>
               <a-tooltip :title="t('import')">
                 <a-button v-if="node.type === 'folder'" size="small" type="text" @click="openFileSelector(node)">
                   <template #icon>
@@ -103,6 +113,7 @@ import { exportVideoSources } from '@/handles/export'
 import '@he-tree/vue/style/default.css'
 import FileSelector from '@/components/FileSelector.vue'
 import { getBackupData, importVideoSources } from '@/handles/import'
+import useAppStore from '@/stores/app'
 
 defineOptions({
   name: 'VideoSources',
@@ -112,6 +123,7 @@ type Stat = Parameters<PropDraggable>[0]
 
 const { t } = useI18n()
 const videoSourcesStore = useVideoSourcesStore()
+const appStore = useAppStore()
 const { rootNode } = videoSourcesStore
 const [messageApi, contextHolder] = message.useMessage()
 const modalOpen = ref(false)
@@ -119,6 +131,14 @@ const modalType = ref<SourcesModalProps['type']>('add')
 const curNode = ref<SourcesModalProps['node']>(rootNode)
 const sourcesModalRef = useTemplateRef<ComponentExposed<typeof SourcesModal>>('sourcesModal')
 const fileSelectorRef = useTemplateRef<ComponentExposed<typeof FileSelector>>('fileSelectorRef')
+
+const changeCurVideoSource = (node: RVSNode, stat: Stat) => {
+  if (node.type === 'source') {
+    appStore.curVideoSourceId = node.id
+  } else {
+    stat.open = !stat.open
+  }
+}
 
 const openModal = (type: SourcesModalProps['type'], node: SourcesModalProps['node']) => {
   modalType.value = type

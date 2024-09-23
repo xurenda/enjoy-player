@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 import isDev from 'electron-is-dev'
 import windowStateKeeper from 'electron-window-state'
 import path, { dirname } from 'node:path'
@@ -32,6 +32,10 @@ const createWindow = () => {
     },
   })
   mainWindowState.manage(win)
+
+  if (process.platform !== 'darwin') {
+    Menu.setApplicationMenu(Menu.buildFromTemplate([]))
+  }
   win.loadURL(mainUrl)
 }
 

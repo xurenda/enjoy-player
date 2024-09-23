@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'color-primary': 'var(--color-primary)',
+        'color-primary': 'rgb(var(--color-primary-arr) / <alpha-value>)',
         'color-bg': 'var(--color-bg)',
         'color-bg-gray': 'var(--color-bg-gray)',
         'color-hover': 'var(--color-hover)',

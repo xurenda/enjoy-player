@@ -10,6 +10,7 @@ import { watch } from 'vue'
 import { getPlyrI18n } from '@/i18n'
 import useBasicSettingsStore from './settings/basic'
 import usePlayerSettingsStore from './settings/player'
+import plyrIcons from '@/assets/imgs/plyr.svg'
 
 export interface PlayerData {
   videoDom: HTMLVideoElement
@@ -49,7 +50,8 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
 
   const plyrOptions: Plyr.Options = {
     i18n: getPlyrI18n(basicSettingsStore.locale),
-    // loadSprite: false,
+    loadSprite: false,
+    iconUrl: plyrIcons,
     seekTime: playerSettingsStore.seekStep,
     volume: 0.2,
     keyboard: { focused: true, global: true },

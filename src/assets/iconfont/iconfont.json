@@ -1,0 +1,240 @@
+{
+  "id": "4683879",
+  "name": "h-player",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "8701560",
+      "name": "加载中",
+      "font_class": "loading",
+      "unicode": "e75c",
+      "unicode_decimal": 59228
+    },
+    {
+      "icon_id": "34202262",
+      "name": "外部链接",
+      "font_class": "external-link",
+      "unicode": "e85f",
+      "unicode_decimal": 59487
+    },
+    {
+      "icon_id": "18170211",
+      "name": "云端",
+      "font_class": "cloud",
+      "unicode": "e988",
+      "unicode_decimal": 59784
+    },
+    {
+      "icon_id": "9666182",
+      "name": "关于",
+      "font_class": "about",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "8866967",
+      "name": "编辑",
+      "font_class": "edit",
+      "unicode": "e7dd",
+      "unicode_decimal": 59357
+    },
+    {
+      "icon_id": "18174834",
+      "name": "json 文件",
+      "font_class": "json-file",
+      "unicode": "ea42",
+      "unicode_decimal": 59970
+    },
+    {
+      "icon_id": "533988",
+      "name": "音量",
+      "font_class": "volume",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "14191583",
+      "name": "快捷键",
+      "font_class": "shortcuts",
+      "unicode": "e736",
+      "unicode_decimal": 59190
+    },
+    {
+      "icon_id": "15714215",
+      "name": "系统",
+      "font_class": "system",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "28271363",
+      "name": "深色",
+      "font_class": "dark",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "29669860",
+      "name": "浅色",
+      "font_class": "light",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "1130",
+      "name": "锁定",
+      "font_class": "lock",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "1334",
+      "name": "解锁",
+      "font_class": "unlock",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "2077535",
+      "name": "完成",
+      "font_class": "done",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "1494656",
+      "name": "列表",
+      "font_class": "list",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "31313047",
+      "name": "画廊",
+      "font_class": "gallery",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "11372693",
+      "name": "删除",
+      "font_class": "delete",
+      "unicode": "e8b6",
+      "unicode_decimal": 59574
+    },
+    {
+      "icon_id": "11519668",
+      "name": "导入",
+      "font_class": "import",
+      "unicode": "e744",
+      "unicode_decimal": 59204
+    },
+    {
+      "icon_id": "41871879",
+      "name": "导出",
+      "font_class": "export",
+      "unicode": "ec25",
+      "unicode_decimal": 60453
+    },
+    {
+      "icon_id": "6517480",
+      "name": "文件",
+      "font_class": "file",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
+      "icon_id": "6539442",
+      "name": "文件-空",
+      "font_class": "file-empty",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "6807355",
+      "name": "文件夹-空",
+      "font_class": "folder-empty",
+      "unicode": "ec23",
+      "unicode_decimal": 60451
+    },
+    {
+      "icon_id": "6803490",
+      "name": "文件夹",
+      "font_class": "folder",
+      "unicode": "e7cb",
+      "unicode_decimal": 59339
+    },
+    {
+      "icon_id": "6803501",
+      "name": "文件夹-开",
+      "font_class": "folder-open",
+      "unicode": "e7d0",
+      "unicode_decimal": 59344
+    },
+    {
+      "icon_id": "1304875",
+      "name": "减",
+      "font_class": "subtract",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "993772",
+      "name": "返回",
+      "font_class": "return",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "4942665",
+      "name": "添加",
+      "font_class": "add",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "6227855",
+      "name": "展开",
+      "font_class": "switcher",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "1304891",
+      "name": "应用中心",
+      "font_class": "application",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "162882",
+      "name": "设置",
+      "font_class": "settings",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "37591353",
+      "name": "视频源列表",
+      "font_class": "video-sources",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "592049",
+      "name": "菜单",
+      "font_class": "menu",
+      "unicode": "e790",
+      "unicode_decimal": 59280
+    },
+    {
+      "icon_id": "577365",
+      "name": "搜索",
+      "font_class": "search",
+      "unicode": "e752",
+      "unicode_decimal": 59218
+    }
+  ]
+}

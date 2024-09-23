@@ -13,8 +13,10 @@
     </template>
     <a-tab-pane v-for="item in tabs" :key="item.key">
       <template #tab>
-        <i class="iconfont" :class="`icon-${item.key}`"></i>
-        <span class="ml-1">{{ t(item.text) }}</span>
+        <div :id="item.id">
+          <i class="iconfont" :class="`icon-${item.key}`"></i>
+          <span class="ml-1">{{ t(item.text) }}</span>
+        </div>
       </template>
       <component :is="item.component" />
     </a-tab-pane>
@@ -27,6 +29,7 @@ import { useI18n } from 'vue-i18n'
 import AppSettings from './AppSettings/index.vue'
 import VideoSources from './VideoSources/index.vue'
 import TheShortcuts from './TheShortcuts.vue'
+import TheAbout from './TheAbout.vue'
 
 defineOptions({ name: 'TheSettings' })
 
@@ -42,6 +45,7 @@ const tabs = [
     component: AppSettings,
   },
   {
+    id: 'tour-videoSources-tab',
     key: 'video-sources',
     text: 'videoSources',
     component: VideoSources,
@@ -50,6 +54,11 @@ const tabs = [
     key: 'shortcuts',
     text: 'shortcuts',
     component: TheShortcuts,
+  },
+  {
+    key: 'about',
+    text: 'about',
+    component: TheAbout,
   },
 ]
 const tab = useSingleQueryParam('tab', tabs[0].key)

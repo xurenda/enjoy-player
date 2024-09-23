@@ -1,11 +1,11 @@
 <template>
   <div
-    class="border-color-border box-border flex flex-col"
+    class="box-border flex flex-col border-color-border"
     :class="uiSettingsStore.episodesPosition === 'right' ? 'h-full border-r border-t' : ''"
   >
     <div class="flex items-baseline space-x-1 p-2">
       <div class="text-nowrap text-base font-bold">{{ t('selectEpisode') }}</div>
-      <div class="text-color-disable truncate">{{ data.vod_remarks }}</div>
+      <div class="truncate text-color-disable">{{ data.vod_remarks }}</div>
     </div>
     <div class="pointer-events-none absolute -z-50 h-1 w-max overflow-hidden opacity-0" ref="textWidthRef">
       <div v-for="item in data.vod_play_url" :key="item.url">
@@ -21,7 +21,7 @@
       <div
         v-for="(item, idx) in data.vod_play_url"
         :class="{ active: videoDetailStore.curEpisodeIdx === idx }"
-        class="border-color-border hover:bg-color-hover [&.active]:bg-color-hover relative flex cursor-pointer items-center justify-center rounded border p-1"
+        class="relative flex cursor-pointer items-center justify-center rounded border border-color-border p-1 hover:bg-color-hover [&.active]:bg-color-primary/10"
         :key="item.url"
         :title="item.name"
         @click="videoDetailStore.changeEpisode(idx)"

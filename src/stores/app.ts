@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import useVideoSourcesStore, { rootNodeId, type VSNode } from './videoSources'
 import { watchEffect } from 'vue'
+import axios from 'axios'
 
 const useAppStore = defineStore(
   'app',
@@ -42,7 +43,35 @@ const useAppStore = defineStore(
     })
     const curVideoSources = computed<VSNode | null>(() => videoSourcesStore.data[curVideoSourceId.value] ?? null)
 
-    return { curVideoSources, curVideoSourceId, curVideoSourceIdPath }
+    // -------------------- Version ------------------------
+
+    const curVersion = window.curVersion
+    const latestVersionLoading = ref(false)
+    const latestVersion = ref('')
+
+    const fetchLatestVersion = () => {
+      latestVersionLoading.value = true
+      axios
+        .get('https://api.github.com/repos/xurenda/enjoy-player/releases/latest')
+        .then(res => {
+          latestVersion.value = res?.data?.tag_name || ''
+        })
+        .finally(() => {
+          latestVersionLoading.value = false
+        })
+    }
+
+    fetchLatestVersion()
+
+    return {
+      curVideoSources,
+      curVideoSourceId,
+      curVideoSourceIdPath,
+      curVersion,
+      latestVersionLoading,
+      latestVersion,
+      fetchLatestVersion,
+    }
   },
   {
     persist: true,

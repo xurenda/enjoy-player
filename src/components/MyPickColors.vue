@@ -1,16 +1,17 @@
 <template>
   <div
     :class="{ active: showPicker }"
-    class="border-color-border hover:border-color-primary [&.active]:border-color-primary flex cursor-pointer items-center rounded-md border duration-200"
+    class="flex cursor-pointer items-center rounded-md border border-color-border duration-200 hover:border-color-primary dark:bg-black [&.active]:border-color-primary"
     @click="showPicker = true"
   >
     <pick-colors
       v-model:value="value"
       v-model:show-picker="showPicker"
       :theme="uiSettingsStore.realTheme"
+      :format-options="['rgb', 'hex']"
       v-bind="$attrs"
     />
-    <div v-if="title" class="text-color-disable mr-2">{{ title }}</div>
+    <div v-if="title" class="mr-2">{{ title }}</div>
   </div>
 </template>
 

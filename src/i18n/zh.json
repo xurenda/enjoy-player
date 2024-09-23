@@ -1,4 +1,5 @@
 {
+  "unknown": "未知",
   "toggleSideNav": "切换侧边栏",
   "ok": "确定",
   "cancel": "取消",
@@ -19,6 +20,8 @@
   "application": "应用",
   "videoSources": "视频源",
   "shortcuts": "快捷键",
+  "about": "关于",
+  "switchVideoSources": "切换视频源",
   "noVideoSources": "没有视频源",
   "noData": "没有数据",
   "dataLoadFail": "数据加载失败",
@@ -114,6 +117,13 @@
     "toggleFullScreen": "进入/退出全屏",
     "toggleCaptions": "开启/关闭字幕"
   },
+  "aboutDesc": {
+    "homePage": "GitHub 主页",
+    "issues": "问题反馈",
+    "currentVersion": "当前版本",
+    "latestVersion": "最新版本",
+    "recheck": "重新检查"
+  },
   "plyr": {
     "restart": "重新播放",
     "rewind": "回退 {seektime} 秒",
@@ -165,6 +175,16 @@
   "drop": {
     "title": "松手即可导入",
     "desc": "拖入 JSON 文件，以导入设置、视频源"
+  },
+  "tour": {
+    "beginTour": "请导入或添加视频源",
+    "title1": "设置",
+    "desc1": "点击按钮打开设置窗口",
+    "title2": "管理视频源",
+    "desc2": "切换到视频源选项卡",
+    "title3": "导入或添加视频源",
+    "desc3": "点击按钮导入或添加视频源，",
+    "desc3Link": "如何获取视频源接口地址？"
   },
   "colonSymbol": "：",
   "splittingSymbol": "、",

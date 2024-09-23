@@ -11,7 +11,9 @@
     <div v-else-if="loading" class="h-full w-full overflow-hidden">
       <a-skeleton active :paragraph="{ rows: 10 }" />
     </div>
-    <a-empty v-else :description="t('noData')" />
+    <a-empty v-else :description="t('noData')">
+      <slot name="empty" />
+    </a-empty>
   </div>
 </template>
 

@@ -1,4 +1,5 @@
 {
+  "unknown": "未知",
   "toggleSideNav": "サイドバーの切り替え",
   "ok": "確認する",
   "cancel": "キャンセル",
@@ -19,6 +20,8 @@
   "application": "適用",
   "videoSources": "ビデオソース",
   "shortcuts": "ショートカットキー",
+  "about": "について",
+  "switchVideoSources": "ビデオソースを切り替える",
   "noVideoSources": "ビデオソースがありません",
   "noData": "データなし",
   "dataLoadFail": "データのロードに失敗しました",
@@ -114,6 +117,13 @@
     "toggleFullScreen": "全画面表示の切り替え",
     "toggleCaptions": "キャプションの切り替え"
   },
+  "aboutDesc": {
+    "homePage": "GitHub ホームページ",
+    "issues": "問題のフィードバック",
+    "currentVersion": "現在のバージョン",
+    "latestVersion": "最新バージョン",
+    "recheck": "再確認"
+  },
   "plyr": {
     "restart": "リプレイ",
     "rewind": "{seektime} 秒戻る",
@@ -165,6 +175,16 @@
   "drop": {
     "title": "そのままインポートしてください",
     "desc": "JSON ファイルをドラッグして設定、ビデオ ソースをインポートします"
+  },
+  "tour": {
+    "beginTour": "ビデオソースの入力または追加",
+    "title1": "設定",
+    "desc1": "点击按钮打开設置窗口",
+    "title2": "管理ビデオソース",
+    "desc2": "ビデオソース選択项卡への切换",
+    "title3": "ビデオソースの挿入または追加",
+    "desc3": "点击按钮导入または追加ビデオソース，",
+    "desc3Link": "ビデオソースインターフェイス地址をどのように取得しますか？"
   },
   "colonSymbol": "：",
   "splittingSymbol": "、",

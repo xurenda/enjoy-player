@@ -20,6 +20,20 @@
   --color-gray: rgba(255, 255, 255, 0.6);
 }
 
+a:link {
+  color: rgb(var(--color-primary-arr) / 0.8);
+}
+
+a:visited,
+a:hover,
+a:active {
+  color: var(--color-primary);
+}
+a[target='_blank']::after {
+  content: '\e85f';
+  font-family: iconfont !important;
+}
+
 .ant-tabs,
 .ant-tabs .ant-tabs-content,
 .ant-tabs .ant-tabs-tabpane {
@@ -40,6 +54,13 @@
   padding-top: 4px;
 }
 
+.checked-no-active.ant-switch.ant-switch-checked {
+  background-color: var(--color-border);
+}
+.checked-no-active.ant-switch.ant-switch-checked:hover {
+  background-color: var(--color-disable);
+}
+
 /* 滚动槽 */
 ::-webkit-scrollbar {
   width: 6px;
@@ -47,12 +68,21 @@
 }
 ::-webkit-scrollbar-track {
   border-radius: 3px;
-  background: rgba(0, 0, 0, 0.06);
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
+  background-color: rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
 }
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
   background: rgba(0, 0, 0, 0.12);
-  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.08);
+}
+.dark *::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
 }

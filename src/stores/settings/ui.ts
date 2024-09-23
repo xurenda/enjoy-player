@@ -1,6 +1,7 @@
 import { computed, ref, watch, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
 import useDebounceRef from '@/hooks/useDebounceRef'
+import { getColor, toRGBColor } from '@/utils/color'
 
 export const themes = ['light', 'dark', 'system'] as const
 export type Theme = (typeof themes)[number]
@@ -76,8 +77,14 @@ const useUISettingsStore = defineStore(
 
     watchEffect(() => {
       const root = document.documentElement
-      root.style.setProperty('--color-primary', primaryColor.value)
-      root.style.setProperty('--plyr-color-main', primaryColor.value)
+      let colorArr = getColor(primaryColor.value)
+      if (!colorArr) {
+        colorArr = getColor(defaultPrimaryColor)
+      }
+      const RGBcolor = toRGBColor(colorArr!)
+      root.style.setProperty('--color-primary-arr', colorArr!.join(' '))
+      root.style.setProperty('--color-primary', RGBcolor)
+      root.style.setProperty('--plyr-color-main', RGBcolor)
     })
     // #endregion
 
@@ -139,12 +146,13 @@ const useUISettingsStore = defineStore(
       if (themes.includes(data.theme)) {
         theme.value = data.theme
       }
-      const HEXColorReg = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/
-      if (HEXColorReg.test(data.lightPrimaryColor)) {
-        lightPrimaryColor.value = data.lightPrimaryColor
+      const lColor = getColor(data.lightPrimaryColor)
+      if (lColor) {
+        lightPrimaryColor.value = toRGBColor(lColor)
       }
-      if (HEXColorReg.test(data.darkPrimaryColor)) {
-        darkPrimaryColor.value = data.darkPrimaryColor
+      const dColor = getColor(data.darkPrimaryColor)
+      if (dColor) {
+        darkPrimaryColor.value = toRGBColor(dColor)
       }
       if (typeof data.lockPrimaryColor === 'boolean') {
         lockPrimaryColor.value = data.lockPrimaryColor

@@ -1,4 +1,5 @@
 {
+  "unknown": "Unknown",
   "toggleSideNav": "Toggle side nav",
   "ok": "OK",
   "cancel": "Cancel",
@@ -19,6 +20,8 @@
   "application": "Application",
   "videoSources": "Video Sources",
   "shortcuts": "Shortcuts",
+  "about": "About",
+  "switchVideoSources": "Switch video sources",
   "noVideoSources": "No video sources",
   "noData": "No data",
   "dataLoadFail": "Data load failed",
@@ -114,6 +117,13 @@
     "toggleFullScreen": "Toggle fullscreen",
     "toggleCaptions": "Toggle captions"
   },
+  "aboutDesc": {
+    "homePage": "GitHub homepage",
+    "issues": "Issues",
+    "currentVersion": "Current version",
+    "latestVersion": "Latest version",
+    "recheck": "Recheck"
+  },
   "plyr": {
     "restart": "Restart",
     "rewind": "Rewind {seektime}s",
@@ -165,6 +175,16 @@
   "drop": {
     "title": "Release to import",
     "desc": "Drag into JSON file to import settings and video sources"
+  },
+  "tour": {
+    "beginTour": "Please import or add video source",
+    "title1": "Settings",
+    "desc1": "Click the button to open the settings window",
+    "title2": "Manage video sources",
+    "desc2": "Switch to the Video Source tab",
+    "title3": "Import or add video source",
+    "desc3": "Click the button to import or add video sources, ",
+    "desc3Link": "How to get the video source API URL?"
   },
   "colonSymbol": ": ",
   "splittingSymbol": ", ",

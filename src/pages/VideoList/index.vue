@@ -16,6 +16,9 @@
     >
       <ViewList v-if="uiSettingsStore.listViewType === 'list'" :list="videoListStore.list" />
       <ViewGallery v-else :list="videoListStore.list" />
+      <template #empty>
+        <VideoSourceTour />
+      </template>
     </TheLoading>
   </div>
   <div
@@ -41,6 +44,7 @@ import TheLoading from '@/components/TheLoading.vue'
 import ViewList from './ViewList.vue'
 import useUISettingsStore, { listViewTypes } from '@/stores/settings/ui'
 import { computed } from 'vue'
+import VideoSourceTour from './VideoSourceTour.vue'
 
 defineOptions({ name: 'VideoList' })
 

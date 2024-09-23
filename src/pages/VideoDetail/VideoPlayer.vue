@@ -16,7 +16,7 @@ import type { VideoDetailResponse } from '@/api/detail'
 import useHlsPlayerStore from '@/stores/hlsPlayer'
 import usePlayerSettingsStore from '@/stores/settings/player'
 import { notification } from 'ant-design-vue'
-import Hls from 'hls.js'
+import Hls, { Events, type ErrorData } from 'hls.js'
 import { onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -33,13 +33,15 @@ const playerData = hlsPlayerStore.initPlayer(data)
 const volume = ref(Math.round(playerData.player.volume * 100))
 const showVolume = ref(false)
 
-const onPlayerError = () => {
-  notificationApi.error({
-    key: 'playerError',
-    message: t('videoInfo.errorTitle'),
-    description: t('videoInfo.errorContent'),
-    duration: 6,
-  })
+const onPlayerError = (_event: Events.ERROR, data: ErrorData) => {
+  if (data.details && data.details === 'manifestLoadError') {
+    notificationApi.error({
+      key: 'playerError',
+      message: t('videoInfo.errorTitle'),
+      description: t('videoInfo.errorContent'),
+      duration: 6,
+    })
+  }
 }
 
 let timer: number | null = null
@@ -57,7 +59,7 @@ const onVolumeChange = () => {
 onMounted(() => {
   const container = playerData.player.elements.container!
   container.style.width = '100%'
-  container.style.maxHeight = 'calc(100vh - 131px)'
+  container.style.maxHeight = 'calc(100vh - 134px)'
   container.style.aspectRatio = playerSettingsStore.ratio.replace(':', '/')
   playerContainer.value!.appendChild(container)
   playerData.player.on('volumechange', onVolumeChange)

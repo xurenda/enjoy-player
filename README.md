@@ -1,39 +1,59 @@
-# h-player-web
+# Enjoy-player
 
-This template should help get you started developing with Vue 3 in Vite.
+English | [简体中文](./README-zh_CN.md)
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Enjoy-player is an online video player that supports web pages and Windows, Mac and Linux desktop applications. It is mainly used for online browsing of CMS video acquisition station resources, and realizes the online playback of HLS video stream (m3u8).
 
-## Type Support for `.vue` Imports in TS
+## Features
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Realize Web pages and Windows, Mac, Linux desktop applications
+- You only need one URL to import CMS video acquisition station resources
+- Support multiple languages (i18n)
+- Rich settings are provided, such as interface settings, player settings, etc
+- Support data backup and restoration
+- Provides keyboard shortcuts for commonly used functions
 
-## Customize configuration
+# TODO
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- [ ] History playback record
+- [ ] Search history
+- [ ] Collection feature
+- [ ] XML format data support
+- [ ] M3u8 live streaming source support
+- [x] Export/Import/Reset Settings and Playback Sources
+- [x] Drag and drop files or paste import settings and playback sources
 
-## Project Setup
+## Screenshot
+
+![Screenshot](./screenshot/1.png)
+![Screenshot](./screenshot/2.png)
+![Screenshot](./screenshot/3.png)
+![Screenshot](./screenshot/4.png)
+
+## Using
+
+### Desktop applications
+
+Please download the latest version from [releases](https://github.com/xurenda/enjoy-player/releases) page, which supports Windows, Mac, and Linux
+
+### Web page
 
 ```sh
+git clone https://github.com/xurenda/enjoy-player.git
+cd enjoy-player
 pnpm install
+pnpm run dev:web
 ```
 
-### Compile and Hot-Reload for Development
+> It is recommended to use desktop applications, because there may be a problem that cross-domain requests cannot obtain data on the web terminal.
 
-```sh
-pnpm dev
-```
+## Video source
 
-### Type-Check, Compile and Minify for Production
+1. Search for "CMS Video Resource Station" on search engines
+2. After entering a video resource station, check the collection tutorial and copy the JSON interface URL address.
 
-```sh
-pnpm build
-```
+## Reference projects
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+- [h-player-v2](https://github.com/ZyqGitHub1/h-player-v2)

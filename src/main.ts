@@ -5,6 +5,7 @@ import stores from './stores'
 import i18n from './i18n'
 import './init/shortcuts'
 import '@/assets/css/main.css'
+import '@/assets/iconfont/iconfont.css'
 
 const app = createApp(App)
 

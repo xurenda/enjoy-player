@@ -1,0 +1,147 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4683879 */
+  src: url('./iconfont.woff2') format('woff2'),
+       url('./iconfont.woff') format('woff'),
+       url('./iconfont.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-loading:before {
+  content: "\e75c";
+}
+
+.icon-external-link:before {
+  content: "\e85f";
+}
+
+.icon-cloud:before {
+  content: "\e988";
+}
+
+.icon-about:before {
+  content: "\e604";
+}
+
+.icon-edit:before {
+  content: "\e7dd";
+}
+
+.icon-json-file:before {
+  content: "\ea42";
+}
+
+.icon-volume:before {
+  content: "\e60e";
+}
+
+.icon-shortcuts:before {
+  content: "\e736";
+}
+
+.icon-system:before {
+  content: "\e626";
+}
+
+.icon-dark:before {
+  content: "\e624";
+}
+
+.icon-light:before {
+  content: "\e63e";
+}
+
+.icon-lock:before {
+  content: "\e602";
+}
+
+.icon-unlock:before {
+  content: "\e603";
+}
+
+.icon-done:before {
+  content: "\e63b";
+}
+
+.icon-list:before {
+  content: "\e608";
+}
+
+.icon-gallery:before {
+  content: "\e622";
+}
+
+.icon-delete:before {
+  content: "\e8b6";
+}
+
+.icon-import:before {
+  content: "\e744";
+}
+
+.icon-export:before {
+  content: "\ec25";
+}
+
+.icon-file:before {
+  content: "\e718";
+}
+
+.icon-file-empty:before {
+  content: "\e689";
+}
+
+.icon-folder-empty:before {
+  content: "\ec23";
+}
+
+.icon-folder:before {
+  content: "\e7cb";
+}
+
+.icon-folder-open:before {
+  content: "\e7d0";
+}
+
+.icon-subtract:before {
+  content: "\e621";
+}
+
+.icon-return:before {
+  content: "\e643";
+}
+
+.icon-add:before {
+  content: "\e620";
+}
+
+.icon-switcher:before {
+  content: "\e61c";
+}
+
+.icon-application:before {
+  content: "\e623";
+}
+
+.icon-settings:before {
+  content: "\e600";
+}
+
+.icon-video-sources:before {
+  content: "\e61f";
+}
+
+.icon-menu:before {
+  content: "\e790";
+}
+
+.icon-search:before {
+  content: "\e752";
+}
+

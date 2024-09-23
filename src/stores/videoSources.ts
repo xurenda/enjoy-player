@@ -62,6 +62,10 @@ const useVideoSourcesStore = defineStore(
       },
     })
 
+    const sourceCount = computed(() => {
+      return Object.values(data.value).reduce((acc, node) => acc + (node.type === 'source' ? 1 : 0), 0)
+    })
+
     const addNode = (pid: string, node: VSNode) => {
       if (!data.value[pid]) {
         return
@@ -151,6 +155,7 @@ const useVideoSourcesStore = defineStore(
       rootNode: rootNode as RVSNode,
       data,
       tree,
+      sourceCount,
       addNode,
       editNode,
       deleteNode,
