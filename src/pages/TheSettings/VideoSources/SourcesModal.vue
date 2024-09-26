@@ -107,7 +107,7 @@ watchEffect(() => {
       data.type = node.type
       data.name = node.name
       data.api = node.api
-      data.imgRatio = node.imgRatio
+      data.imgRatio = node.imgRatio || defaultImgRatio
       data.remark = node.remark
       break
   }

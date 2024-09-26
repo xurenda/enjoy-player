@@ -2,13 +2,13 @@
   <div>
     <div
       class="mb-2 flex overflow-hidden border-b border-color-border pb-2 last:mb-0 last:border-b-0 last:pb-0"
-      :style="{ height: imgSize.height + 'px' }"
+      :style="{ height: height + 'px' }"
       v-for="item in list"
       :key="item.vod_id"
     >
       <div
         class="h-full cursor-pointer overflow-hidden rounded border border-color-border bg-cover bg-center bg-no-repeat"
-        :style="{ backgroundImage: `url(${item.vod_pic})`, width: imgSize.width + 'px' }"
+        :style="{ backgroundImage: `url(${item.vod_pic})`, width: width + 'px' }"
         @click="goToDetail(item.vod_id)"
       ></div>
       <div class="ml-3 flex-1 space-y-2">
@@ -56,20 +56,11 @@ const appStore = useAppStore()
 const router = useKeepQueryRouter()
 const { t } = useI18n()
 
-const maxSize = 176
-const imgSize = computed(() => {
+const height = 176
+const width = computed(() => {
   const imgRatio = appStore.curVideoSources?.imgRatio || defaultImgRatio
   const [w, h] = imgRatio.split(':').map(i => +i)
-  let width
-  let height
-  if (w > h) {
-    width = maxSize
-    height = Math.round((width * h) / w)
-  } else {
-    height = maxSize
-    width = Math.round((height * w) / h)
-  }
-  return { width, height }
+  return Math.round((height * w) / h)
 })
 
 const goToDetail = (id: number) => {
