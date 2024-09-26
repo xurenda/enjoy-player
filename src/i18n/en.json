@@ -6,6 +6,7 @@
   "type": "Type",
   "name": "Name",
   "api": "API",
+  "imgRatio": "Image ratio",
   "remark": "Remark",
   "folder": "Folder",
   "source": "Data source",

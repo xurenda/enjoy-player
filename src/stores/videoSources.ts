@@ -4,16 +4,18 @@ import { useI18n } from 'vue-i18n'
 import { uuid } from '@/utils/uuid'
 
 export const rootNodeId = 'root'
-
 export const vsNodeTypes = ['folder', 'source'] as const
-
 export type VSNodeTypes = (typeof vsNodeTypes)[number]
+export const imgRatios = ['9:16', '3:4', '1:1', '4:3', '16:9'] as const
+export type ImgRatios = (typeof imgRatios)[number]
+export const defaultImgRatio: ImgRatios = '3:4'
 
 export interface VSNode<T = string> {
   pid: string
   id: string
   type: VSNodeTypes
   name: string
+  imgRatio: ImgRatios
   remark: string
   api?: string
   children?: T[]
@@ -201,6 +203,7 @@ function formatNodeDeep(node: VSNode, pid: string, id?: string): VSNode {
     id: node.id,
     type: node.type,
     name: node.name,
+    imgRatio: node.imgRatio,
     remark: node.remark,
     api: node.api,
     children: node.children?.filter(i => typeof i === 'string'),

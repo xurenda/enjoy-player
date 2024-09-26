@@ -56,12 +56,16 @@ const dropFile = async (e: DragEvent) => {
   hasFiles(e.dataTransfer?.files)
 }
 
-const onDragEnter = () => {
+const onDragEnter = (e: DragEvent) => {
+  console.log('~~~~~!e', e)
+  // console.log('~~~~~!e.relatedTarget?.tagName', e.relatedTarget, e.relatedTarget?.tagName)
+  // if (['IMG', 'A', 'INPUT', 'VIDEO', 'AUDIO', 'CANVAS', 'IFRAME'].includes(e.relatedTarget?.tagName)) {
+  //   return
+  // }
   showDrag.value = true
 }
 
 const onPaste = async (e: ClipboardEvent) => {
-  e.preventDefault()
   let text: string | undefined
   if (!e.clipboardData?.files.length) {
     try {

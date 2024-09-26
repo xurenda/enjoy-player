@@ -7,7 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AAlert: typeof import('ant-design-vue/es')['Alert']
     ABadge: typeof import('ant-design-vue/es')['Badge']
     AButton: typeof import('ant-design-vue/es')['Button']
     ACascader: typeof import('ant-design-vue/es')['Cascader']
@@ -15,7 +14,6 @@ declare module 'vue' {
     ACollapse: typeof import('ant-design-vue/es')['Collapse']
     ACollapsePanel: typeof import('ant-design-vue/es')['CollapsePanel']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
-    ADivider: typeof import('ant-design-vue/es')['Divider']
     AEmpty: typeof import('ant-design-vue/es')['Empty']
     AForm: typeof import('ant-design-vue/es')['Form']
     AFormItem: typeof import('ant-design-vue/es')['FormItem']
@@ -30,7 +28,6 @@ declare module 'vue' {
     ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
     ASkeleton: typeof import('ant-design-vue/es')['Skeleton']
     ASlider: typeof import('ant-design-vue/es')['Slider']
-    ASpace: typeof import('ant-design-vue/es')['Space']
     ASwitch: typeof import('ant-design-vue/es')['Switch']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
@@ -41,13 +38,10 @@ declare module 'vue' {
     ATypographyParagraph: typeof import('ant-design-vue/es')['TypographyParagraph']
     ATypographyText: typeof import('ant-design-vue/es')['TypographyText']
     ATypographyTitle: typeof import('ant-design-vue/es')['TypographyTitle']
-    BackupExport: typeof import('./src/components/BackupExport.vue')['default']
     BackupModal: typeof import('./src/components/BackupModal.vue')['default']
     CanAddedSelect: typeof import('./src/components/CanAddedSelect.vue')['default']
     FileSelector: typeof import('./src/components/FileSelector.vue')['default']
-    FullScreenDarp: typeof import('./src/components/FullScreenDarp.vue')['default']
     FullScreenDrop: typeof import('./src/components/FullScreenDrop.vue')['default']
-    FullScrenDarp: typeof import('./src/components/FullScrenDarp.vue')['default']
     MyPickColors: typeof import('./src/components/MyPickColors.vue')['default']
     NestedMenu: typeof import('./src/components/NestedMenu.vue')['default']
     ResizeBar: typeof import('./src/components/ResizeBar.vue')['default']

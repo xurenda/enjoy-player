@@ -6,6 +6,7 @@
   "type": "タイプ",
   "name": "名前",
   "api": "API",
+  "imgRatio": "画像比率",
   "remark": "コメント",
   "folder": "フォルダ",
   "source": "データソース",

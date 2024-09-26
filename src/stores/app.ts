@@ -45,7 +45,7 @@ const useAppStore = defineStore(
 
     // -------------------- Version ------------------------
 
-    const curVersion = window.curVersion
+    const curVersion = __curVersion__
     const latestVersionLoading = ref(false)
     const latestVersion = ref('')
 

@@ -24,7 +24,7 @@ export default defineConfig({
     },
   },
   define: {
-    curVersion: `'${packageJson.version}'`,
+    __curVersion__: `'${packageJson.version}'`,
   },
   server: {
     proxy: {

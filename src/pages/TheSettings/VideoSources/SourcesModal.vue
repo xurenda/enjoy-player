@@ -11,6 +11,11 @@
     <a-form-item v-show="data.type === 'source'" :label="t('api')" v-bind="validateInfos.api">
       <a-input v-model:value="data.api" />
     </a-form-item>
+    <a-form-item v-show="data.type === 'source'" :label="t('imgRatio')" v-bind="validateInfos.imgRatio">
+      <a-select v-model:value="data.imgRatio">
+        <a-select-option v-for="item in imgRatios" :key="item" :value="item">{{ item }}</a-select-option>
+      </a-select>
+    </a-form-item>
     <a-form-item :label="t('remark')" v-bind="validateInfos.remark">
       <a-textarea v-model:value="data.remark" :autoSize="{ minRows: 6, maxRows: 6 }" />
     </a-form-item>
@@ -18,11 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import type { RVSNode, VSNode } from '@/stores/videoSources'
+import type { ImgRatios, RVSNode, VSNode } from '@/stores/videoSources'
 import { Form } from 'ant-design-vue'
 import { reactive, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { vsNodeTypes } from '@/stores/videoSources'
+import { defaultImgRatio, imgRatios, vsNodeTypes } from '@/stores/videoSources'
 
 export interface SourcesModalProps {
   type: 'add' | 'edit'
@@ -37,6 +42,7 @@ const data = reactive<Partial<VSNode>>({
   type: 'source',
   name: '',
   api: '',
+  imgRatio: defaultImgRatio,
   remark: '',
 })
 
@@ -68,6 +74,21 @@ const rules = reactive({
       },
     },
   ],
+  imgRatio: [
+    {
+      async validator(_: unknown, value: string) {
+        if (data.type !== 'source') {
+          return
+        }
+        if (!value) {
+          throw new Error(t('validate.requiredField'))
+        }
+        if (!imgRatios.includes(value as ImgRatios)) {
+          throw new Error(`t('validate.invalid')${t('width')}:${t('height')}`)
+        }
+      },
+    },
+  ],
   remark: [],
 })
 
@@ -79,12 +100,14 @@ watchEffect(() => {
       data.type = 'source'
       data.name = ''
       data.api = ''
+      data.imgRatio = defaultImgRatio
       data.remark = ''
       break
     case 'edit':
       data.type = node.type
       data.name = node.name
       data.api = node.api
+      data.imgRatio = node.imgRatio
       data.remark = node.remark
       break
   }

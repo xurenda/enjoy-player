@@ -6,6 +6,7 @@
   "type": "类型",
   "name": "名称",
   "api": "接口地址",
+  "imgRatio": "图片比例",
   "remark": "备注",
   "folder": "文件夹",
   "source": "数据源",

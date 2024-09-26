@@ -1,6 +1,6 @@
 {
-  "name": "h-player-web",
-  "version": "0.0.1",
+  "name": "enjoy-player",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "main": "./electron/main.js",
@@ -65,7 +65,7 @@
   },
   "build": {
     "appId": "com.xurenda.h-player",
-    "productName": "光影畅享",
+    "productName": "enjoy-player",
     "directories": {
       "output": "dist-electron"
     },
@@ -88,7 +88,7 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "runAfterFinish": true,
-      "shortcutName": "光影畅享"
+      "shortcutName": "enjoy-player"
     },
     "mac": {
       "category": "public.app-category.utilities",

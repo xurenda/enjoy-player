@@ -37,6 +37,9 @@ const createWindow = () => {
     Menu.setApplicationMenu(Menu.buildFromTemplate([]))
   }
   win.loadURL(mainUrl)
+  if (isDev) {
+    win.webContents.openDevTools()
+  }
 }
 
 app.whenReady().then(() => {

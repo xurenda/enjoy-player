@@ -15,7 +15,7 @@
         <span>{{ t('aboutDesc.currentVersion') }}{{ t('colonSymbol') }}</span>
         <a-tag class="inline-flex items-center px-3 py-1">
           <i class="iconfont icon-system mr-2"></i>
-          <span class="text-sm">{{ appStore.curVersion }}</span>
+          <span class="text-sm">v{{ appStore.curVersion }}</span>
         </a-tag>
       </div>
       <div>

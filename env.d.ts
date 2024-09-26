@@ -1,7 +1,8 @@
 /// <reference types="vite/client" />
 
+declare const __curVersion__: string
+
 interface Window {
-  curVersion: string
   searchInputRef: HTMLInputElement | null
   electronAPI?: {
     versions: {

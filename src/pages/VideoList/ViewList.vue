@@ -1,13 +1,14 @@
 <template>
   <div>
     <div
-      class="mb-2 flex h-44 overflow-hidden border-b border-color-border pb-2 last:mb-0 last:border-b-0 last:pb-0"
+      class="mb-2 flex overflow-hidden border-b border-color-border pb-2 last:mb-0 last:border-b-0 last:pb-0"
+      :style="{ height: imgSize.height + 'px' }"
       v-for="item in list"
       :key="item.vod_id"
     >
       <div
-        class="h-full w-36 cursor-pointer overflow-hidden rounded border border-color-border bg-cover bg-center bg-no-repeat"
-        :style="`background-image: url(${item.vod_pic})`"
+        class="h-full cursor-pointer overflow-hidden rounded border border-color-border bg-cover bg-center bg-no-repeat"
+        :style="{ backgroundImage: `url(${item.vod_pic})`, width: imgSize.width + 'px' }"
         @click="goToDetail(item.vod_id)"
       ></div>
       <div class="ml-3 flex-1 space-y-2">
@@ -41,15 +42,35 @@
 <script lang="ts" setup>
 import type { VideoDetailResponse } from '@/api/detail'
 import useKeepQueryRouter from '@/hooks/useKeepQueryRouter'
+import useAppStore from '@/stores/app'
+import { defaultImgRatio } from '@/stores/videoSources'
 import { getColorByKey } from '@/utils/color'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { list } = defineProps<{
   list: VideoDetailResponse[]
 }>()
 
+const appStore = useAppStore()
 const router = useKeepQueryRouter()
 const { t } = useI18n()
+
+const maxSize = 176
+const imgSize = computed(() => {
+  const imgRatio = appStore.curVideoSources?.imgRatio || defaultImgRatio
+  const [w, h] = imgRatio.split(':').map(i => +i)
+  let width
+  let height
+  if (w > h) {
+    width = maxSize
+    height = Math.round((width * h) / w)
+  } else {
+    height = maxSize
+    width = Math.round((height * w) / h)
+  }
+  return { width, height }
+})
 
 const goToDetail = (id: number) => {
   router.push({ name: 'videoDetail', params: { id: `${id}` } })
