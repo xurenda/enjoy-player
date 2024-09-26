@@ -56,12 +56,10 @@ const dropFile = async (e: DragEvent) => {
   hasFiles(e.dataTransfer?.files)
 }
 
-const onDragEnter = (e: DragEvent) => {
-  console.log('~~~~~!e', e)
-  // console.log('~~~~~!e.relatedTarget?.tagName', e.relatedTarget, e.relatedTarget?.tagName)
-  // if (['IMG', 'A', 'INPUT', 'VIDEO', 'AUDIO', 'CANVAS', 'IFRAME'].includes(e.relatedTarget?.tagName)) {
-  //   return
-  // }
+const onDragEnter = () => {
+  if (isInternalDrag) {
+    return
+  }
   showDrag.value = true
 }
 
@@ -91,12 +89,24 @@ const onOk = (enable: BackupEnable) => {
   }
 }
 
+let isInternalDrag = false // 内部拖拽标志
+const onDragStart = () => {
+  isInternalDrag = true
+}
+const onDragEnd = () => {
+  isInternalDrag = false
+}
+
 onMounted(() => {
+  document.addEventListener('dragstart', onDragStart)
   document.addEventListener('dragenter', onDragEnter)
+  document.addEventListener('dragend', onDragEnd)
   document.addEventListener('paste', onPaste)
 })
 onBeforeUnmount(() => {
+  document.removeEventListener('dragstart', onDragStart)
   document.removeEventListener('dragenter', onDragEnter)
+  document.removeEventListener('dragend', onDragEnd)
   document.removeEventListener('paste', onPaste)
 })
 </script>
