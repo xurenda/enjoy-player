@@ -22,23 +22,31 @@ hotkeys('command+i, ctrl+i', () => {
   uiSettingsStore.settingsShow = !uiSettingsStore.settingsShow
 })
 
-// 禁用 Plyr 的 Toggle loop
-hotkeys('l', e => {
-  e.stopPropagation()
-})
+export function handlePlyrShortcuts() {
+  hotkeys.unbind('l')
+  hotkeys.unbind('up')
+  hotkeys.unbind('down')
 
-// 修改 Plyr 的音量调整步长
-hotkeys('up', e => {
-  const { volumeStep } = usePlayerSettingsStore()
-  playerMap.forEach(({ player }) => {
-    player.increaseVolume(volumeStep / 100)
+  // 禁用 Plyr 的 Toggle loop
+  hotkeys('l', e => {
+    e.stopPropagation()
   })
-  e.stopPropagation()
-})
-hotkeys('down', e => {
-  const { volumeStep } = usePlayerSettingsStore()
-  playerMap.forEach(({ player }) => {
-    player.decreaseVolume(volumeStep / 100)
+
+  // 修改 Plyr 的音量调整步长
+  hotkeys('up', e => {
+    const { volumeStep } = usePlayerSettingsStore()
+    playerMap.forEach(({ player }) => {
+      player.increaseVolume(volumeStep / 100)
+    })
+    e.stopPropagation()
   })
-  e.stopPropagation()
-})
+  hotkeys('down', e => {
+    const { volumeStep } = usePlayerSettingsStore()
+    playerMap.forEach(({ player }) => {
+      player.decreaseVolume(volumeStep / 100)
+    })
+    e.stopPropagation()
+  })
+}
+
+handlePlyrShortcuts()

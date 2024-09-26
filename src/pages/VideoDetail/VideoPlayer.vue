@@ -1,8 +1,9 @@
 <template>
-  <div ref="playerContainer" class="relative flex w-full justify-center border-l border-t border-color-border">
+  <div ref="playerContainer" class="flex w-full justify-center border-l border-t border-color-border">
     <div
       class="pointer-events-none absolute left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 rounded-md bg-black/60 px-3 py-2 text-base tracking-wider text-white opacity-0 duration-100"
       :class="{ 'opacity-100': showVolume }"
+      ref="volumeShowRef"
     >
       <i class="iconfont icon-volume mr-1"></i>
       <span>{{ volume }}%</span>
@@ -27,6 +28,7 @@ const { data } = defineProps<{
 const { t } = useI18n()
 const [notificationApi, contextHolder] = notification.useNotification()
 const playerContainer = useTemplateRef<HTMLDivElement>('playerContainer')
+const volumeShowRef = useTemplateRef<HTMLDivElement>('volumeShowRef')
 const hlsPlayerStore = useHlsPlayerStore()
 const playerSettingsStore = usePlayerSettingsStore()
 const playerData = hlsPlayerStore.initPlayer(data)
@@ -61,7 +63,9 @@ onMounted(() => {
   container.style.width = '100%'
   container.style.maxHeight = 'calc(100vh - 134px)'
   container.style.aspectRatio = playerSettingsStore.ratio.replace(':', '/')
+  container.style.position = 'relative'
   playerContainer.value!.appendChild(container)
+  container.appendChild(volumeShowRef.value!)
   playerData.player.on('volumechange', onVolumeChange)
   playerData.hls?.on(Hls.Events.ERROR, onPlayerError)
 })

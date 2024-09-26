@@ -13,7 +13,7 @@ let indexPath = format({
   slashes: true,
 })
 if (isDev) {
-  mainUrl = 'http://localhost:5173/'
+  indexPath = 'http://localhost:5173/'
 }
 
 let win = null

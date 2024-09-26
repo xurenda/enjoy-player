@@ -11,6 +11,7 @@ import { getPlyrI18n } from '@/i18n'
 import useBasicSettingsStore from './settings/basic'
 import usePlayerSettingsStore from './settings/player'
 import plyrIcons from '@/assets/imgs/plyr.svg'
+import { handlePlyrShortcuts } from '@/init/shortcuts'
 
 export interface PlayerData {
   videoDom: HTMLVideoElement
@@ -65,6 +66,9 @@ const useHlsPlayerStore = defineStore('hlsPlayer', () => {
     if (!playerMap.has(data.vod_id)) {
       const playerData = createPlayer({ ...data }, plyrOptions)
       loadUrlForVideo(playerData, videoDetailStore.curEpisode)
+      playerData.player.on('enterfullscreen', () => {
+        handlePlyrShortcuts()
+      })
       playerData.videoDom.onenterpictureinpicture = () => {
         playerData.data.leavePip = false
       }
