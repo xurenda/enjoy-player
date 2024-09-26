@@ -1,10 +1,10 @@
 import WithHeader from '@/layouts/WithHeader/index.vue'
 import VideoList from '@/pages/VideoList/index.vue'
 import VideoDetail from '@/pages/VideoDetail/index.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
