@@ -1,6 +1,7 @@
-import { app, BrowserWindow, globalShortcut, shell } from 'electron'
+import { app, BrowserWindow, shell } from 'electron'
 import isDev from 'electron-is-dev'
 import windowStateKeeper from 'electron-window-state'
+import localShortcut from 'electron-localshortcut'
 import path, { dirname } from 'node:path'
 import { fileURLToPath, format, parse } from 'node:url'
 
@@ -56,10 +57,7 @@ app.whenReady().then(() => {
   createWindow()
 
   // 修复 Cmd+R 加载文件路径错误的问题
-  globalShortcut.register('CommandOrControl+R', () => {
-    if (!win) {
-      return
-    }
+  localShortcut.register(win, 'CommandOrControl+R', () => {
     const urlObj = parse(win.getURL())
     if (urlObj.protocol !== 'file:') {
       return

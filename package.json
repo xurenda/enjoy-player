@@ -1,6 +1,6 @@
 {
   "name": "enjoy-player",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "type": "module",
   "main": "./electron/main.js",
@@ -23,6 +23,7 @@
     "ant-design-vue": "4.x",
     "axios": "^1.7.7",
     "electron-is-dev": "^3.0.1",
+    "electron-localshortcut": "^3.2.1",
     "electron-window-state": "^5.0.3",
     "hls.js": "^1.5.15",
     "hotkeys-js": "^3.13.7",

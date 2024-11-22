@@ -20,6 +20,9 @@ importers:
       electron-is-dev:
         specifier: ^3.0.1
         version: 3.0.1
+      electron-localshortcut:
+        specifier: ^3.2.1
+        version: 3.2.1
       electron-window-state:
         specifier: ^5.0.3
         version: 5.0.3
@@ -92,7 +95,7 @@ importers:
         version: 32.1.2
       electron-builder:
         specifier: ^25.0.5
-        version: 25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5))
+        version: 25.0.5(electron-builder-squirrel-windows@25.0.5)
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -1376,9 +1379,15 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
+  electron-is-accelerator@0.1.2:
+    resolution: {integrity: sha512-fLGSAjXZtdn1sbtZxx52+krefmtNuVwnJCV2gNiVt735/ARUboMl8jnNC9fZEqQdlAv2ZrETfmBUsoQci5evJA==}
+
   electron-is-dev@3.0.1:
     resolution: {integrity: sha512-8TjjAh8Ec51hUi3o4TaU0mD3GMTOESi866oRNavj9A3IQJ7pmv+MJVmdZBFGw4GFT36X7bkqnuDNYvkQgvyI8Q==}
     engines: {node: '>=18'}
+
+  electron-localshortcut@3.2.1:
+    resolution: {integrity: sha512-DWvhKv36GsdXKnaFFhEiK8kZZA+24/yFLgtTwJJHc7AFgDjNRIBJZ/jq62Y/dWv9E4ypYwrVWN2bVrCYw1uv7Q==}
 
   electron-publish@25.0.3:
     resolution: {integrity: sha512-wSGm+TFK2lArswIFBPLuIRHbo945s3MCvG5y1xVC57zL/PsrElUkaGH2ERtRrcKNpaDNq77rDA9JnMJhAFJjUg==}
@@ -1953,6 +1962,12 @@ packages:
 
   jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
+
+  keyboardevent-from-electron-accelerator@2.0.0:
+    resolution: {integrity: sha512-iQcmNA0M4ETMNi0kG/q0h/43wZk7rMeKYrXP7sqKIJbHkTU8Koowgzv+ieR/vWJbOwxx5nDC3UnudZ0aLSu4VA==}
+
+  keyboardevents-areequal@0.2.2:
+    resolution: {integrity: sha512-Nv+Kr33T0mEjxR500q+I6IWisOQ0lK1GGOncV0kWE6n4KFmpcu7RUX5/2B0EUtX51Cb0HjZ9VJsSY3u4cBa0kw==}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -4100,7 +4115,7 @@ snapshots:
 
   app-builder-bin@5.0.0-alpha.7: {}
 
-  app-builder-lib@25.0.5(dmg-builder@25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5)))(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5)):
+  app-builder-lib@25.0.5(dmg-builder@25.0.5)(electron-builder-squirrel-windows@25.0.5):
     dependencies:
       '@develar/schema-utils': 2.6.5
       '@electron/notarize': 2.3.2
@@ -4115,7 +4130,7 @@ snapshots:
       builder-util-runtime: 9.2.5
       chromium-pickle-js: 0.2.0
       debug: 4.3.7(supports-color@5.5.0)
-      dmg-builder: 25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5))
+      dmg-builder: 25.0.5(electron-builder-squirrel-windows@25.0.5)
       ejs: 3.1.10
       electron-builder-squirrel-windows: 25.0.5(dmg-builder@25.0.5)
       electron-publish: 25.0.3
@@ -4581,9 +4596,9 @@ snapshots:
 
   dlv@1.1.3: {}
 
-  dmg-builder@25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5)):
+  dmg-builder@25.0.5(electron-builder-squirrel-windows@25.0.5):
     dependencies:
-      app-builder-lib: 25.0.5(dmg-builder@25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5)))(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5))
+      app-builder-lib: 25.0.5(dmg-builder@25.0.5)(electron-builder-squirrel-windows@25.0.5)
       builder-util: 25.0.3
       builder-util-runtime: 9.2.5
       fs-extra: 10.1.0
@@ -4635,7 +4650,7 @@ snapshots:
 
   electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5):
     dependencies:
-      app-builder-lib: 25.0.5(dmg-builder@25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5)))(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5))
+      app-builder-lib: 25.0.5(dmg-builder@25.0.5)(electron-builder-squirrel-windows@25.0.5)
       archiver: 5.3.2
       builder-util: 25.0.3
       fs-extra: 10.1.0
@@ -4644,13 +4659,13 @@ snapshots:
       - dmg-builder
       - supports-color
 
-  electron-builder@25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5)):
+  electron-builder@25.0.5(electron-builder-squirrel-windows@25.0.5):
     dependencies:
-      app-builder-lib: 25.0.5(dmg-builder@25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5)))(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5))
+      app-builder-lib: 25.0.5(dmg-builder@25.0.5)(electron-builder-squirrel-windows@25.0.5)
       builder-util: 25.0.3
       builder-util-runtime: 9.2.5
       chalk: 4.1.2
-      dmg-builder: 25.0.5(electron-builder-squirrel-windows@25.0.5(dmg-builder@25.0.5))
+      dmg-builder: 25.0.5(electron-builder-squirrel-windows@25.0.5)
       fs-extra: 10.1.0
       is-ci: 3.0.1
       lazy-val: 1.0.5
@@ -4662,7 +4677,18 @@ snapshots:
       - electron-builder-squirrel-windows
       - supports-color
 
+  electron-is-accelerator@0.1.2: {}
+
   electron-is-dev@3.0.1: {}
+
+  electron-localshortcut@3.2.1:
+    dependencies:
+      debug: 4.3.7(supports-color@5.5.0)
+      electron-is-accelerator: 0.1.2
+      keyboardevent-from-electron-accelerator: 2.0.0
+      keyboardevents-areequal: 0.2.2
+    transitivePeerDependencies:
+      - supports-color
 
   electron-publish@25.0.3:
     dependencies:
@@ -5313,6 +5339,10 @@ snapshots:
       universalify: 2.0.1
     optionalDependencies:
       graceful-fs: 4.2.11
+
+  keyboardevent-from-electron-accelerator@2.0.0: {}
+
+  keyboardevents-areequal@0.2.2: {}
 
   keyv@4.5.4:
     dependencies:
