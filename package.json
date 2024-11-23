@@ -1,6 +1,6 @@
 {
   "name": "enjoy-player",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "main": "./electron/main.js",
@@ -76,7 +76,7 @@
       "./electron"
     ],
     "win": {
-      "icon": "./public/logo.png",
+      "icon": "./public/logo_256x256.ico",
       "artifactName": "${productName}_${version}.${ext}",
       "target": [
         "nsis"

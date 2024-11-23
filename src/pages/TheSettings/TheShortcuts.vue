@@ -2,7 +2,7 @@
   <div class="box-border h-full overflow-y-auto overflow-x-hidden">
     <div class="flex flex-wrap">
       <div v-for="item in shortcuts" :key="item.key.join(' + ')" class="mb-4 flex w-full items-center">
-        <div class="mr-2 w-32">
+        <div class="mr-2 w-36">
           <a-typography-text v-for="key in item.key" :key="key" :keyboard="!notKey.includes(key)">{{
             key
           }}</a-typography-text>
